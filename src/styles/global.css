@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Saint";
+  src: url("../assets/fonts/Saint-Regular.woff");
+}
+@font-face {
+  font-family: "Pleatures";
+  src: url("../assets/fonts/Pleatures-Regular.woff2");
+}
+@font-face {
+  font-family: "Yorker";
+  src: url("../assets/fonts/YorkerRegular.woff2");
+}
+@font-face {
+  font-family: "Lack";
+  src: url("../assets/fonts/Lack-Regular.woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Lack";
+  src: url("../assets/fonts/lack-italic-webfont.woff2");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Lack Line";
+  src: url("../assets/fonts/lack-line-regular-webfont.woff2");
+}
+@font-face {
+  font-family: "Helvetica";
+  src: url("../assets/fonts/Helvetica.woff2");
+}
+@font-face {
+  font-family: "Happy Times";
+  src: url("../assets/fonts/happy-times-NG_regular_master_web.woff2");
+}
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  --offset: 20vw;
+  --move-initial: calc(-25% + var(--offset));
+  --move-final: calc(-50% + var(--offset));
+}
+
+.marquee__inner {
+  width: fit-content;
+  display: flex;
+  position: relative;
+  transform: translate3d(var(--move-initial), 0, 0);
+  animation: marquee 10s linear infinite;
+  animation-play-state: paused;
+}
+
+.marquee span {
+  font-size: 2rem;
+  padding: 0 0.25rem;
+}
+
+.marquee:hover .marquee__inner {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(var(--move-initial), 0, 0);
+  }
+  100% {
+    transform: translate3d(var(--move-final), 0, 0);
+  }
+}
