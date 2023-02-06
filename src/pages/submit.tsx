@@ -16,21 +16,22 @@ const Submit = () => {
             <h3 className="font-sans mt-8 mb-2 w-full bg-primary-200 text-center">
               INFO
             </h3>
-            For now, we are currently <b>only</b> publishing chapbook-length
-            works by Tucson-based or Tucson-affiliated poets. You should submit
-            if you (1) have 15-35 pages of poetry and (2) you either live in
-            Tucson, used to live in Tucson, or have a particular connection with
-            Tucson.
+            For now, we are currently only publishing chapbook-length works by
+            Tucson-based or Tucson-affiliated poets. You should submit if you
+            (1) have 15-35 pages of poetry and (2) you either live in Tucson,
+            used to live in Tucson, or have a particular connection with Tucson.
             <h3 className="font-sans mt-8 mb-2 w-full bg-primary-200 text-center">
               GUIDELINES
             </h3>
             Please email your submission to{" "}
             <a
+              className="underline hover:text-white hover:bg-black"
               href="mailto: hello@pansy.press"
               target="_blank"
               rel="noreferrer noopener">
               hello@pansy.press
-            </a>
+            </a>{" "}
+            :)
             <br />
             <div className="italic underline mt-2 mb-2">
               {" "}

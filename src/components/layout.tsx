@@ -1,15 +1,16 @@
 import classNames from "classnames";
 import { Link } from "gatsby";
 import React, { useEffect, useState } from "react";
+import ShoppingCart from "./shoppingCart";
 
 interface LayoutProps {
   children: React.ReactElement;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
+  const [cartItems, setCartItems] = useState([]);
   const [pathname, setPathname] = useState("");
   useEffect(() => {
-    console.log(window.location.pathname);
     setPathname(window.location.pathname);
   });
 
@@ -28,7 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           pansy
         </h1>
       </Link>
-      <nav className="text-right mt-1 mr-2">
+      <nav className="text-right mt-1 mr-12">
         <Link className="block h-[25px]" to="/about">
           <h1
             className={classNames(
@@ -86,6 +87,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         </Link>
       </nav>
       <main className="mt-[60px] z-20 max-w-[1500px] mx-auto">{children}</main>
+      <ShoppingCart />
     </div>
   );
 };
