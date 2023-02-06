@@ -86,7 +86,9 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           </h1>
         </Link>
       </nav>
-      <main className="mt-[60px] z-20 max-w-[1500px] mx-auto">{children}</main>
+      <main className="mt-[60px] z-20 max-w-[1500px] mx-auto mr-12">
+        {children}
+      </main>
       <ShoppingCart />
     </div>
   );
