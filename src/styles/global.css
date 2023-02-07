@@ -39,6 +39,16 @@
   src: url("../assets/fonts/happy-times-NG_regular_master_web.woff2");
 }
 
+#rswp-card-button {
+  background-color: #fffcff;
+  color: #0d0c0d;
+}
+
+#rswp-card-button:hover {
+  background-color: #0d0c0d;
+  color: #fffcff;
+}
+
 .marquee {
   position: relative;
   overflow: hidden;

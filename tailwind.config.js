@@ -21,6 +21,7 @@ module.exports = {
         black: '#0D0C0D',
         white: '#FFFCFF',
         neutral: '#948894',
+        'primary-100': '#FBF1FD',
         'primary-200': '#F7DCFA',
         'primary-500': '#BD86B1',
         'secondary-800': '#7D693B',
