@@ -8,16 +8,13 @@ BigInt.prototype.toJSON = function () {
 };
 
 const { paymentsApi } = new Client({
-  accessToken:
-    "EAAAEDRJVuTw-11TRvObEfF9-tz3qyURPzLZXP3Htuz3YyN4ETkEyZNerM0ACgA_",
+  accessToken: process.env.SQUARE_ACCESS_TOKEN,
   environment: Environment.Sandbox,
 });
 
-const paymentHandler = async (
-  req: GatsbyFunctionRequest,
-  res: GatsbyFunctionResponse
-) => {
-  console.log("hello there!");
+const pay = async (req: GatsbyFunctionRequest, res: GatsbyFunctionResponse) => {
+  console.log("body-ody-ody", req.body);
+  const { orderId, amountMoney } = req.body;
 
   if (req.method === "POST") {
     const { result } = await paymentsApi.createPayment({
@@ -25,14 +22,15 @@ const paymentHandler = async (
       sourceId: req.body.sourceId,
       amountMoney: {
         currency: "USD",
-        amount: BigInt(100),
+        amount: BigInt(amountMoney),
       },
+      orderId,
     });
-    console.log(result);
+
     res.status(200).json(result);
   } else {
     res.status(500).send("Error creating payment.");
   }
 };
 
-export default paymentHandler;
+export default pay;
