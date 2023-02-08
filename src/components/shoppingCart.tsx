@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import React, { useState } from "react";
-import { CreditCard, PaymentForm } from "react-square-web-payments-sdk";
 // @ts-ignore
 import shoppingCart from "../assets/icons/icons8-shopping-cart-30.png";
 // @ts-ignore
@@ -67,14 +66,7 @@ const ShoppingCart: React.FC = () => {
                 }}>
                 <img className="pt-2 pl-2 h-10 hover:opacity-75" src={cancel} />
               </button>
-              <div className="flex flex-col mx-8">
-                <PaymentForm
-                  applicationId="sandbox-sq0idb-bw46YDt039TghHyglqvphw"
-                  locationId="LW7R7Y55FNZHN"
-                  cardTokenizeResponseReceived={cardTokenizeResponseReceived}>
-                  <CreditCard />
-                </PaymentForm>
-              </div>
+              <div className="flex flex-col mx-8"></div>
             </>
           )}
           {step === "success" && <div>you paid!</div>}
