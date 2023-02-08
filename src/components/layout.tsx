@@ -1,14 +1,13 @@
 import classNames from "classnames";
 import { Link } from "gatsby";
 import React, { useEffect, useState } from "react";
-import ShoppingCart from "./shoppingCart";
+import Cart from "./cart";
 
 interface LayoutProps {
   children: React.ReactElement;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
-  const [cartItems, setCartItems] = useState([]);
   const [pathname, setPathname] = useState("");
   useEffect(() => {
     setPathname(window.location.pathname);
@@ -89,7 +88,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       <main className="mt-[60px] z-20 max-w-[1500px] mx-auto mr-12">
         {children}
       </main>
-      <ShoppingCart />
+      <Cart />
     </div>
   );
 };
