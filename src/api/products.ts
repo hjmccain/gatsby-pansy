@@ -9,26 +9,23 @@ async function getProducts(_: any, res: GatsbyFunctionResponse) {
   const products = await stripe.products.list();
 
   if (products) {
-    // console.log(products);
+    try {
+      const productsWithPrices = await Promise.all(
+        products.data.map(async (product: Stripe.Product) => {
+          const price = await stripe.prices.retrieve(product.default_price);
 
-    // products.data.forEach((p) => console.log(p));
+          if (price) {
+            return { ...product, price };
+          }
 
-    // res.status(200).json(products);
+          throw new Error(`Price not found for product id ${product.id}`);
+        })
+      );
 
-    const productsWithPrices = await Promise.all(
-      products.data.map(async (product: Stripe.Product) => {
-        const price = await stripe.prices.retrieve(product.default_price);
-        console.log(price);
-
-        if (price) {
-          return { ...product, price };
-        }
-      })
-    );
-
-    console.log(productsWithPrices);
-
-    res.status(200).json(productsWithPrices);
+      res.status(200).json(productsWithPrices);
+    } catch (err) {
+      res.status(404).send(err);
+    }
   } else {
     res.status(500).send("Error fetching products.");
   }

@@ -1,20 +1,47 @@
-import { navigate } from "gatsby";
+import { graphql, navigate, useStaticQuery } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import useLocalStorage from "../hooks/useLocalStorage";
 import type { Stripe } from "stripe";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import type FileTypes from "gatsby-source-filesystem";
 
-type ProductWithPrice = Stripe.Product & { price: Stripe.Price };
+export type ProductWithPrice = Stripe.Product & { price: Stripe.Price };
+export type AllFile = {
+  edges: Array<Record<"node", FileTypes.FileSystemNode>>;
+};
+
+function findImage(files: AllFile, stringToMatch: string) {
+  const imageData = files.edges.find((node) => {
+    console.log(node.node.name, stringToMatch);
+    return node.node.name === stringToMatch;
+  });
+
+  return imageData?.node;
+}
 
 const Shop = () => {
   const [products, setProducts] = useState<Array<ProductWithPrice>>([]);
   const [productSelected, setSelectedProduct] =
     useState<ProductWithPrice | null>(null);
   const location = window.location.toString();
+  const { allFile } = useStaticQuery(graphql`
+    query imageQuery {
+      allFile {
+        edges {
+          node {
+            name
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+        }
+      }
+    }
+  `);
 
-  console.log(products);
-
+  // turn this into a page query & turn the component into a template; load data via gql
   useEffect(() => {
     async function handleGetProducts() {
       const res = await fetch("/api/products", {
@@ -63,6 +90,9 @@ const Shop = () => {
         ) : (
           <div className="mt-12 grid grid-cols-3 font-body gap-x-10">
             {products.map((product) => {
+              const data = findImage(allFile, product.id);
+              const image = data && getImage(data);
+
               const price = product.price.unit_amount
                 ? product.price.unit_amount / 100
                 : null;
@@ -70,20 +100,25 @@ const Shop = () => {
               if (price) {
                 return (
                   <ProductBlock
+                    key={product.id}
                     product={product.id}
                     title={product.name}
                     price={price}>
                     <div className="grid">
-                      <StaticImage
-                        src="../assets/images/whats-not-there.jpg"
-                        alt=""
-                        className="object-cover h-[475px] row-start-1 col-start-1"
-                      />
-                      <StaticImage
-                        src="../assets/images/all-these-boys.jpg"
-                        alt=""
-                        className="object-cover h-[475px] hover:opacity-0 transition-opacity row-start-1 col-start-1"
-                      />
+                      {image && (
+                        <GatsbyImage
+                          image={image}
+                          alt=""
+                          className="object-cover h-[475px] row-start-1 col-start-1"
+                        />
+                      )}
+                      {image && (
+                        <GatsbyImage
+                          image={image}
+                          alt=""
+                          className="object-cover h-[475px] row-start-1 col-start-1"
+                        />
+                      )}
                     </div>
                   </ProductBlock>
                 );
@@ -125,7 +160,7 @@ const ProductDetails: React.FC<{ product: ProductWithPrice }> = ({
   product: ProductWithPrice;
 }) => {
   const [cart, updateCart] = useLocalStorage("cart", {});
-  const handleUpdateCart = () => updateCart({ ...cart, other: 1 });
+  const handleUpdateCart = () => updateCart({ ...cart, [product.id]: product });
 
   return (
     <div className="flex">

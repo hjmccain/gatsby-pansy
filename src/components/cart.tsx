@@ -6,9 +6,10 @@ import cancel from "../assets/icons/icons8-cancel-48.png";
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { getLocalStorage } from "../hooks/useLocalStorage";
+import { ProductWithPrice } from "../pages/shop";
 
 const Cart: React.FC = () => {
-  const cartItems = getLocalStorage("cart");
+  const cartItems: Record<string, ProductWithPrice> = getLocalStorage("cart");
   const [step, setStep] = useState<Step>(Step.review);
   const [collapsed, toggleCollapsed] = useState(false);
   const location = window.location.toString();
@@ -47,11 +48,17 @@ const Cart: React.FC = () => {
             <img className="pt-2 pl-2 h-10 hover:opacity-75" src={cancel} />
           </button>
           {step === "review" && (
-            <button
-              className="bg-white hover:bg-black hover:text-white mx-8 py-2 uppercase transition-colors text-2xl"
-              onClick={handleCheckout}>
-              Checkout !
-            </button>
+            <>
+              {Object.keys(cartItems).map((key) => {
+                const item = cartItems[key];
+                return <div>{item.name}</div>;
+              })}
+              <button
+                className="bg-white hover:bg-black hover:text-white mx-8 py-2 uppercase transition-colors text-2xl"
+                onClick={handleCheckout}>
+                Checkout !
+              </button>
+            </>
           )}
           {step === "success" && <div>you paid!</div>}
         </div>

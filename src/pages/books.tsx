@@ -66,11 +66,11 @@ const Books = () => {
             <StaticImage src="../assets/images/before-morning.jpg" alt="" />
           </div>
         )}
-        {selected === Book.notThere && (
+        {/* {selected === Book.notThere && (
           <div className="bg-primary-200">
             <StaticImage src="../assets/images/whats-not-there.jpg" alt="" />
           </div>
-        )}
+        )} */}
         <div className="bg-primary-200"></div>
       </div>
     </Layout>
