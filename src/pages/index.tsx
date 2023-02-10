@@ -1,17 +1,20 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import {} from "react";
 import type { HeadFC } from "gatsby";
 import { Link } from "gatsby";
 import classNames from "classnames";
 
-// TODO:
-// Only show hover behavior over words, not entire button
-// Persist site entered
-// Update cart when state changes
-// Close cart on outside click
-
 const IndexPage: React.FC = () => {
-  const [entered, enterSite] = useState(false);
+  const [entered, setEntered] = useState(
+    window.sessionStorage.getItem("entered")
+  );
+
+  const enterSite = () => {
+    if (typeof window !== "undefined") {
+      window.sessionStorage.setItem("entered", "true");
+      setEntered(window.sessionStorage.getItem("entered"));
+    }
+  };
 
   return (
     <main>
@@ -20,7 +23,7 @@ const IndexPage: React.FC = () => {
           entered ? "bg-white justify-start" : "bg-primary-200 justify-center",
           "h-screen flex flex-col transition-all relative"
         )}>
-        <button onClick={() => enterSite(true)} disabled={entered}>
+        <button onClick={() => enterSite()}>
           <h1
             className={classNames(
               entered
@@ -31,7 +34,7 @@ const IndexPage: React.FC = () => {
             pansy
           </h1>
         </button>
-        {entered && <Home />}
+        {entered === "true" && <Home />}
       </div>
     </main>
   );
