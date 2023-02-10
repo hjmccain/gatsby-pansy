@@ -4,15 +4,40 @@ import shoppingCart from "../assets/icons/icons8-shopping-cart-30.png";
 import cancel from "../assets/icons/icons8-cancel-48.png";
 
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, {
+  MutableRefObject,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { getLocalStorage } from "../hooks/useLocalStorage";
-import { ProductWithPrice } from "../pages/shop";
+import { findImage, ProductWithPrice } from "../pages/shop";
+import { useStaticQuery, graphql } from "gatsby";
+import { GatsbyImage } from "gatsby-plugin-image";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 const Cart: React.FC = () => {
   const cartItems: Record<string, ProductWithPrice> = getLocalStorage("cart");
   const [step, setStep] = useState<Step>(Step.review);
-  const [collapsed, toggleCollapsed] = useState(false);
+  const [collapsed, toggleCollapsed] = useState(true);
   const location = window.location.toString();
+  const ref = useRef<HTMLDivElement>(null);
+  useOutsideClick(ref, () => !collapsed && toggleCollapsed(true));
+  const { allFile } = useStaticQuery(graphql`
+    query imageQuery {
+      allFile {
+        edges {
+          node {
+            name
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+        }
+      }
+    }
+  `);
 
   useEffect(() => {
     const url = new URL(location);
@@ -27,10 +52,11 @@ const Cart: React.FC = () => {
 
   return (
     <div
+      ref={ref}
       className={classNames(
         collapsed
           ? "w-10 shadow-md bg-primary-100"
-          : "w-1/4 shadow-xl bg-primary-200",
+          : "w-1/3 shadow-xl bg-primary-200",
         "absolute top-0 right-0  h-screen z-20 border-l transition-all"
       )}>
       {collapsed ? (
@@ -48,17 +74,36 @@ const Cart: React.FC = () => {
             <img className="pt-2 pl-2 h-10 hover:opacity-75" src={cancel} />
           </button>
           {step === "review" && (
-            <>
+            <div className="mx-12">
               {Object.keys(cartItems).map((key) => {
-                const item = cartItems[key];
-                return <div>{item.name}</div>;
+                const product = cartItems[key];
+                const image = findImage(allFile, product.id);
+                const price = product.price.unit_amount
+                  ? product.price.unit_amount / 100
+                  : null;
+
+                return (
+                  <div className="cart grid grid-cols-5 content-center items-center mb-8 font-body">
+                    {image && (
+                      <GatsbyImage
+                        image={image}
+                        alt=""
+                        className="object-cover h-[475px] row-start-1 col-start-1"
+                      />
+                    )}
+                    <p className="ml-4 col-start-2 col-span-3">
+                      {product.name}
+                    </p>
+                    <p>${price}</p>
+                  </div>
+                );
               })}
               <button
-                className="bg-white hover:bg-black hover:text-white mx-8 py-2 uppercase transition-colors text-2xl"
+                className="bg-white hover:bg-black hover:text-white py-2 uppercase transition-colors w-full text-2xl"
                 onClick={handleCheckout}>
                 Checkout !
               </button>
-            </>
+            </div>
           )}
           {step === "success" && <div>you paid!</div>}
         </div>

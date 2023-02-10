@@ -39,6 +39,21 @@
   src: url("../assets/fonts/happy-times-NG_regular_master_web.woff2");
 }
 
+.cart .gatsby-image-wrapper {
+  width: 80px;
+  height: 80px !important;
+  height: fit-content;
+  border: 1.5px solid #ac9aaf;
+  border-radius: 8%;
+}
+
+.cart picture img {
+  width: 80px !important;
+  height: 80px !important;
+  overflow: hidden !important;
+  /* object-fit: contain !important; */
+}
+
 #rswp-card-button {
   background-color: #fffcff;
   color: #0d0c0d;

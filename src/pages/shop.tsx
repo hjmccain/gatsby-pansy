@@ -1,25 +1,15 @@
 import { graphql, navigate, useStaticQuery } from "gatsby";
-import { StaticImage } from "gatsby-plugin-image";
 import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import useLocalStorage from "../hooks/useLocalStorage";
 import type { Stripe } from "stripe";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image";
 import type FileTypes from "gatsby-source-filesystem";
 
 export type ProductWithPrice = Stripe.Product & { price: Stripe.Price };
 export type AllFile = {
   edges: Array<Record<"node", FileTypes.FileSystemNode>>;
 };
-
-function findImage(files: AllFile, stringToMatch: string) {
-  const imageData = files.edges.find((node) => {
-    console.log(node.node.name, stringToMatch);
-    return node.node.name === stringToMatch;
-  });
-
-  return imageData?.node;
-}
 
 const Shop = () => {
   const [products, setProducts] = useState<Array<ProductWithPrice>>([]);
@@ -41,25 +31,8 @@ const Shop = () => {
     }
   `);
 
-  // turn this into a page query & turn the component into a template; load data via gql
   useEffect(() => {
-    async function handleGetProducts() {
-      const res = await fetch("/api/products", {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
-
-      if (res) {
-        const productsWithPrices = await res.json();
-        setProducts(productsWithPrices);
-      } else {
-        console.error("error redirecting");
-      }
-    }
-
-    handleGetProducts();
+    handleGetProducts(setProducts);
   }, []);
 
   useEffect(() => {
@@ -90,9 +63,8 @@ const Shop = () => {
         ) : (
           <div className="mt-12 grid grid-cols-3 font-body gap-x-10">
             {products.map((product) => {
-              const data = findImage(allFile, product.id);
-              const image = data && getImage(data);
-
+              const image1 = findImage(allFile, product.id);
+              const image2 = findImage(allFile, `${product.id}-alt`);
               const price = product.price.unit_amount
                 ? product.price.unit_amount / 100
                 : null;
@@ -105,18 +77,24 @@ const Shop = () => {
                     title={product.name}
                     price={price}>
                     <div className="grid">
-                      {image && (
+                      {image2 && (
                         <GatsbyImage
-                          image={image}
+                          image={image2}
                           alt=""
                           className="object-cover h-[475px] row-start-1 col-start-1"
                         />
                       )}
-                      {image && (
+                      {image1 && (
                         <GatsbyImage
-                          image={image}
+                          image={image1}
                           alt=""
-                          className="object-cover h-[475px] row-start-1 col-start-1"
+                          className="object-cover h-[475px] row-start-1 col-start-1 hover:opacity-0 transition-opacity"
+                        />
+                      )}
+                      {!image1 && !image2 && (
+                        <StaticImage
+                          src="../assets/images/prod_NJvXkt0lcEKDQj-alt.jpg"
+                          alt="placeholder"
                         />
                       )}
                     </div>
@@ -169,6 +147,33 @@ const ProductDetails: React.FC<{ product: ProductWithPrice }> = ({
     </div>
   );
 };
+
+async function handleGetProducts(
+  setProducts: React.Dispatch<Array<ProductWithPrice>>
+) {
+  const res = await fetch("/api/products", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+
+  if (res) {
+    const productsWithPrices = await res.json();
+    setProducts(productsWithPrices);
+  } else {
+    console.error("error redirecting");
+  }
+}
+
+export function findImage(files: AllFile, stringToMatch: string) {
+  const imageData = files.edges.find(
+    (node) => node.node.name === stringToMatch
+  );
+
+  const data = imageData?.node;
+  return data && getImage(data);
+}
 
 export const Head = () => <title>Pansy Press Shop</title>;
 

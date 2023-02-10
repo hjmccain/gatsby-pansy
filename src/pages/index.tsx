@@ -4,6 +4,12 @@ import type { HeadFC } from "gatsby";
 import { Link } from "gatsby";
 import classNames from "classnames";
 
+// TODO:
+// Only show hover behavior over words, not entire button
+// Persist site entered
+// Update cart when state changes
+// Close cart on outside click
+
 const IndexPage: React.FC = () => {
   const [entered, enterSite] = useState(false);
 
@@ -37,7 +43,7 @@ const Home: React.FC = () => {
       <Link className="block h-[100px]" to="/about">
         <h1
           className={classNames(
-            "mt-[150px] text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest"
+            "mt-[150px] w-fit hover:w-full block text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           ABOUT
         </h1>
@@ -45,7 +51,7 @@ const Home: React.FC = () => {
       <Link className="block h-[100px]" to="/submit">
         <h1
           className={classNames(
-            "text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest"
+            "w-fit hover:w-full block text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           SUBMIT
         </h1>
@@ -53,7 +59,7 @@ const Home: React.FC = () => {
       <Link className="block h-[100px]" to="/events">
         <h1
           className={classNames(
-            "text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest"
+            "w-fit hover:w-full block text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           EVENTS
         </h1>
@@ -61,7 +67,7 @@ const Home: React.FC = () => {
       <Link className="block h-[100px]" to="/books">
         <h1
           className={classNames(
-            "text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest"
+            "w-fit hover:w-full block text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           BOOKS
         </h1>
@@ -69,7 +75,7 @@ const Home: React.FC = () => {
       <Link className="block h-[100px]" to="/shop">
         <h1
           className={classNames(
-            "text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest"
+            "w-fit hover:w-full block text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           SHOP
         </h1>

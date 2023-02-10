@@ -23,28 +23,28 @@ const Books = () => {
               <button
                 className="block h-[60px]"
                 onClick={() => setSelected(Book.beforeMorning)}>
-                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest w-screen">
+                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
                   BEFORE MORNING
                 </li>
               </button>
               <button
                 className="block h-[60px]"
                 onClick={() => setSelected(Book.creature)}>
-                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest w-screen">
+                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
                   CREATURE OF HABIT
                 </li>
               </button>
               <button
                 className="block h-[60px]"
                 onClick={() => setSelected(Book.poeming)}>
-                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest w-screen">
+                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
                   POEMING
                 </li>
               </button>
               <button
                 className="block h-[60px]"
                 onClick={() => setSelected(Book.notThere)}>
-                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest w-screen">
+                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
                   WHAT'S NOT THERE
                 </li>
               </button>

@@ -28,14 +28,14 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           pansy
         </h1>
       </Link>
-      <nav className="text-right mt-1 mr-12">
+      <nav className="mt-1 w-full flex flex-col items-end">
         <Link className="block h-[25px]" to="/about">
           <h1
             className={classNames(
               pathname === "/about/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-2xl text-black transition-all border-primary-200"
+              "text-2xl text-black transition-all border-primary-200 w-fit mr-12"
             )}>
             ABOUT
           </h1>
@@ -46,7 +46,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/submit/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-2xl font-sans text-black transition-all border-primary-200"
+              "text-2xl font-sans text-black transition-all border-primary-200 w-fit mr-12"
             )}>
             SUBMIT
           </h1>
@@ -57,7 +57,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/events/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-2xl font-sans text-black transition-all border-primary-200"
+              "text-2xl font-sans text-black transition-all border-primary-200 w-fit mr-12"
             )}>
             EVENTS
           </h1>
@@ -68,7 +68,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/books/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-2xl font-sans text-black transition-all border-primary-200"
+              "text-2xl font-sans text-black transition-all border-primary-200 w-fit mr-12"
             )}>
             BOOKS
           </h1>
@@ -79,7 +79,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/shop/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-2xl font-sans text-black transition-all border-primary-200"
+              "text-2xl font-sans text-black transition-all border-primary-200 w-fit mr-12"
             )}>
             SHOP
           </h1>

@@ -49,7 +49,7 @@ function useLocalStorage<T>(key: string, initialValue: T) {
 
 export function getLocalStorage(key: string) {
   if (typeof window === "undefined") {
-    return null;
+    return {};
   }
 
   try {
@@ -60,7 +60,7 @@ export function getLocalStorage(key: string) {
     return JSON.parse(storedValue);
   } catch (err) {
     console.error(err);
-    return null;
+    return {};
   }
 }
 
