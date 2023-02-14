@@ -4,12 +4,9 @@ import Layout from "../components/layout";
 import useLocalStorage from "../hooks/useLocalStorage";
 import type { Stripe } from "stripe";
 import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image";
-import type FileTypes from "gatsby-source-filesystem";
+import findImage from "../helpers/findImage";
 
 export type ProductWithPrice = Stripe.Product & { price: Stripe.Price };
-export type AllFile = {
-  edges: Array<Record<"node", FileTypes.FileSystemNode>>;
-};
 
 const Shop = () => {
   const [products, setProducts] = useState<Array<ProductWithPrice>>([]);
@@ -55,13 +52,16 @@ const Shop = () => {
     }
   }, [location]);
 
+  //
+
   return (
     <Layout>
       <div className="w-screen">
         {productSelected ? (
           <ProductDetails product={productSelected} />
         ) : (
-          <div className="mt-12 grid grid-cols-3 font-body gap-x-10">
+          <div className="mt-12 font-body gap-x-10">
+            {/* <div className="mt-12 grid grid-cols-[repeat(4,_minmax(0,_1fr))] font-body gap-x-10"> */}
             {products.map((product) => {
               const image1 = findImage(allFile, product.id);
               const image2 = findImage(allFile, `${product.id}-alt`);
@@ -76,25 +76,26 @@ const Shop = () => {
                     product={product.id}
                     title={product.name}
                     price={price}>
-                    <div className="grid">
+                    <div className="grid h-full w-full">
                       {image2 && (
                         <GatsbyImage
                           image={image2}
                           alt=""
-                          className="object-cover h-[475px] row-start-1 col-start-1"
+                          className="object-cover row-start-1 col-start-1"
                         />
                       )}
                       {image1 && (
                         <GatsbyImage
                           image={image1}
                           alt=""
-                          className="object-cover h-[475px] row-start-1 col-start-1 hover:opacity-0 transition-opacity"
+                          className="object-cover row-start-1 col-start-1 hover:opacity-0 transition-opacity"
                         />
                       )}
                       {!image1 && !image2 && (
                         <StaticImage
                           src="../assets/images/prod_NJvXkt0lcEKDQj-alt.jpg"
                           alt="placeholder"
+                          className="object-cover"
                         />
                       )}
                     </div>
@@ -119,18 +120,26 @@ const ProductBlock = ({
   title: string;
   price: number | string;
   children: React.ReactNode;
-}) => (
-  <button
-    key={product}
-    onClick={() => navigate(`?product=${product}`)}
-    className="group">
-    {children}
-    <div className="text-xl flex justify-between relative bottom-10 px-4 py-2 group-hover:opacity-90 opacity-0 transition-opacity bg-white">
-      <p className="italic">{title}</p>
-      <p>${price}</p>
-    </div>
-  </button>
-);
+}) => {
+  const [productDimensions, setProductDimensions] = useState(400);
+
+  return (
+    <button
+      key={product}
+      onClick={() => navigate(`?product=${product}`)}
+      style={{
+        width: `${productDimensions}px`,
+        height: `${productDimensions}px`,
+      }}
+      className="group mx-[18px]">
+      {children}
+      <div className="text-xl flex justify-between relative bottom-10 px-4 py-2 group-hover:opacity-90 opacity-0 transition-opacity bg-white">
+        <p className="italic">{title}</p>
+        <p>${price}</p>
+      </div>
+    </button>
+  );
+};
 
 const ProductDetails: React.FC<{ product: ProductWithPrice }> = ({
   product,
@@ -164,15 +173,6 @@ async function handleGetProducts(
   } else {
     console.error("error redirecting");
   }
-}
-
-export function findImage(files: AllFile, stringToMatch: string) {
-  const imageData = files.edges.find(
-    (node) => node.node.name === stringToMatch
-  );
-
-  const data = imageData?.node;
-  return data && getImage(data);
 }
 
 export const Head = () => <title>Pansy Press Shop</title>;

@@ -1,6 +1,10 @@
-import { StaticImage } from "gatsby-plugin-image";
-import React, { useState } from "react";
+import classNames from "classnames";
+import { useStaticQuery, graphql } from "gatsby";
+import { GatsbyImage } from "gatsby-plugin-image";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
+import findImage from "../helpers/findImage";
+import useHandleWindowResize from "../hooks/useHandleWindowResize";
 
 enum Book {
   beforeMorning = "beforeMorning",
@@ -10,73 +14,188 @@ enum Book {
 }
 
 const Books = () => {
+  const screenHeight = useHandleWindowResize();
+  const top = useHandleScroll(333, "book-info");
+  const [hovered, setHovered] = useState<Book | null>(null);
   const [selected, setSelected] = useState(Book.beforeMorning);
+  const bookDescription = hovered
+    ? bookDescriptions[hovered]
+    : bookDescriptions[selected];
+  const { allFile } = useStaticQuery(graphql`
+    query imageQuery {
+      allFile {
+        edges {
+          node {
+            name
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+        }
+      }
+    }
+  `);
+  const image = findImage(allFile, hovered || selected);
+
+  useEffect(() => {
+    function handleHover(e: MouseEvent) {
+      if ((e.target as HTMLElement)?.classList.contains("book-nav")) {
+        const id = ((e.target as HTMLElement)?.parentNode as HTMLElement)?.id;
+
+        id && setHovered(id as Book);
+      } else {
+        setHovered(null);
+      }
+    }
+
+    window.addEventListener("mouseover", handleHover);
+
+    return () => {
+      window.removeEventListener("mouseover", handleHover);
+    };
+  });
+
   return (
     <Layout>
-      <div className="grid grid-cols-2 h-screen">
-        <div className="relative z-20">
-          <h2 className="mt-[-50px] text-left text-big whitespace-nowrap text-primary-200">
-            BOOKS
-          </h2>
-          <nav>
-            <ul>
-              <button
-                className="block h-[60px]"
-                onClick={() => setSelected(Book.beforeMorning)}>
-                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
-                  BEFORE MORNING
-                </li>
-              </button>
-              <button
-                className="block h-[60px]"
-                onClick={() => setSelected(Book.creature)}>
-                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
-                  CREATURE OF HABIT
-                </li>
-              </button>
-              <button
-                className="block h-[60px]"
-                onClick={() => setSelected(Book.poeming)}>
-                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
-                  POEMING
-                </li>
-              </button>
-              <button
-                className="block h-[60px]"
-                onClick={() => setSelected(Book.notThere)}>
-                <li className="text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
-                  WHAT'S NOT THERE
-                </li>
-              </button>
-            </ul>
-          </nav>
-          <div className="font-body text-2xl mt-[60px] mx-12">
-            Duis sed elit id lectus pretium pharetra at nec sapien. Cras sed
-            tortor id turpis imperdiet auctor. Nam aliquet massa non nisl rutrum
-            vestibulum. Integer in libero felis. Donec libero sapien,
-            ullamcorper ut aliquet non, molestie quis ex. Sed volutpat ipsum id
-            dolor mollis faucibus. Donec vitae varius eros. Phasellus cursus
-            nibh a feugiat venenatis. In sed porta velit. Donec nec eleifend
-            neque. Fusce tincidunt turpis bibendum elit vehicula dapibus.
-            Curabitur at nisl enim.
+      <div>
+        <nav
+          style={{
+            top: `${top}px`,
+          }}
+          className="absolute left-0 z-30">
+          <ul>
+            <button
+              id={Book.beforeMorning}
+              className="block h-[60px]"
+              onClick={() => setSelected(Book.beforeMorning)}>
+              <li className="book-nav text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
+                BEFORE MORNING
+              </li>
+            </button>
+            <button
+              id={Book.creature}
+              className="block h-[60px]"
+              onClick={() => setSelected(Book.creature)}>
+              <li className="book-nav text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
+                CREATURE OF HABIT
+              </li>
+            </button>
+            <button
+              id={Book.poeming}
+              className="block h-[60px]"
+              onClick={() => setSelected(Book.poeming)}>
+              <li className="book-nav text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
+                POEMING
+              </li>
+            </button>
+            <button
+              id={Book.notThere}
+              className="block h-[60px]"
+              onClick={() => setSelected(Book.notThere)}>
+              <li className="book-nav text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
+                WHAT'S NOT THERE
+              </li>
+            </button>
+          </ul>
+        </nav>
+        <div
+          style={{
+            height: `${screenHeight}px`,
+            overflow: "hidden",
+          }}
+          className="grid grid-cols-2">
+          <div
+            style={{
+              height: `${screenHeight}px`,
+              // overflow: "hidden",
+              // TODO: Resize not working
+            }}
+            id="scrollable-div"
+            className="relative z-20 bg-primary-200 overflow-scroll">
+            <h2 className="mt-[-67px] text-left text-big whitespace-nowrap text-white">
+              BOOKS
+            </h2>
+            <div
+              id="book-info"
+              className={classNames(
+                "font-serif text-3xl mt-[250px] mx-12 relative pb-12"
+              )}>
+              {bookDescription}
+            </div>
+          </div>
+          <div
+            style={{
+              height: `${screenHeight}px`,
+              overflow: "hidden",
+            }}
+            className="bg-primary-200">
+            {image && <GatsbyImage image={image} alt="" />}
           </div>
         </div>
-        {selected === Book.beforeMorning && (
-          <div className="bg-primary-200">
-            <StaticImage src="../assets/images/before-morning.jpg" alt="" />
-          </div>
-        )}
-        {/* {selected === Book.notThere && (
-          <div className="bg-primary-200">
-            <StaticImage src="../assets/images/whats-not-there.jpg" alt="" />
-          </div>
-        )} */}
-        <div className="bg-primary-200"></div>
       </div>
     </Layout>
   );
 };
 
 export const Head = () => <title>Pansy Press Books</title>;
+
+const bookDescriptions = {
+  [Book.beforeMorning]: `Before Morning is duis sed elit id lectus pretium pharetra at nec sapien. Cras sed
+  tortor id turpis imperdiet auctor. Nam aliquet massa non nisl
+  rutrum vestibulum. Integer in libero felis. Donec libero sapien,
+  ullamcorper ut aliquet non, molestie quis ex. Sed volutpat ipsum
+  id dolor mollis faucibus. Donec vitae varius eros. Phasellus
+  cursus nibh a feugiat venenatis. In sed porta velit. Donec nec
+  eleifend neque. Fusce tincidunt turpis bibendum elit vehicula
+  dapibus. Curabitur at nisl enim.`,
+  [Book.creature]: `Creature of Habit is duis sed elit id lectus pretium pharetra at nec sapien. Cras sed
+  tortor id turpis imperdiet auctor. Nam aliquet massa non nisl
+  rutrum vestibulum. Integer in libero felis. Donec libero sapien,
+  ullamcorper ut aliquet non, molestie quis ex. Sed volutpat ipsum
+  id dolor mollis faucibus. Donec vitae varius eros. Phasellus
+  cursus nibh a feugiat venenatis. In sed porta velit. Donec nec
+  eleifend neque. Fusce tincidunt turpis bibendum elit vehicula
+  dapibus. Curabitur at nisl enim.`,
+  [Book.poeming]: `POEMING is duis sed elit id lectus pretium pharetra at nec sapien. Cras sed
+  tortor id turpis imperdiet auctor. Nam aliquet massa non nisl
+  rutrum vestibulum. Integer in libero felis. Donec libero sapien,
+  ullamcorper ut aliquet non, molestie quis ex. Sed volutpat ipsum
+  id dolor mollis faucibus. Donec vitae varius eros. Phasellus
+  cursus nibh a feugiat venenatis. In sed porta velit. Donec nec
+  eleifend neque. Fusce tincidunt turpis bibendum elit vehicula
+  dapibus. Curabitur at nisl enim.`,
+  [Book.notThere]: `What's Not There is duis sed elit id lectus pretium pharetra at nec sapien. Cras sed
+  tortor id turpis imperdiet auctor. Nam aliquet massa non nisl
+  rutrum vestibulum. Integer in libero felis. Donec libero sapien,
+  ullamcorper ut aliquet non, molestie quis ex. Sed volutpat ipsum
+  id dolor mollis faucibus. Donec vitae varius eros. Phasellus
+  cursus nibh a feugiat venenatis. In sed porta velit. Donec nec
+  eleifend neque. Fusce tincidunt turpis bibendum elit vehicula
+  dapibus. Curabitur at nisl enim.`,
+};
+
+const useHandleScroll = (startValue: number, idToFind: string) => {
+  const [top, setTop] = useState(startValue);
+
+  const handleScroll = () => {
+    const el = document.getElementById(idToFind);
+    const divTop = el?.getBoundingClientRect().top;
+
+    divTop && setTop(divTop - 300);
+  };
+
+  useEffect(() => {
+    const scrollableDiv = document.getElementById("scrollable-div");
+
+    if (scrollableDiv) {
+      scrollableDiv.addEventListener("scroll", handleScroll);
+      return () => {
+        scrollableDiv.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, []);
+
+  return top;
+};
 
 export default Books;

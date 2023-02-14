@@ -4,15 +4,39 @@ import type { HeadFC } from "gatsby";
 import { Link } from "gatsby";
 import classNames from "classnames";
 
-const IndexPage: React.FC = () => {
-  const [entered, setEntered] = useState(
-    window.sessionStorage.getItem("entered")
-  );
+// TODO
+// Make site responsive 🥲
 
+// /books/
+// Book text hides on hover
+
+// /books/ & /events/
+// Make images change on hover
+// Display event & book info on click
+
+// /shop/
+// Fix widths of shop items
+
+// checkout
+// Make checkout beautiful 😌
+
+// THEN
+// Clean up assets
+// Take pictures & edit for consistent presentation
+
+// BONUS
+// Chrome-style text on splash page
+
+const IndexPage: React.FC = () => {
+  const setSessionValue = () => {
+    const sessionValue = window.sessionStorage.getItem("entered");
+    return sessionValue === "true";
+  };
+  const [entered, setEntered] = useState(setSessionValue);
   const enterSite = () => {
     if (typeof window !== "undefined") {
       window.sessionStorage.setItem("entered", "true");
-      setEntered(window.sessionStorage.getItem("entered"));
+      setEntered(setSessionValue);
     }
   };
 
@@ -27,14 +51,14 @@ const IndexPage: React.FC = () => {
           <h1
             className={classNames(
               entered
-                ? "absolute top-[-72px] left-0 text-primary-200"
+                ? "absolute top-[-72px] left-0 text-black"
                 : "text-center text-white hover:tracking-widest",
               "text-super-big font-display transition-all"
             )}>
             pansy
           </h1>
         </button>
-        {entered === "true" && <Home />}
+        {entered && <Home />}
       </div>
     </main>
   );
@@ -42,43 +66,43 @@ const IndexPage: React.FC = () => {
 
 const Home: React.FC = () => {
   return (
-    <nav className="relative z-10">
-      <Link className="block h-[100px]" to="/about">
+    <nav className="relative z-10 text-primary-200">
+      <Link className="block h-[125px]" to="/about">
         <h1
           className={classNames(
-            "mt-[150px] w-fit hover:w-full block text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
+            "mt-[150px] w-fit hover:w-full block text-big font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           ABOUT
         </h1>
       </Link>
-      <Link className="block h-[100px]" to="/submit">
+      <Link className="block h-[125px]" to="/submit">
         <h1
           className={classNames(
-            "w-fit hover:w-full block text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block text-big font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           SUBMIT
         </h1>
       </Link>
-      <Link className="block h-[100px]" to="/events">
+      <Link className="block h-[125px]" to="/events">
         <h1
           className={classNames(
-            "w-fit hover:w-full block text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block text-big font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           EVENTS
         </h1>
       </Link>
-      <Link className="block h-[100px]" to="/books">
+      <Link className="block h-[125px]" to="/books">
         <h1
           className={classNames(
-            "w-fit hover:w-full block text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block text-big font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           BOOKS
         </h1>
       </Link>
-      <Link className="block h-[100px]" to="/shop">
+      <Link className="block h-[125px]" to="/shop">
         <h1
           className={classNames(
-            "w-fit hover:w-full block text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block text-big font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           SHOP
         </h1>

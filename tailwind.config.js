@@ -11,10 +11,11 @@ module.exports = {
         sans: ['Lack', 'sans-serif'],
         'sans-outline': ['Lack Line', 'sans-serif'],
         body: ['Happy Times', 'sans-serif'],
+        serif: ['Director', 'serif']
       },
       fontSize: {
         medium: '5rem',
-        big: '8rem',
+        big: '11rem',
         'super-big': '16rem'
       },
       colors: {

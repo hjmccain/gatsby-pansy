@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <div
       className={classNames(
-        "bg-white justify-star",
+        "bg-white",
         "h-screen flex flex-col transition-all relative"
       )}>
       <Link to="/">
@@ -28,66 +28,64 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           pansy
         </h1>
       </Link>
-      <nav className="mt-1 w-full flex flex-col items-end">
-        <Link className="block h-[25px]" to="/about">
+      <nav className="mt-1 w-full flex flex-col items-end text-4xl">
+        <Link className="block h-[35px]" to="/about">
           <h1
             className={classNames(
               pathname === "/about/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-2xl text-black transition-all border-primary-200 w-fit mr-12"
+              "text-black transition-all border-primary-200 w-fit mr-12"
             )}>
             ABOUT
           </h1>
         </Link>
-        <Link className="block h-[25px]" to="/submit">
+        <Link className="block h-[35px]" to="/submit">
           <h1
             className={classNames(
               pathname === "/submit/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-2xl font-sans text-black transition-all border-primary-200 w-fit mr-12"
+              "font-sans text-black transition-all border-primary-200 w-fit mr-12"
             )}>
             SUBMIT
           </h1>
         </Link>
-        <Link className="block h-[25px]" to="/events">
+        <Link className="block h-[35px]" to="/events">
           <h1
             className={classNames(
               pathname === "/events/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-2xl font-sans text-black transition-all border-primary-200 w-fit mr-12"
+              "font-sans text-black transition-all border-primary-200 w-fit mr-12"
             )}>
             EVENTS
           </h1>
         </Link>
-        <Link className="block h-[25px]" to="/books">
+        <Link className="block h-[35px]" to="/books">
           <h1
             className={classNames(
               pathname === "/books/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-2xl font-sans text-black transition-all border-primary-200 w-fit mr-12"
+              "font-sans text-black transition-all border-primary-200 w-fit mr-12"
             )}>
             BOOKS
           </h1>
         </Link>
-        <Link className="block h-[25px]" to="/shop">
+        <Link className="block h-[35px]" to="/shop">
           <h1
             className={classNames(
               pathname === "/shop/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-2xl font-sans text-black transition-all border-primary-200 w-fit mr-12"
+              "font-sans text-black transition-all border-primary-200 w-fit mr-12"
             )}>
             SHOP
           </h1>
         </Link>
       </nav>
-      <main className="mt-[60px] z-20 max-w-[1500px] mx-auto mr-12">
-        {children}
-      </main>
+      <main className="mt-[15px] z-20 mx-auto mr-12">{children}</main>
       <Cart />
     </div>
   );

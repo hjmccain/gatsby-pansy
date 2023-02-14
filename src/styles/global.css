@@ -38,6 +38,10 @@
   font-family: "Happy Times";
   src: url("../assets/fonts/happy-times-NG_regular_master_web.woff2");
 }
+@font-face {
+  font-family: "Director";
+  src: url("../assets/fonts/Director-Light.woff2");
+}
 
 .cart .gatsby-image-wrapper {
   width: 80px;

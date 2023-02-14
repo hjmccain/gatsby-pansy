@@ -1,29 +1,33 @@
 import * as React from "react";
 import Layout from "../components/layout";
+import useHandleWindowResize from "../hooks/useHandleWindowResize";
 
 const Submit = () => {
+  const screenHeight = useHandleWindowResize();
+
   return (
     <Layout>
-      <div className="grid grid-cols-2 h-screen relative">
-        <div className="z-10 overflow-scroll">
-          <h2 className="mt-[-50px] text-left text-big whitespace-nowrap text-primary-200">
+      <div
+        style={{
+          height: `${screenHeight}px`,
+          overflow: "hidden",
+        }}
+        className="grid grid-cols-2 h-screen relative">
+        <div className="z-10 overflow-scroll bg-primary-200">
+          <h2 className="mt-[-67px] text-left text-big whitespace-nowrap text-white">
             SUBMIT
           </h2>
-          <p className="text-2xl ml-6 mr-[10%] mb-6 font-body">
+          <p className="text-2xl mx-12 mb-6 font-serif">
             If you're interested in submitting to Pansy Press, please read the
             submission guidelines &#38; info below. If everything looks good, go
             ahead and submit. We're excited to read your work :)
-            <h3 className="font-sans mt-8 mb-2 w-full bg-primary-200 text-center">
-              INFO
-            </h3>
+            <h3 className="mt-8 mb-6 text-4xl">INFO</h3>
             For now, we are currently only publishing chapbook-length works by
             Tucson-based or Tucson-affiliated poets. You should submit if you
             (1) have 15-35 pages of poetry and (2) you either live in Tucson,
             used to live in Tucson, or have a particular connection with Tucson.
-            <h3 className="font-sans mt-8 mb-2 w-full bg-primary-200 text-center">
-              GUIDELINES
-            </h3>
-            Please email your submission to{" "}
+            <h3 className="mt-8 mb-6 text-4xl">GUIDELINES</h3>
+            ** Please email your submission to{" "}
             <a
               className="underline hover:text-white hover:bg-black"
               href="mailto: hello@pansy.press"
@@ -31,7 +35,8 @@ const Submit = () => {
               rel="noreferrer noopener">
               hello@pansy.press
             </a>{" "}
-            :)
+            **
+            <br />
             <br />
             <div className="italic underline mt-2 mb-2">
               {" "}
@@ -62,9 +67,7 @@ const Submit = () => {
                 like to share, please do so :)
               </li>
             </ul>
-            <h3 className="font-sans mt-8 mb-2 w-full bg-primary-200 text-center">
-              ADD'L RESOURCES
-            </h3>
+            <h3 className="mt-8 mb-6 text-4xl">ADD'L RESOURCES</h3>
             <ul className="list-disc">
               <li className="ml-8">
                 <a
@@ -89,7 +92,12 @@ const Submit = () => {
             </ul>
           </p>
         </div>
-        <div className="bg-[url(../assets/images/binding2.jpg)] bg-cover bg-no-repeat"></div>
+        <div
+          style={{
+            height: `${screenHeight}px`,
+            overflow: "hidden",
+          }}
+          className="bg-[url(../assets/images/binding2.jpg)] bg-cover bg-no-repeat"></div>
       </div>
     </Layout>
   );
