@@ -6,11 +6,13 @@ import classNames from "classnames";
 
 // TODO
 // Make site responsive 🥲
-// Figure out how to keep cart in sync
+// Actually hook up API
 
 // THEN
 // Clean up assets
 // Take pictures & edit for consistent presentation
+// Set up Stripe store
+// Swap in real API keys
 
 const IndexPage: React.FC = () => {
   const setSessionValue = () => {
