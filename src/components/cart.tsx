@@ -6,16 +6,15 @@ import cancel from "../assets/icons/icons8-cancel-48.png";
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
 import useLocalStorage, { getLocalStorage } from "../hooks/useLocalStorage";
-import { ProductWithPrice } from "../pages/shop";
+import { ProductWithPrice, ProductWithPriceAndQty } from "../pages/shop";
 import { useStaticQuery, graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import useOutsideClick from "../hooks/useOutsideClick";
 import findImage, { AllFile } from "../helpers/findImage";
-import useHandleUpdateCart from "../hooks/useHandleUpdateCart";
-
-type ProductWithPriceAndQty = ProductWithPrice & { quantity: number };
+import useHandleWindowResize from "../hooks/useHandleWindowResize";
 
 const Cart: React.FC = () => {
+  const screenHeight = useHandleWindowResize();
   const cartItems: Record<string, ProductWithPriceAndQty> =
     getLocalStorage("cart");
   const [step, setStep] = useState<Step>(Step.review);
@@ -24,6 +23,9 @@ const Cart: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   useOutsideClick(ref, () => !collapsed && toggleCollapsed(true));
   const itemArray = Object.keys(cartItems);
+  const itemsInCart = itemArray.reduce((prev, current) => {
+    return prev + cartItems[current].quantity;
+  }, 0);
   const [cart, updateCart] = useLocalStorage("cart", {} as any);
   const handleUpdateCart = (
     product: ProductWithPriceAndQty,
@@ -87,12 +89,16 @@ const Cart: React.FC = () => {
 
   return (
     <div
+      style={{
+        height: `${screenHeight + 180}px`,
+        overflow: "hidden",
+      }}
       ref={ref}
       className={classNames(
         collapsed
           ? "w-10 shadow-md bg-primary-100"
           : "w-1/3 shadow-xl bg-primary-200",
-        "absolute top-0 right-0  h-screen z-20 border-l transition-all"
+        "absolute top-0 right-0 z-20 border-l transition-all"
       )}>
       {collapsed ? (
         <button
@@ -102,6 +108,15 @@ const Cart: React.FC = () => {
             toggleCollapsed(!collapsed);
           }}>
           <img className="pt-2 pl-1 hover:opacity-75" src={shoppingCart} />
+          {itemsInCart > 0 && (
+            <div
+              className={classNames(
+                itemsInCart > 9 ? "left-[3px]" : "left-[5px]",
+                "relative text-xs text-center bottom-[23px] text-white"
+              )}>
+              {itemsInCart}
+            </div>
+          )}
         </button>
       ) : (
         <div className="flex flex-col">
@@ -168,7 +183,7 @@ function getCartContents(
     );
   }
 
-  return itemArray.map((key) => {
+  const items = itemArray.map((key) => {
     const product = cartItems[key];
 
     if (product) {
@@ -179,20 +194,24 @@ function getCartContents(
         : null;
 
       return (
-        <div className="cart font-serif text-xl my-12 grid grid-cols-5">
+        <div className="cart font-serif text-lg my-8 grid grid-cols-5 bg-primary-100 p-4 rounded-lg">
           {image && (
             <GatsbyImage
               image={image}
               alt=""
-              className="object-cover h-[475px] row-start-1 col-start-1"
+              className="object-cover h-[475px] row-start-1 col-start-1 self-center"
             />
           )}
           <div className="grid grid-cols-3 grid-rows-2 content-center items-center col-start-2 col-span-4 row-start-1">
-            <p className="ml-4 col-start-1 col-span-2">{product.name}</p>
+            <p className="ml-4 col-start-1 col-span-2 text-base">
+              {product.name}
+            </p>
             <p>${price}</p>
-            <p className="ml-4 col-start-1 col-span-3">
+            <hr className="w-full col-start-1 col-span-3 border-primary-200" />
+            <p className="ml-4 col-start-1 col-span-2 self-end text-base">
               QTY:{" "}
               <button
+                disabled={localQty === 0}
                 onClick={() => {
                   incrementQty(product, true);
                   localQty = localQty - 1;
@@ -208,11 +227,21 @@ function getCartContents(
                 +
               </button>
             </p>
+            <button className="uppercase text-xs justify-self-start hover:underline self-end mb-1">
+              delete
+            </button>
           </div>
         </div>
       );
     }
   });
+
+  return (
+    <div>
+      {/* <h1 className="text-center text-2xl font-serif">** Your Cart **</h1> */}
+      {items}
+    </div>
+  );
 }
 
 export default Cart;

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 
 const useHandleWindowResize = () => {
-  const [screenHeight, setScreenHeight] = useState(window.screen.height - 180);
+  const diff = 180;
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight - diff);
 
   const handleSetScreenHeight = () => {
-    setScreenHeight(window.screen.height - 180);
-    console.log("height", window.screen.availHeight - 180);
+    setScreenHeight(window.innerHeight - diff);
+    console.log("height", window.screen.availHeight - diff);
   };
 
   useEffect(() => {

@@ -6,19 +6,11 @@ import classNames from "classnames";
 
 // TODO
 // Make site responsive 🥲
-
-// /shop/
-// Fix widths of shop items
-
-// checkout
-// Make checkout beautiful 😌
+// Figure out how to keep cart in sync
 
 // THEN
 // Clean up assets
 // Take pictures & edit for consistent presentation
-
-// BONUS
-// Chrome-style text on splash page
 
 const IndexPage: React.FC = () => {
   const setSessionValue = () => {
