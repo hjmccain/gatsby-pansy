@@ -146,8 +146,21 @@ const ProductDetails: React.FC<{ product: ProductWithPrice }> = ({
 }: {
   product: ProductWithPrice;
 }) => {
-  const [cart, updateCart] = useLocalStorage("cart", {});
-  const handleUpdateCart = () => updateCart({ ...cart, [product.id]: product });
+  const [cart, updateCart] = useLocalStorage("cart", {} as any);
+  const handleUpdateCart = () => {
+    const current = cart[product.id];
+
+    if (current) {
+      const updated = {
+        ...cart,
+        [product.id]: { ...product, quantity: current.quantity + 1 },
+      };
+
+      updateCart(updated);
+    } else {
+      updateCart({ ...cart, [product.id]: { ...product, quantity: 1 } });
+    }
+  };
 
   return (
     <div className="flex">

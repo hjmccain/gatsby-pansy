@@ -7,13 +7,6 @@ import classNames from "classnames";
 // TODO
 // Make site responsive 🥲
 
-// /books/
-// Book text hides on hover
-
-// /books/ & /events/
-// Make images change on hover
-// Display event & book info on click
-
 // /shop/
 // Fix widths of shop items
 

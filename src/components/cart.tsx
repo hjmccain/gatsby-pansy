@@ -4,26 +4,58 @@ import shoppingCart from "../assets/icons/icons8-shopping-cart-30.png";
 import cancel from "../assets/icons/icons8-cancel-48.png";
 
 import classNames from "classnames";
-import React, {
-  MutableRefObject,
-  RefObject,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { getLocalStorage } from "../hooks/useLocalStorage";
-import { findImage, ProductWithPrice } from "../pages/shop";
+import React, { useEffect, useRef, useState } from "react";
+import useLocalStorage, { getLocalStorage } from "../hooks/useLocalStorage";
+import { ProductWithPrice } from "../pages/shop";
 import { useStaticQuery, graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import useOutsideClick from "../hooks/useOutsideClick";
+import findImage, { AllFile } from "../helpers/findImage";
+import useHandleUpdateCart from "../hooks/useHandleUpdateCart";
+
+type ProductWithPriceAndQty = ProductWithPrice & { quantity: number };
 
 const Cart: React.FC = () => {
-  const cartItems: Record<string, ProductWithPrice> = getLocalStorage("cart");
+  const cartItems: Record<string, ProductWithPriceAndQty> =
+    getLocalStorage("cart");
   const [step, setStep] = useState<Step>(Step.review);
   const [collapsed, toggleCollapsed] = useState(true);
   const location = window.location.toString();
   const ref = useRef<HTMLDivElement>(null);
   useOutsideClick(ref, () => !collapsed && toggleCollapsed(true));
+  const itemArray = Object.keys(cartItems);
+  const [cart, updateCart] = useLocalStorage("cart", {} as any);
+  const handleUpdateCart = (
+    product: ProductWithPriceAndQty,
+    decrement?: boolean,
+    deleteItem?: boolean
+  ) => {
+    const current = cart[product.id];
+
+    if (current) {
+      if (deleteItem) {
+        const updated = {
+          ...cart,
+          [product.id]: null,
+        };
+        updateCart(updated);
+      } else {
+        const updated = {
+          ...cart,
+          [product.id]: {
+            ...product,
+            quantity: decrement ? current.quantity - 1 : current.quantity + 1,
+          },
+        };
+        console.log(updated);
+
+        updateCart(updated);
+      }
+    } else {
+      updateCart({ ...cart, [product.id]: { ...product, quantity: 1 } });
+    }
+  };
+
   const { allFile } = useStaticQuery(graphql`
     query imageQuery {
       allFile {
@@ -50,6 +82,9 @@ const Cart: React.FC = () => {
     }
   }, [location]);
 
+  const incrementQty = (product: ProductWithPriceAndQty, decrement?: boolean) =>
+    handleUpdateCart(product, decrement);
+
   return (
     <div
       ref={ref}
@@ -75,33 +110,17 @@ const Cart: React.FC = () => {
           </button>
           {step === "review" && (
             <div className="mx-12">
-              {Object.keys(cartItems).map((key) => {
-                const product = cartItems[key];
-                const image = findImage(allFile, product.id);
-                const price = product.price.unit_amount
-                  ? product.price.unit_amount / 100
-                  : null;
-
-                return (
-                  <div className="cart grid grid-cols-5 content-center items-center mb-8 font-body">
-                    {image && (
-                      <GatsbyImage
-                        image={image}
-                        alt=""
-                        className="object-cover h-[475px] row-start-1 col-start-1"
-                      />
-                    )}
-                    <p className="ml-4 col-start-2 col-span-3">
-                      {product.name}
-                    </p>
-                    <p>${price}</p>
-                  </div>
-                );
-              })}
+              {getCartContents(itemArray, cartItems, allFile, incrementQty)}
               <button
-                className="bg-white hover:bg-black hover:text-white py-2 uppercase transition-colors w-full text-2xl"
+                disabled={!itemArray.length}
+                className={classNames(
+                  !itemArray.length
+                    ? "bg-gray-100 text-gray-300"
+                    : "bg-white hover:bg-black hover:text-white",
+                  "py-2 uppercase transition-colors w-full text-2xl"
+                )}
                 onClick={handleCheckout}>
-                Checkout !
+                Checkout
               </button>
             </div>
           )}
@@ -131,6 +150,69 @@ async function handleCheckout() {
   } else {
     console.error("error redirecting");
   }
+}
+
+function getCartContents(
+  itemArray: Array<string>,
+  cartItems: Record<string, ProductWithPriceAndQty | null>,
+  allFile: AllFile,
+  incrementQty: (product: ProductWithPriceAndQty, decrement?: boolean) => void
+) {
+  if (!itemArray.length) {
+    return (
+      <div className="flex justify-center my-12">
+        <div className="bg-black w-40 h-40 text-white rounded-full flex justify-center items-center align-center">
+          <p className="font-serif text-xl text-center">Your cart is empty</p>
+        </div>
+      </div>
+    );
+  }
+
+  return itemArray.map((key) => {
+    const product = cartItems[key];
+
+    if (product) {
+      let localQty = product.quantity;
+      const image = findImage(allFile, product.id);
+      const price = product.price.unit_amount
+        ? product.price.unit_amount / 100
+        : null;
+
+      return (
+        <div className="cart font-serif text-xl my-12 grid grid-cols-5">
+          {image && (
+            <GatsbyImage
+              image={image}
+              alt=""
+              className="object-cover h-[475px] row-start-1 col-start-1"
+            />
+          )}
+          <div className="grid grid-cols-3 grid-rows-2 content-center items-center col-start-2 col-span-4 row-start-1">
+            <p className="ml-4 col-start-1 col-span-2">{product.name}</p>
+            <p>${price}</p>
+            <p className="ml-4 col-start-1 col-span-3">
+              QTY:{" "}
+              <button
+                onClick={() => {
+                  incrementQty(product, true);
+                  localQty = localQty - 1;
+                }}>
+                -
+              </button>{" "}
+              {localQty}{" "}
+              <button
+                onClick={() => {
+                  incrementQty(product, false);
+                  localQty = localQty + 1;
+                }}>
+                +
+              </button>
+            </p>
+          </div>
+        </div>
+      );
+    }
+  });
 }
 
 export default Cart;

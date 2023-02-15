@@ -102,3 +102,11 @@
     transform: translate3d(var(--move-final), 0, 0);
   }
 }
+
+svg {
+  fill: currentColor;
+  height: auto;
+  max-width: 22vmin;
+  transform-origin: center;
+  width: 22%;
+}
