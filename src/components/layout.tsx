@@ -22,20 +22,27 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       <Link to="/">
         <h1
           className={classNames(
-            "absolute top-[-72px] left-0 text-primary-200 hover:tracking-widest hover:ml-4 h-0",
-            "text-super-big font-display transition-all"
+            "absolute left-0 text-primary-200 hover:tracking-widest hover:ml-4 h-0 font-display transition-all",
+            "text-small top-[-40]",
+            "md:text-medium",
+            "lg:text-big",
+            "xl:text-display xl:top-[-72px]"
           )}>
           pansy
         </h1>
       </Link>
-      <nav className="mt-1 w-full flex flex-col items-end text-4xl">
+      <nav
+        className={classNames(
+          "mt-28 w-full flex flex-row items-end text-2xl flex-wrap",
+          "sm:text-4xl sm:flex-col sm:mt-1"
+        )}>
         <Link className="block h-[35px]" to="/about">
           <h1
             className={classNames(
               pathname === "/about/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-black transition-all border-primary-200 w-fit mr-12"
+              "text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
             ABOUT
           </h1>
@@ -46,7 +53,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/submit/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "font-sans text-black transition-all border-primary-200 w-fit mr-12"
+              "font-sans text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
             SUBMIT
           </h1>
@@ -57,7 +64,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/events/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "font-sans text-black transition-all border-primary-200 w-fit mr-12"
+              "font-sans text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
             EVENTS
           </h1>
@@ -68,7 +75,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/books/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "font-sans text-black transition-all border-primary-200 w-fit mr-12"
+              "font-sans text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
             BOOKS
           </h1>
@@ -79,7 +86,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/shop/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "font-sans text-black transition-all border-primary-200 w-fit mr-12"
+              "font-sans text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
             SHOP
           </h1>

@@ -49,8 +49,6 @@ const Cart: React.FC = () => {
             quantity: decrement ? current.quantity - 1 : current.quantity + 1,
           },
         };
-        console.log(updated);
-
         updateCart(updated);
       }
     } else {
@@ -97,7 +95,7 @@ const Cart: React.FC = () => {
       className={classNames(
         collapsed
           ? "w-10 shadow-md bg-primary-100"
-          : "w-1/3 shadow-xl bg-primary-200",
+          : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-primary-200",
         "absolute top-0 right-0 z-20 border-l transition-all"
       )}>
       {collapsed ? (
@@ -194,15 +192,24 @@ function getCartContents(
         : null;
 
       return (
-        <div className="cart font-serif text-lg my-8 grid grid-cols-5 bg-primary-100 p-4 rounded-lg">
+        <div
+          className={classNames(
+            "cart font-serif text-lg my-8 grid bg-primary-100 p-4 rounded-lg",
+            "lg:grid-rows-2",
+            "xl:grid-cols-5 xl:grid-rows-1"
+          )}>
           {image && (
             <GatsbyImage
               image={image}
               alt=""
-              className="object-cover h-[475px] row-start-1 col-start-1 self-center"
+              className="object-cover h-[475px] row-start-1 col-start-1 place-self-center"
             />
           )}
-          <div className="grid grid-cols-3 grid-rows-2 content-center items-center col-start-2 col-span-4 row-start-1">
+          <div
+            className={classNames(
+              "grid grid-cols-3 grid-rows-2 content-center items-center ml-4 mt-8",
+              "xl:col-start-2 xl:col-span-4 xl:row-start-1 xl:mt-0"
+            )}>
             <p className="ml-4 col-start-1 col-span-2 text-base">
               {product.name}
             </p>

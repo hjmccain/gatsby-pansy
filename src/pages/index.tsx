@@ -40,7 +40,7 @@ const IndexPage: React.FC = () => {
               entered
                 ? "absolute top-[-72px] left-0 text-black"
                 : "text-center text-white hover:tracking-widest",
-              "text-super-big font-display transition-all"
+              "text-display font-display transition-all"
             )}>
             pansy
           </h1>
@@ -53,43 +53,55 @@ const IndexPage: React.FC = () => {
 
 const Home: React.FC = () => {
   return (
-    <nav className="relative z-10 text-primary-200">
-      <Link className="block h-[125px]" to="/about">
+    <nav
+      className={classNames(
+        "relative z-10 text-primary-200 text-medium",
+        "xl:text-big"
+      )}>
+      <Link
+        className={classNames("block h-[95px]", "xl:h-[125px]")}
+        to="/about">
         <h1
           className={classNames(
-            "mt-[150px] w-fit hover:w-full block text-big font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
+            "mt-[150px] w-fit hover:w-full block font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           ABOUT
         </h1>
       </Link>
-      <Link className="block h-[125px]" to="/submit">
+      <Link
+        className={classNames("block h-[95px]", "xl:h-[125px]")}
+        to="/submit">
         <h1
           className={classNames(
-            "w-fit hover:w-full block text-big font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           SUBMIT
         </h1>
       </Link>
-      <Link className="block h-[125px]" to="/events">
+      <Link
+        className={classNames("block h-[95px]", "xl:h-[125px]")}
+        to="/events">
         <h1
           className={classNames(
-            "w-fit hover:w-full block text-big font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           EVENTS
         </h1>
       </Link>
-      <Link className="block h-[125px]" to="/books">
+      <Link
+        className={classNames("block h-[95px]", "xl:h-[125px]")}
+        to="/books">
         <h1
           className={classNames(
-            "w-fit hover:w-full block text-big font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           BOOKS
         </h1>
       </Link>
-      <Link className="block h-[125px]" to="/shop">
+      <Link className={classNames("block h-[95px]", "xl:h-[125px]")} to="/shop">
         <h1
           className={classNames(
-            "w-fit hover:w-full block text-big font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           SHOP
         </h1>

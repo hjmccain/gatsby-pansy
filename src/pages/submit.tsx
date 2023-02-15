@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import * as React from "react";
 import Layout from "../components/layout";
 import useHandleWindowResize from "../hooks/useHandleWindowResize";
@@ -14,7 +15,11 @@ const Submit = () => {
         }}
         className="grid grid-cols-2 h-screen relative">
         <div className="z-10 overflow-scroll bg-primary-200">
-          <h2 className="mt-[-67px] text-left text-big whitespace-nowrap text-white">
+          <h2
+            className={classNames(
+              "text-left text-medium whitespace-nowrap text-white mt-[-50px]",
+              "xl:mt-[-67px] xl:text-big"
+            )}>
             SUBMIT
           </h2>
           <p className="text-2xl mx-12 mb-6 font-serif">

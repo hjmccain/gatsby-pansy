@@ -10,6 +10,8 @@ import {
 } from "gatsby-plugin-image";
 import findImage from "../helpers/findImage";
 import classNames from "classnames";
+// @ts-ignore
+import arrow from "../assets/icons/arrow.png";
 
 export type ProductWithPrice = Stripe.Product & { price: Stripe.Price };
 export type ProductWithPriceAndQty = ProductWithPrice & { quantity: number };
@@ -59,7 +61,7 @@ const Shop = () => {
             image2={findImage(allFile, `${productSelected.id}-alt`)}
           />
         ) : (
-          <div className="mt-12 font-body gap-x-10">
+          <div className="mt-12 font-body text-center lg:text-left">
             {products.map((product) => {
               const image1 = findImage(allFile, product.id);
               const image2 = findImage(allFile, `${product.id}-alt`);
@@ -178,11 +180,6 @@ const ProductDetails: React.FC<{
 
   return (
     <div className="mx-12 mt-4">
-      <button
-        onClick={handleSelectImage}
-        className="absolute uppercase text-medium font-serif left-[48%] top-[52%] z-50">
-        {"→"}
-      </button>
       <Link
         to="/shop"
         className="uppercase text-4xl hover:opacity-70 font-serif">
@@ -191,7 +188,11 @@ const ProductDetails: React.FC<{
       </Link>
       <div className="grid grid-cols-2 font-serif mb-0">
         <button onClick={handleSelectImage} className="grid col-span-1">
-          <div className={classNames("col-span-1 col-start-1 row-start-1")}>
+          <div
+            style={{
+              cursor: `url(${arrow}),auto`,
+            }}
+            className={classNames("col-span-1 col-start-1 row-start-1")}>
             {image1 && (
               <GatsbyImage
                 image={image1}
@@ -203,7 +204,11 @@ const ProductDetails: React.FC<{
               />
             )}
           </div>
-          <div className={classNames("col-span-1 col-start-1 row-start-1")}>
+          <div
+            style={{
+              cursor: `url(${arrow}),auto`,
+            }}
+            className={classNames("col-span-1 col-start-1 row-start-1")}>
             {image2 && (
               <GatsbyImage
                 image={image2}

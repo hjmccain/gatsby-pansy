@@ -5,6 +5,7 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import useHandleWindowResize from "../hooks/useHandleWindowResize";
 import { useStaticQuery, graphql } from "gatsby";
 import findImage from "../helpers/findImage";
+import classNames from "classnames";
 
 enum Event {
   beforeMorningRelease = "beforeMorningRelease",
@@ -41,7 +42,11 @@ const Events = () => {
         }}
         className="grid grid-cols-2">
         <div className="relative z-20 bg-primary-200 overflow-scroll pb-12">
-          <h2 className="mt-[-67px] text-left text-big whitespace-nowrap text-white">
+          <h2
+            className={classNames(
+              "text-left text-medium whitespace-nowrap text-white mt-[-50px]",
+              "xl:mt-[-67px] xl:text-big"
+            )}>
             EVENTS
           </h2>
           <div className="ml-12 mr-4">

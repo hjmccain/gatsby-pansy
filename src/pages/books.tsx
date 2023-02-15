@@ -15,7 +15,7 @@ enum Book {
 
 const Books = () => {
   const screenHeight = useHandleWindowResize();
-  const top = useHandleScroll(333, "book-info");
+  const top = useHandleScroll(320, "book-info");
   const [hovered, setHovered] = useState<Book | null>(null);
   const [selected, setSelected] = useState(Book.beforeMorning);
   const bookDescription = hovered
@@ -66,33 +66,45 @@ const Books = () => {
           <ul>
             <button
               id={Book.beforeMorning}
-              className="block h-[60px]"
+              className={classNames("block h-[64px]")}
               onClick={() => setSelected(Book.beforeMorning)}>
-              <li className="book-nav text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
+              <li
+                className={classNames(
+                  "book-nav text-left text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                )}>
                 BEFORE MORNING
               </li>
             </button>
             <button
               id={Book.creature}
-              className="block h-[60px]"
+              className={classNames("block h-[64px]")}
               onClick={() => setSelected(Book.creature)}>
-              <li className="book-nav text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
+              <li
+                className={classNames(
+                  "book-nav text-left text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                )}>
                 CREATURE OF HABIT
               </li>
             </button>
             <button
               id={Book.poeming}
-              className="block h-[60px]"
+              className={classNames("block h-[64px]")}
               onClick={() => setSelected(Book.poeming)}>
-              <li className="book-nav text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
+              <li
+                className={classNames(
+                  "book-nav text-left text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                )}>
                 POEMING
               </li>
             </button>
             <button
               id={Book.notThere}
-              className="block h-[60px]"
+              className={classNames("block h-[64px]")}
               onClick={() => setSelected(Book.notThere)}>
-              <li className="book-nav text-left text-medium whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen">
+              <li
+                className={classNames(
+                  "book-nav text-left text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                )}>
                 WHAT'S NOT THERE
               </li>
             </button>
@@ -107,18 +119,20 @@ const Books = () => {
           <div
             style={{
               height: `${screenHeight}px`,
-              // overflow: "hidden",
-              // TODO: Resize not working
             }}
             id="scrollable-div"
             className="relative z-20 bg-primary-200 overflow-scroll">
-            <h2 className="mt-[-67px] text-left text-big whitespace-nowrap text-white">
+            <h2
+              className={classNames(
+                "text-left text-medium whitespace-nowrap text-white mt-[-50px]",
+                "xl:mt-[-67px] xl:text-big"
+              )}>
               BOOKS
             </h2>
             <div
               id="book-info"
               className={classNames(
-                "font-serif text-3xl mt-[250px] mx-12 relative pb-12"
+                "font-serif text-3xl mt-[300px] xl:mt-[250px] mx-12 relative pb-12"
               )}>
               {bookDescription}
             </div>
