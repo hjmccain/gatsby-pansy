@@ -38,18 +38,21 @@ const Events = () => {
       <div
         style={{
           height: `${screenHeight}px`,
-          overflow: "hidden",
         }}
-        className="grid grid-cols-2">
+        className={classNames(
+          "overflow-scroll",
+          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1"
+        )}>
         <div className="relative z-20 bg-primary-200 overflow-scroll pb-12">
           <h2
             className={classNames(
-              "text-left text-medium whitespace-nowrap text-white mt-[-50px]",
+              "text-left whitespace-nowrap text-white text-small",
+              "lg:text-medium lg:mt-[-50px]",
               "xl:mt-[-67px] xl:text-big"
             )}>
             EVENTS
           </h2>
-          <div className="ml-12 mr-4">
+          <div className="ml-4 lg:ml-12 mr-4">
             <h4 className="text-3xl text-white">UPCOMING</h4>
             <ul className="text-5xl">
               <li id={Event.creatureRelease} className="mb-12">

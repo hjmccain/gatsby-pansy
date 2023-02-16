@@ -62,48 +62,52 @@ const Books = () => {
           style={{
             top: `${top}px`,
           }}
-          className="absolute left-0 z-30">
+          className="absolute left-0 z-30 bg-white w-full lg:bg-transparent lg:w-auto">
           <ul>
             <button
               id={Book.beforeMorning}
-              className={classNames("block h-[64px]")}
+              className={classNames("block lg:h-[64px]")}
               onClick={() => setSelected(Book.beforeMorning)}>
               <li
                 className={classNames(
-                  "book-nav text-left text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                  selected === Book.beforeMorning ? "italic" : "no-italic",
+                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
                 )}>
                 BEFORE MORNING
               </li>
             </button>
             <button
               id={Book.creature}
-              className={classNames("block h-[64px]")}
+              className={classNames("block lg:h-[64px]")}
               onClick={() => setSelected(Book.creature)}>
               <li
                 className={classNames(
-                  "book-nav text-left text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                  selected === Book.creature ? "italic" : "no-italic",
+                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
                 )}>
                 CREATURE OF HABIT
               </li>
             </button>
             <button
               id={Book.poeming}
-              className={classNames("block h-[64px]")}
+              className={classNames("block lg:h-[64px]")}
               onClick={() => setSelected(Book.poeming)}>
               <li
                 className={classNames(
-                  "book-nav text-left text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                  selected === Book.poeming ? "italic" : "no-italic",
+                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
                 )}>
                 POEMING
               </li>
             </button>
             <button
               id={Book.notThere}
-              className={classNames("block h-[64px]")}
+              className={classNames("block lg:h-[64px]")}
               onClick={() => setSelected(Book.notThere)}>
               <li
                 className={classNames(
-                  "book-nav text-left text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                  selected === Book.notThere ? "italic" : "no-italic",
+                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
                 )}>
                 WHAT'S NOT THERE
               </li>
@@ -113,9 +117,11 @@ const Books = () => {
         <div
           style={{
             height: `${screenHeight}px`,
-            overflow: "hidden",
           }}
-          className="grid grid-cols-2">
+          className={classNames(
+            "overflow-scroll",
+            "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1"
+          )}>
           <div
             style={{
               height: `${screenHeight}px`,
@@ -124,7 +130,8 @@ const Books = () => {
             className="relative z-20 bg-primary-200 overflow-scroll">
             <h2
               className={classNames(
-                "text-left text-medium whitespace-nowrap text-white mt-[-50px]",
+                "text-left whitespace-nowrap text-white text-small",
+                "lg:text-medium lg:mt-[-50px]",
                 "xl:mt-[-67px] xl:text-big"
               )}>
               BOOKS
@@ -132,7 +139,7 @@ const Books = () => {
             <div
               id="book-info"
               className={classNames(
-                "font-serif text-3xl mt-[300px] xl:mt-[250px] mx-12 relative pb-12"
+                "font-serif text-3xl mt-32 lg:mt-[300px] xl:mt-[250px] mx-2 lg:mx-12 relative pb-12"
               )}>
               {bookDescription}
             </div>

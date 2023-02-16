@@ -11,18 +11,21 @@ const Submit = () => {
       <div
         style={{
           height: `${screenHeight}px`,
-          overflow: "hidden",
         }}
-        className="grid grid-cols-2 h-screen relative">
+        className={classNames(
+          "overflow-scroll",
+          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1"
+        )}>
         <div className="z-10 overflow-scroll bg-primary-200">
           <h2
             className={classNames(
-              "text-left text-medium whitespace-nowrap text-white mt-[-50px]",
+              "text-left whitespace-nowrap text-white text-small",
+              "lg:text-medium lg:mt-[-50px]",
               "xl:mt-[-67px] xl:text-big"
             )}>
             SUBMIT
           </h2>
-          <p className="text-2xl mx-12 mb-6 font-serif">
+          <p className="text-2xl mx-2 lg:mx-12 mb-6 font-serif">
             If you're interested in submitting to Pansy Press, please read the
             submission guidelines &#38; info below. If everything looks good, go
             ahead and submit. We're excited to read your work :)

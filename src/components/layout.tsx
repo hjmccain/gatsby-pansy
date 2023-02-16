@@ -23,9 +23,9 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         <h1
           className={classNames(
             "absolute left-0 text-primary-200 hover:tracking-widest hover:ml-4 h-0 font-display transition-all",
-            "text-small top-[-40]",
+            "text-small top-[-20px]",
             "md:text-medium",
-            "lg:text-big",
+            "lg:text-big lg:top-[-40px]",
             "xl:text-display xl:top-[-72px]"
           )}>
           pansy

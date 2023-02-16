@@ -11,18 +11,25 @@ const About = () => {
       <div
         style={{
           height: `${screenHeight}px`,
-          overflow: "hidden",
         }}
-        className="grid grid-cols-2">
+        className={classNames(
+          "overflow-scroll",
+          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1"
+        )}>
         <div className="bg-primary-200 overflow-scroll pb-12">
           <h2
             className={classNames(
-              "text-left text-medium whitespace-nowrap text-white mt-[-50px]",
+              "text-left whitespace-nowrap text-white text-small",
+              "lg:text-medium lg:mt-[-50px]",
               "xl:mt-[-67px] xl:text-big"
             )}>
             ABOUT
           </h2>
-          <div className="text-2xl mx-12 text-justify font-serif">
+          <div
+            className={classNames(
+              "text-2xl mx-2 md:mx-12 font-serif",
+              "xl:text-justify"
+            )}>
             <h3 className="text-4xl mb-6">HI, WE'RE PANSY PRESS!</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis

@@ -179,7 +179,7 @@ const ProductDetails: React.FC<{
   }
 
   return (
-    <div className="mx-12 mt-4">
+    <div className="mx-0 lg:mx-12 mt-4">
       <Link
         to="/shop"
         className="uppercase text-4xl hover:opacity-70 font-serif">
