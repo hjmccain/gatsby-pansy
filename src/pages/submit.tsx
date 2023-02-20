@@ -105,7 +105,7 @@ const Submit = () => {
             height: `${screenHeight}px`,
             overflow: "hidden",
           }}
-          className="bg-[url(../assets/images/binding2.jpg)] bg-cover bg-no-repeat"></div>
+          className="bg-[url(../assets/images/submit-illustration.jpg)] bg-cover bg-no-repeat"></div>
       </div>
     </Layout>
   );

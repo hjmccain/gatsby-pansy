@@ -41,7 +41,7 @@ const Events = () => {
         }}
         className={classNames(
           "overflow-scroll",
-          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1"
+          "lg:grid lg:grid-cols-2 lg:grid-rows-1"
         )}>
         <div className="relative z-20 bg-primary-200 overflow-scroll pb-12">
           <h2
@@ -114,14 +114,10 @@ const Events = () => {
         <div
           style={{
             height: `${screenHeight}px`,
-            overflow: "hidden",
+            overflow: "scroll",
           }}>
           {image && (
-            <GatsbyImage
-              image={image}
-              alt=""
-              className="object-cover w-full h-full"
-            />
+            <GatsbyImage image={image} alt="" className="object-cover" />
           )}
         </div>
       </div>

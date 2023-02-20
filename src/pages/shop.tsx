@@ -69,9 +69,12 @@ const Shop = () => {
                 ? product.price.unit_amount / 100
                 : null;
 
+              console.log(product);
+
               if (price) {
                 return (
                   <ProductBlock
+                    active={product.active}
                     key={product.id}
                     product={product.id}
                     title={product.name}
@@ -111,11 +114,13 @@ const Shop = () => {
 };
 
 const ProductBlock = ({
+  active,
   product,
   title,
   price,
   children,
 }: {
+  active: boolean;
   product: string;
   title: string;
   price: number | string;
@@ -131,11 +136,11 @@ const ProductBlock = ({
         width: `${productDimensions}px`,
         height: `${productDimensions}px`,
       }}
-      className="group mx-[18px]">
+      className="group mx-[18px] font-serif">
       {children}
       <div className="text-xl flex justify-between relative bottom-10 px-4 py-2 group-hover:opacity-90 opacity-0 transition-opacity bg-white">
         <p className="italic">{title}</p>
-        <p>${price}</p>
+        {active ? <p>${price}</p> : <p>SOLD OUT</p>}
       </div>
     </button>
   );
@@ -157,6 +162,9 @@ const ProductDetails: React.FC<{
   const [selectedImage, setSelectedImage] = useState("image2");
   const [localQty, setLocalQty] = useState(1);
   const [cart, updateCart] = useLocalStorage("cart", {} as any);
+  const price = product.price.unit_amount
+    ? product.price.unit_amount / 100
+    : null;
   const handleUpdateCart = () => {
     const current = cart[product.id];
 
@@ -224,24 +232,30 @@ const ProductDetails: React.FC<{
         <div className="col-start-2 p-12 bg-primary-100 mr-12">
           <h1 className="uppercase text-4xl">{product.name}</h1>
           <h1 className="my-12">{product.description}</h1>
-          <p className="col-start-1 col-span-2 self-end text-base">
-            QTY:{" "}
-            <button
-              disabled={localQty === 1}
-              onClick={() => {
-                setLocalQty(localQty - 1);
-              }}>
-              -
-            </button>{" "}
-            {localQty}{" "}
-            <button
-              onClick={() => {
-                setLocalQty(localQty + 1);
-              }}>
-              +
-            </button>
-          </p>
+          <h1 className="my-12">
+            {product.active ? <p>${price}</p> : <p>SOLD OUT</p>}
+          </h1>
+          {product.active && (
+            <p className="col-start-1 col-span-2 self-end text-base">
+              QTY:{" "}
+              <button
+                disabled={localQty === 1}
+                onClick={() => {
+                  setLocalQty(localQty - 1);
+                }}>
+                -
+              </button>{" "}
+              {localQty}{" "}
+              <button
+                onClick={() => {
+                  setLocalQty(localQty + 1);
+                }}>
+                +
+              </button>
+            </p>
+          )}
           <button
+            disabled={!product.active}
             className="font-sans uppercase mt-4 py-4 px-8 border-black border hover:bg-black hover:text-white bg-white"
             onClick={handleUpdateCart}>
             Add to Cart

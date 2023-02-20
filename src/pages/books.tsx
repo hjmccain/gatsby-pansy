@@ -17,7 +17,7 @@ const Books = () => {
   const screenHeight = useHandleWindowResize();
   const top = useHandleScroll(320, "book-info");
   const [hovered, setHovered] = useState<Book | null>(null);
-  const [selected, setSelected] = useState(Book.beforeMorning);
+  const [selected, setSelected] = useState(Book.notThere);
   const bookDescription = hovered
     ? bookDescriptions[hovered]
     : bookDescriptions[selected];
@@ -65,6 +65,18 @@ const Books = () => {
           className="absolute left-0 z-30 bg-white w-full lg:bg-transparent lg:w-auto">
           <ul>
             <button
+              id={Book.notThere}
+              className={classNames("block lg:h-[64px]")}
+              onClick={() => setSelected(Book.notThere)}>
+              <li
+                className={classNames(
+                  selected === Book.notThere ? "italic" : "no-italic",
+                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                )}>
+                WHAT'S NOT THERE
+              </li>
+            </button>
+            <button
               id={Book.beforeMorning}
               className={classNames("block lg:h-[64px]")}
               onClick={() => setSelected(Book.beforeMorning)}>
@@ -98,18 +110,6 @@ const Books = () => {
                   "book-nav text-left lg:text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
                 )}>
                 POEMING
-              </li>
-            </button>
-            <button
-              id={Book.notThere}
-              className={classNames("block lg:h-[64px]")}
-              onClick={() => setSelected(Book.notThere)}>
-              <li
-                className={classNames(
-                  selected === Book.notThere ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
-                )}>
-                WHAT'S NOT THERE
               </li>
             </button>
           </ul>
@@ -147,10 +147,12 @@ const Books = () => {
           <div
             style={{
               height: `${screenHeight}px`,
-              overflow: "hidden",
+              overflow: "scroll",
             }}
-            className="bg-primary-200">
-            {image && <GatsbyImage image={image} alt="" />}
+            className="bg-primary-white">
+            {image && (
+              <GatsbyImage image={image} alt="" className="object-cover" />
+            )}
           </div>
         </div>
       </div>
