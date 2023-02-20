@@ -65,12 +65,12 @@ const Home: React.FC = () => {
       )}>
       <Link
         className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
-        to="/about">
+        to="/shop">
         <h1
           className={classNames(
             "mt-[60px] sm:mt-[150px] w-fit hover:w-full block font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
-          ABOUT
+          SHOP
         </h1>
       </Link>
       <Link
@@ -105,12 +105,12 @@ const Home: React.FC = () => {
       </Link>
       <Link
         className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
-        to="/shop">
+        to="/about">
         <h1
           className={classNames(
             "w-fit hover:w-full block font-sans hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
-          SHOP
+          ABOUT
         </h1>
       </Link>
     </nav>

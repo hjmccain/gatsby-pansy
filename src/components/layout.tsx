@@ -36,15 +36,15 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           "mt-28 w-full flex flex-row items-end text-2xl flex-wrap",
           "sm:text-4xl sm:flex-col sm:mt-1"
         )}>
-        <Link className="block h-[35px]" to="/about">
+        <Link className="block h-[35px]" to="/shop">
           <h1
             className={classNames(
-              pathname === "/about/"
+              pathname === "/shop/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
               "text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
-            ABOUT
+            SHOP
           </h1>
         </Link>
         <Link className="block h-[35px]" to="/submit">
@@ -80,15 +80,15 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
             BOOKS
           </h1>
         </Link>
-        <Link className="block h-[35px]" to="/shop">
+        <Link className="block h-[35px]" to="/about">
           <h1
             className={classNames(
-              pathname === "/shop/"
+              pathname === "/about/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
               "font-sans text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
-            SHOP
+            ABOUT
           </h1>
         </Link>
       </nav>

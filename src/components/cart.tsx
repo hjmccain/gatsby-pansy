@@ -171,6 +171,7 @@ function getCartContents(
   allFile: AllFile,
   incrementQty: (product: ProductWithPriceAndQty, decrement?: boolean) => void
 ) {
+  let subtotal = 0;
   if (!itemArray.length) {
     return (
       <div className="flex justify-center my-12">
@@ -189,7 +190,9 @@ function getCartContents(
       const image = findImage(allFile, product.id);
       const price = product.price.unit_amount
         ? product.price.unit_amount / 100
-        : null;
+        : 0;
+
+      subtotal = subtotal + price * localQty;
 
       return (
         <div
@@ -245,8 +248,21 @@ function getCartContents(
 
   return (
     <div>
-      {/* <h1 className="text-center text-2xl font-serif">** Your Cart **</h1> */}
       {items}
+      <div
+        className={classNames(
+          "cart font-serif text-lg my-8 grid p-4",
+          "grid-rows-2 grid-cols-1",
+          "2xl:grid-cols-4 2xl:grid-rows-1"
+        )}>
+        <p className={classNames("col-start-3")}>{"Subtotal: "}</p>
+        <p
+          className={classNames(
+            "row-start-2 col-start-3 2xl:row-start-1 2xl:col-start-4"
+          )}>
+          ${subtotal}
+        </p>
+      </div>
     </div>
   );
 }
