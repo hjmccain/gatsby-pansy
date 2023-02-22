@@ -19,7 +19,7 @@ const Cart: React.FC = () => {
     getLocalStorage("cart");
   const [step, setStep] = useState<Step>(Step.review);
   const [collapsed, toggleCollapsed] = useState(true);
-  const location = window.location.toString();
+  const [location, setLocation] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   useOutsideClick(ref, () => !collapsed && toggleCollapsed(true));
   const itemKeys = Object.keys(cartItems).filter((key) => {
@@ -32,6 +32,10 @@ const Cart: React.FC = () => {
     return prev;
   }, 0);
   const [_, updateCart] = useLocalStorage("cart", {} as any);
+
+  useEffect(() => {
+    setLocation(window.location.toString());
+  }, []);
 
   const handleUpdateCart = (
     product: ProductWithPriceAndQty,
@@ -82,8 +86,8 @@ const Cart: React.FC = () => {
   `);
 
   useEffect(() => {
-    const url = new URL(location);
-    const success = url.searchParams.get("success");
+    const url = location && new URL(location);
+    const success = url && url.searchParams.get("success");
 
     if (success) {
       // replace URL so you can't navigate back to success state

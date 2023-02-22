@@ -20,7 +20,7 @@ const Shop = () => {
   const [products, setProducts] = useState<Array<ProductWithPrice>>([]);
   const [productSelected, setSelectedProduct] =
     useState<ProductWithPrice | null>(null);
-  const location = window.location.toString();
+  const [location, setLocation] = useState("");
   const { allFile } = useStaticQuery(graphql`
     query imageQuery {
       allFile {
@@ -37,6 +37,10 @@ const Shop = () => {
   `);
 
   useEffect(() => {
+    setLocation(window.location.toString());
+  }, []);
+
+  useEffect(() => {
     const getProducts = async () => {
       const productsWithPrices = await handleGetProducts();
 
@@ -45,7 +49,7 @@ const Shop = () => {
     };
 
     getProducts();
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     getLocation(products, location, setSelectedProduct);
