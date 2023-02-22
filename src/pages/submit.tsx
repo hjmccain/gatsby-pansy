@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { StaticImage } from "gatsby-plugin-image";
 import * as React from "react";
 import Layout from "../components/layout";
 import useHandleWindowResize from "../hooks/useHandleWindowResize";
@@ -19,7 +20,8 @@ const Submit = () => {
         <div className="z-10 overflow-scroll bg-primary-200">
           <h2
             className={classNames(
-              "text-left whitespace-nowrap text-white text-small",
+              "text-black",
+              "text-left whitespace-nowrap text-small",
               "lg:text-medium lg:mt-[-50px]",
               "xl:mt-[-67px] xl:text-big"
             )}>
@@ -103,9 +105,14 @@ const Submit = () => {
         <div
           style={{
             height: `${screenHeight}px`,
-            overflow: "hidden",
-          }}
-          className="bg-[url(../assets/images/submit-illustration.jpg)] bg-cover bg-no-repeat"></div>
+            overflow: "scroll",
+          }}>
+          <StaticImage
+            src="../assets/images/submit-illustration.jpg"
+            alt=""
+            className="object-cover"
+          />
+        </div>
       </div>
     </Layout>
   );

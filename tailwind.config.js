@@ -12,6 +12,7 @@ module.exports = {
         serif: ['Director', 'serif']
       },
       fontSize: {
+        'x-small': '3.5rem',
         small: '5.5rem',
         medium: '8rem',
         big: '11rem',

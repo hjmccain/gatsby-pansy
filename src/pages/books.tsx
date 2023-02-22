@@ -15,7 +15,8 @@ enum Book {
 
 const Books = () => {
   const screenHeight = useHandleWindowResize();
-  const top = useHandleScroll(320, "book-info");
+  const bigScreen = screenHeight > 740;
+  const top = useHandleScroll(bigScreen ? 320 : 200, "book-info");
   const [hovered, setHovered] = useState<Book | null>(null);
   const [selected, setSelected] = useState(Book.notThere);
   const bookDescription = hovered
@@ -88,7 +89,7 @@ const Books = () => {
                 BEFORE MORNING
               </li>
             </button>
-            <button
+            {/* <button
               id={Book.creature}
               className={classNames("block lg:h-[64px]")}
               onClick={() => setSelected(Book.creature)}>
@@ -99,7 +100,7 @@ const Books = () => {
                 )}>
                 CREATURE OF HABIT
               </li>
-            </button>
+            </button> */}
             <button
               id={Book.poeming}
               className={classNames("block lg:h-[64px]")}
@@ -130,7 +131,8 @@ const Books = () => {
             className="relative z-20 bg-primary-200 overflow-scroll">
             <h2
               className={classNames(
-                "text-left whitespace-nowrap text-white text-small",
+                "text-black",
+                "text-left whitespace-nowrap text-small",
                 "lg:text-medium lg:mt-[-50px]",
                 "xl:mt-[-67px] xl:text-big"
               )}>

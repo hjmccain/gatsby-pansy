@@ -22,37 +22,47 @@ const Cart: React.FC = () => {
   const location = window.location.toString();
   const ref = useRef<HTMLDivElement>(null);
   useOutsideClick(ref, () => !collapsed && toggleCollapsed(true));
-  const itemArray = Object.keys(cartItems);
-  const itemsInCart = itemArray.reduce((prev, current) => {
-    return prev + cartItems[current].quantity;
+  const itemKeys = Object.keys(cartItems).filter((key) => {
+    return cartItems[key] !== null;
+  });
+  const numberOfItemsInCart = itemKeys.reduce((prev, current) => {
+    if (cartItems[current]) {
+      return prev + cartItems[current].quantity;
+    }
+    return prev;
   }, 0);
-  const [cart, updateCart] = useLocalStorage("cart", {} as any);
+  const [_, updateCart] = useLocalStorage("cart", {} as any);
+
   const handleUpdateCart = (
     product: ProductWithPriceAndQty,
     decrement?: boolean,
     deleteItem?: boolean
   ) => {
-    const current = cart[product.id];
+    const currentCart = getLocalStorage("cart");
+    const current = currentCart[product.id];
+
+    if (deleteItem) {
+      const updated = {
+        ...currentCart,
+        [product.id]: null,
+      };
+      updateCart(updated);
+      return;
+    }
 
     if (current) {
-      if (deleteItem) {
-        const updated = {
-          ...cart,
-          [product.id]: null,
-        };
-        updateCart(updated);
-      } else {
-        const updated = {
-          ...cart,
-          [product.id]: {
-            ...product,
-            quantity: decrement ? current.quantity - 1 : current.quantity + 1,
-          },
-        };
-        updateCart(updated);
-      }
+      const updated = {
+        ...currentCart,
+        [product.id]: {
+          ...(product ? product : {}),
+          quantity: decrement ? current.quantity - 1 : current.quantity + 1,
+        },
+      };
+      updateCart(updated);
+      return;
     } else {
-      updateCart({ ...cart, [product.id]: { ...product, quantity: 1 } });
+      updateCart({ ...currentCart, [product.id]: { ...product, quantity: 1 } });
+      return;
     }
   };
 
@@ -79,6 +89,7 @@ const Cart: React.FC = () => {
       // replace URL so you can't navigate back to success state
       toggleCollapsed(false);
       setStep(Step.success);
+      updateCart({});
     }
   }, [location]);
 
@@ -106,13 +117,13 @@ const Cart: React.FC = () => {
             toggleCollapsed(!collapsed);
           }}>
           <img className="pt-2 pl-1 hover:opacity-75" src={shoppingCart} />
-          {itemsInCart > 0 && (
+          {numberOfItemsInCart > 0 && (
             <div
               className={classNames(
-                itemsInCart > 9 ? "left-[3px]" : "left-[5px]",
+                numberOfItemsInCart > 9 ? "left-[3px]" : "left-[5px]",
                 "relative text-xs text-center bottom-[23px] text-white"
               )}>
-              {itemsInCart}
+              {numberOfItemsInCart}
             </div>
           )}
         </button>
@@ -123,21 +134,31 @@ const Cart: React.FC = () => {
           </button>
           {step === "review" && (
             <div className="mx-12">
-              {getCartContents(itemArray, cartItems, allFile, incrementQty)}
+              {getCartContents(
+                itemKeys,
+                cartItems,
+                allFile,
+                incrementQty,
+                handleUpdateCart
+              )}
               <button
-                disabled={!itemArray.length}
+                disabled={!itemKeys.length}
                 className={classNames(
-                  !itemArray.length
+                  !itemKeys.length
                     ? "bg-gray-100 text-gray-300"
                     : "bg-white hover:bg-black hover:text-white",
                   "py-2 uppercase transition-colors w-full text-2xl"
                 )}
-                onClick={handleCheckout}>
+                onClick={() => handleCheckout(cartItems)}>
                 Checkout
               </button>
             </div>
           )}
-          {step === "success" && <div>you paid!</div>}
+          {step === "success" && (
+            <div className="text-center font-serif text-xl mt-12">
+              <p>Thank you for your purchase !</p>
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -149,12 +170,26 @@ enum Step {
   success = "success",
 }
 
-async function handleCheckout() {
+async function handleCheckout(
+  cartItems: Record<string, ProductWithPriceAndQty>
+) {
+  const itemKeys = Object.keys(cartItems).filter((key) => {
+    return cartItems[key] !== null;
+  });
+  const lineItems = itemKeys.map((key) => {
+    if (cartItems[key]) {
+      return {
+        price: cartItems[key].price.id,
+        quantity: cartItems[key].quantity,
+      };
+    }
+  });
   const res = await fetch("/api/checkout", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
     },
+    body: JSON.stringify({ lineItems }),
   });
 
   if (res) {
@@ -169,9 +204,15 @@ function getCartContents(
   itemArray: Array<string>,
   cartItems: Record<string, ProductWithPriceAndQty | null>,
   allFile: AllFile,
-  incrementQty: (product: ProductWithPriceAndQty, decrement?: boolean) => void
+  incrementQty: (product: ProductWithPriceAndQty, decrement?: boolean) => void,
+  handleUpdateCart: (
+    product: ProductWithPriceAndQty,
+    decrement?: boolean,
+    deleteItem?: boolean
+  ) => void
 ) {
   let subtotal = 0;
+
   if (!itemArray.length) {
     return (
       <div className="flex justify-center my-12">
@@ -237,7 +278,9 @@ function getCartContents(
                 +
               </button>
             </p>
-            <button className="uppercase text-xs justify-self-start hover:underline self-end mb-1">
+            <button
+              onClick={() => handleUpdateCart(product, false, true)}
+              className="uppercase text-xs justify-self-start hover:underline self-end mb-1">
               delete
             </button>
           </div>

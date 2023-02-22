@@ -16,7 +16,7 @@ enum Event {
 
 const Events = () => {
   const screenHeight = useHandleWindowResize();
-  const [selected, setSelected] = useState(Event.creatureRelease);
+  const [selected, setSelected] = useState(Event.poemAndImageWorkshop);
   const { allFile } = useStaticQuery(graphql`
     query imageQuery {
       allFile {
@@ -46,14 +46,15 @@ const Events = () => {
         <div className="relative z-20 bg-primary-200 overflow-scroll pb-12">
           <h2
             className={classNames(
-              "text-left whitespace-nowrap text-white text-small",
+              "text-black",
+              "text-left whitespace-nowrap text-small",
               "lg:text-medium lg:mt-[-50px]",
               "xl:mt-[-67px] xl:text-big"
             )}>
             EVENTS
           </h2>
           <div className="ml-4 lg:ml-12 mr-4">
-            <h4 className="text-3xl text-white">UPCOMING</h4>
+            {/* <h4 className="text-3xl text-white">UPCOMING</h4>
             <ul className="text-5xl">
               <li id={Event.creatureRelease} className="mb-12">
                 <button
@@ -68,7 +69,7 @@ const Events = () => {
                   </p>
                 )}
               </li>
-            </ul>
+            </ul> */}
             <h4 className="text-3xl text-white">PAST</h4>
             <ul className="text-5xl">
               <li id={Event.poemAndImageWorkshop} className="mb-12">

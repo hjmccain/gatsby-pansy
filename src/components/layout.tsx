@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { Link } from "gatsby";
 import React, { useEffect, useState } from "react";
+import useHandleWindowResize from "../hooks/useHandleWindowResize";
 import Cart from "./cart";
 
 interface LayoutProps {
@@ -9,6 +10,9 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   const [pathname, setPathname] = useState("");
+  const screenHeight = useHandleWindowResize();
+  const bigScreen = screenHeight > 740;
+
   useEffect(() => {
     setPathname(window.location.pathname);
   });
@@ -16,7 +20,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <div
       className={classNames(
-        "bg-white",
+        "bg-black",
         "h-screen flex flex-col transition-all relative"
       )}>
       <Link to="/">
@@ -24,17 +28,20 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           className={classNames(
             "absolute left-0 text-primary-200 hover:tracking-widest hover:ml-4 h-0 font-display transition-all",
             "text-small top-[-20px]",
-            "md:text-medium",
-            "lg:text-big lg:top-[-40px]",
-            "xl:text-display xl:top-[-72px]"
+            bigScreen && "md:text-medium",
+            bigScreen && "lg:text-big lg:top-[-40px]",
+            bigScreen && "xl:text-display xl:top-[-72px]"
           )}>
           pansy
         </h1>
       </Link>
       <nav
         className={classNames(
-          "mt-28 w-full flex flex-row items-end text-2xl flex-wrap",
-          "sm:text-4xl sm:flex-col sm:mt-1"
+          "justify-start mt-28 w-full flex flex-row items-end text-2xl flex-wrap text-primary-200",
+          !bigScreen &&
+            "lg:mt-0 lg:justify-end lg:mb-2 xl:mb-4 xl:text-4xl lg:pt-6 xl:pt-4 ",
+          bigScreen &&
+            "min-[2200px]:text-x-small xl:justify-end lg:mt-1 min-[2200px]:mt-36 min-[2200px]:flex-row lg:flex-col 2xl:text-3xl"
         )}>
         <Link className="block h-[35px]" to="/shop">
           <h1
@@ -42,7 +49,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/shop/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+              " transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
             SHOP
           </h1>
@@ -53,7 +60,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/submit/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "font-sans text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+              "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
             SUBMIT
           </h1>
@@ -64,7 +71,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/events/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "font-sans text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+              "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
             EVENTS
           </h1>
@@ -75,7 +82,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/books/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "font-sans text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+              "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
             BOOKS
           </h1>
@@ -86,7 +93,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
               pathname === "/about/"
                 ? "underline cursor-default"
                 : "hover:tracking-widest",
-              "font-sans text-black transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+              "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
             )}>
             ABOUT
           </h1>

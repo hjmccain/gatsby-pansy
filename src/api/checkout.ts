@@ -9,17 +9,19 @@ const checkout = async (
   req: GatsbyFunctionRequest,
   res: GatsbyFunctionResponse
 ) => {
-  console.log("stripe checkout");
+  const lineItems = req.body.lineItems;
+  console.log(lineItems);
 
-  if (req.method === "POST") {
+  if (req.method === "POST" && lineItems) {
     const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-          price: "price_1MZHfTEscoTdn5s31lpDERlb",
-          quantity: 1,
-        },
-      ],
+      // line_items: [
+      //   {
+      //     // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+      //     price: "price_1MZHfTEscoTdn5s31lpDERlb",
+      //     quantity: 1,
+      //   },
+      // ],
+      line_items: lineItems,
       mode: "payment",
       success_url: `http://localhost:8000/books/?success=true`,
       cancel_url: `http://localhost:8000/books/?canceled=true`,
@@ -27,7 +29,9 @@ const checkout = async (
       // cancel_url: `${YOUR_DOMAIN}?canceled=true`,
     });
 
-    console.log({ session });
+    if (!lineItems) {
+      res.status(400).send("No line item payload provided.");
+    }
 
     if (session.url) {
       res.status(200).json(session.url);

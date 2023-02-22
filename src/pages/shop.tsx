@@ -1,7 +1,7 @@
 import { graphql, Link, navigate, useStaticQuery } from "gatsby";
 import React, { Dispatch, useEffect, useState } from "react";
 import Layout from "../components/layout";
-import useLocalStorage from "../hooks/useLocalStorage";
+import useLocalStorage, { getLocalStorage } from "../hooks/useLocalStorage";
 import type { Stripe } from "stripe";
 import {
   StaticImage,
@@ -68,8 +68,6 @@ const Shop = () => {
               const price = product.price.unit_amount
                 ? product.price.unit_amount / 100
                 : null;
-
-              console.log(product);
 
               if (price) {
                 return (
@@ -159,24 +157,34 @@ const ProductDetails: React.FC<{
   image1?: IGatsbyImageData;
   image2?: IGatsbyImageData;
 }) => {
-  const [selectedImage, setSelectedImage] = useState("image2");
+  const [selectedImage, setSelectedImage] = useState("image1");
   const [localQty, setLocalQty] = useState(1);
-  const [cart, updateCart] = useLocalStorage("cart", {} as any);
+  const [_, updateCart] = useLocalStorage("cart", {} as any);
   const price = product.price.unit_amount
     ? product.price.unit_amount / 100
     : null;
+
   const handleUpdateCart = () => {
-    const current = cart[product.id];
+    const currentCart = getLocalStorage("cart");
+    const current = currentCart[product.id];
 
     if (current) {
       const updated = {
-        ...cart,
-        [product.id]: { ...product, quantity: current.quantity + localQty },
+        ...currentCart,
+        [product.id]: {
+          ...product,
+          quantity: (current.quantity || 0) + localQty,
+        },
       };
 
       updateCart(updated);
+      setLocalQty(() => 1);
     } else {
-      updateCart({ ...cart, [product.id]: { ...product, quantity: localQty } });
+      updateCart({
+        ...currentCart,
+        [product.id]: { ...product, quantity: localQty },
+      });
+      setLocalQty(() => 1);
     }
   };
 
@@ -201,12 +209,12 @@ const ProductDetails: React.FC<{
               cursor: `url(${arrow}),auto`,
             }}
             className={classNames("col-span-1 col-start-1 row-start-1")}>
-            {image1 && (
+            {image2 && (
               <GatsbyImage
-                image={image1}
+                image={image2}
                 alt=""
                 className={classNames(
-                  selectedImage === "image1" ? "opacity-100" : "opacity-0",
+                  selectedImage === "image2" ? "opacity-100" : "opacity-0",
                   "object-cover w-full h-full"
                 )}
               />
@@ -217,12 +225,12 @@ const ProductDetails: React.FC<{
               cursor: `url(${arrow}),auto`,
             }}
             className={classNames("col-span-1 col-start-1 row-start-1")}>
-            {image2 && (
+            {image1 && (
               <GatsbyImage
-                image={image2}
+                image={image1}
                 alt=""
                 className={classNames(
-                  selectedImage === "image2" ? "opacity-100" : "opacity-0",
+                  selectedImage === "image1" ? "opacity-100" : "opacity-0",
                   "object-cover w-full h-full"
                 )}
               />

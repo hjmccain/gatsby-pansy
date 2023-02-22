@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { StaticImage } from "gatsby-plugin-image";
 import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import useHandleWindowResize from "../hooks/useHandleWindowResize";
@@ -19,7 +20,8 @@ const About = () => {
         <div className="bg-primary-200 overflow-scroll pb-12">
           <h2
             className={classNames(
-              "text-left whitespace-nowrap text-white text-small",
+              "text-black",
+              "text-left whitespace-nowrap text-small",
               "lg:text-medium lg:mt-[-50px]",
               "xl:mt-[-67px] xl:text-big"
             )}>
@@ -50,9 +52,14 @@ const About = () => {
         <div
           style={{
             height: `${screenHeight}px`,
-            overflow: "hidden",
-          }}
-          className="bg-[url(../assets/images/hannah-jeff.jpg)] bg-cover"></div>
+            overflow: "scroll",
+          }}>
+          <StaticImage
+            src="../assets/images/hannah-jeff.jpg"
+            alt=""
+            className="object-cover"
+          />
+        </div>
       </div>
     </Layout>
   );

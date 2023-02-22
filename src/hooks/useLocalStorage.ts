@@ -59,7 +59,7 @@ export function getLocalStorage(key: string) {
     }
     return JSON.parse(storedValue);
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     return {};
   }
 }
