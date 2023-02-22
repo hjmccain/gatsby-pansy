@@ -13,8 +13,10 @@ import { StaticImage } from "gatsby-plugin-image";
 
 const IndexPage: React.FC = () => {
   const setSessionValue = () => {
-    const sessionValue = window.sessionStorage.getItem("entered");
-    return sessionValue === "true";
+    if (typeof window !== "undefined") {
+      const sessionValue = window.sessionStorage.getItem("entered");
+      return sessionValue === "true";
+    }
   };
   const [entered, setEntered] = useState(setSessionValue);
   const enterSite = () => {
