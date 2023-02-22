@@ -1,12 +1,14 @@
-exports.onCreateWebpackConfig = ({
-  actions,
-}) => {
-  actions.setWebpackConfig({
-    resolve: {
-      fallback: {
-          "stream": require.resolve("stream-browserify"),
-          "crypto": require.resolve("crypto-browserify")
-      }
-    }
-  })
-}
+// const path = require("path")
+
+// exports.createPages = async ({ actions }) => {
+//   const { createPage } = actions;
+
+//   createPage({
+//     path: "/path",
+//     component: path.resolve(__dirname, "../src/templates/EmptyPage.tsx"),
+//     context: {
+//       redirectTo:
+//         "https://someawesomewebsite.com/newLink",
+//     },
+//   })
+// }

@@ -1,30 +1,60 @@
-import * as React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import {} from "react";
 import type { HeadFC } from "gatsby";
 import { Link } from "gatsby";
 import classNames from "classnames";
+import { StaticImage } from "gatsby-plugin-image";
+
+// TODO
+// Hide large nav bar at short screen heights
+// Add real copy
+// Set up Stripe store
+// Swap in real API keys
 
 const IndexPage: React.FC = () => {
-  const [entered, enterSite] = useState(false);
+  const setSessionValue = () => {
+    const sessionValue = window.sessionStorage.getItem("entered");
+    return sessionValue === "true";
+  };
+  const [entered, setEntered] = useState(setSessionValue);
+  const enterSite = () => {
+    if (typeof window !== "undefined") {
+      window.sessionStorage.setItem("entered", "true");
+      setEntered(setSessionValue);
+    }
+  };
 
   return (
     <main>
       <div
         className={classNames(
-          entered ? "bg-white justify-start" : "bg-primary-200 justify-center",
+          entered ? "bg-black justify-start" : "bg-primary-200 justify-center",
           "h-screen flex flex-col transition-all relative"
         )}>
-        <button onClick={() => enterSite(true)} disabled={entered}>
+        <button onClick={() => enterSite()}>
           <h1
             className={classNames(
               entered
-                ? "absolute top-[-72px] left-0 text-primary-200"
-                : "text-center text-white hover:tracking-widest",
-              "text-super-big font-display transition-all"
+                ? "absolute left-0 text-white z-10"
+                : "relative text-center text-white hover:tracking-widest z-10",
+              "font-display transition-all",
+              "text-small top-[-40px]",
+              "md:text-medium",
+              "lg:text-big lg:top-[-60px]",
+              "xl:text-display xl:top-[-72px]"
             )}>
             pansy
           </h1>
         </button>
+        <StaticImage
+          src="../assets/images/linda-pansy.jpg"
+          alt=""
+          width={600}
+          className={classNames(
+            "absolute right-0 md:right-16 lg:right-36 bottom-10 md:bottom-[-100px] 2xl:right-[40%] opacity-75",
+            !entered && "hidden lg:block"
+          )}
+        />
         {entered && <Home />}
       </div>
     </main>
@@ -33,45 +63,60 @@ const IndexPage: React.FC = () => {
 
 const Home: React.FC = () => {
   return (
-    <nav className="relative z-10">
-      <Link className="block h-[100px]" to="/about">
+    <nav
+      className={classNames(
+        "relative z-20 text-primary-200 text-small",
+        "sm:text-medium",
+        "xl:text-big"
+      )}>
+      <Link
+        className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
+        to="/shop">
         <h1
           className={classNames(
-            "mt-[150px] text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest"
+            "mt-[60px] sm:mt-[150px] w-fit hover:w-full block font-sans hover:text-black hover:bg-white transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
-          ABOUT
+          SHOP
         </h1>
       </Link>
-      <Link className="block h-[100px]" to="/submit">
+      <Link
+        className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
+        to="/submit">
         <h1
           className={classNames(
-            "text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest"
+            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           SUBMIT
         </h1>
       </Link>
-      <Link className="block h-[100px]" to="/events">
+      <Link
+        className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
+        to="/events">
         <h1
           className={classNames(
-            "text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest"
+            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           EVENTS
         </h1>
       </Link>
-      <Link className="block h-[100px]" to="/books">
+      <Link
+        className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
+        to="/books">
         <h1
           className={classNames(
-            "text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest"
+            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           BOOKS
         </h1>
       </Link>
-      <Link className="block h-[100px]" to="/shop">
+      <Link
+        className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
+        to="/about">
         <h1
           className={classNames(
-            "text-big font-sans text-black hover:text-white hover:bg-black transition-color border-primary-200 hover:tracking-widest"
+            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
-          SHOP
+          ABOUT
         </h1>
       </Link>
     </nav>

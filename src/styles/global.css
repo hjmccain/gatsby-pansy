@@ -38,6 +38,25 @@
   font-family: "Happy Times";
   src: url("../assets/fonts/happy-times-NG_regular_master_web.woff2");
 }
+@font-face {
+  font-family: "Director";
+  src: url("../assets/fonts/Director-Light.woff2");
+}
+
+.cart .gatsby-image-wrapper {
+  width: 80px;
+  height: 80px !important;
+  height: fit-content;
+  border: 1.5px solid #ac9aaf;
+  border-radius: 8%;
+}
+
+.cart picture img {
+  width: 80px !important;
+  height: 80px !important;
+  overflow: hidden !important;
+  /* object-fit: contain !important; */
+}
 
 #rswp-card-button {
   background-color: #fffcff;
@@ -82,4 +101,12 @@
   100% {
     transform: translate3d(var(--move-final), 0, 0);
   }
+}
+
+svg {
+  fill: currentColor;
+  height: auto;
+  max-width: 22vmin;
+  transform-origin: center;
+  width: 22%;
 }

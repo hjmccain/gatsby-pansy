@@ -1,116 +1,109 @@
-import { navigate } from "gatsby";
-import { StaticImage } from "gatsby-plugin-image";
-import React, { useEffect, useState } from "react";
-import { CreditCard, PaymentForm } from "react-square-web-payments-sdk";
+import { graphql, Link, navigate, useStaticQuery } from "gatsby";
+import React, { Dispatch, useEffect, useState } from "react";
 import Layout from "../components/layout";
+import useLocalStorage, { getLocalStorage } from "../hooks/useLocalStorage";
+import type { Stripe } from "stripe";
+import {
+  StaticImage,
+  GatsbyImage,
+  IGatsbyImageData,
+} from "gatsby-plugin-image";
+import findImage from "../helpers/findImage";
+import classNames from "classnames";
+// @ts-ignore
+import arrow from "../assets/icons/arrow.png";
+
+export type ProductWithPrice = Stripe.Product & { price: Stripe.Price };
+export type ProductWithPriceAndQty = ProductWithPrice & { quantity: number };
 
 const Shop = () => {
-  const [productSelected, setSelectedProduct] = useState<string | null>(null);
+  const [products, setProducts] = useState<Array<ProductWithPrice>>([]);
+  const [productSelected, setSelectedProduct] =
+    useState<ProductWithPrice | null>(null);
   const location = window.location.toString();
+  const { allFile } = useStaticQuery(graphql`
+    query imageQuery {
+      allFile {
+        edges {
+          node {
+            name
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
+        }
+      }
+    }
+  `);
 
   useEffect(() => {
-    const url = new URL(location);
-    const product = url.searchParams.get("product");
+    const getProducts = async () => {
+      const productsWithPrices = await handleGetProducts();
 
-    if (product) {
-      setSelectedProduct(product);
-    } else {
-      setSelectedProduct(null);
-    }
+      setProducts(productsWithPrices);
+      getLocation(productsWithPrices, location, setSelectedProduct);
+    };
+
+    getProducts();
+  }, []);
+
+  useEffect(() => {
+    getLocation(products, location, setSelectedProduct);
   }, [location]);
 
   return (
     <Layout>
-      <div>
+      <div className="w-screen">
         {productSelected ? (
-          <ProductDetails />
+          <ProductDetails
+            product={productSelected}
+            image1={findImage(allFile, productSelected.id)}
+            image2={findImage(allFile, `${productSelected.id}-alt`)}
+          />
         ) : (
-          <div className="mt-12 grid grid-cols-3 font-body gap-x-10">
-            <ProductBlock
-              product="whats-not-there"
-              title="What's Not There"
-              price={5}>
-              <div className="grid">
-                <StaticImage
-                  src="../assets/images/all-these-boys.jpg"
-                  alt=""
-                  className="object-cover h-[475px] row-start-1 col-start-1"
-                />
-                <StaticImage
-                  src="../assets/images/whats-not-there.jpg"
-                  alt="photo of a pale hand holding zine with a black & white cover against a colorful background"
-                  className="object-cover h-[475px] hover:opacity-0 transition-opacity row-start-1 col-start-1"
-                />
-              </div>
-            </ProductBlock>
-            <ProductBlock
-              product="all-these-boys"
-              title="All These Boys"
-              price={30}>
-              <div className="grid">
-                <StaticImage
-                  src="../assets/images/whats-not-there.jpg"
-                  alt=""
-                  className="object-cover h-[475px] row-start-1 col-start-1"
-                />
-                <StaticImage
-                  src="../assets/images/all-these-boys.jpg"
-                  alt=""
-                  className="object-cover h-[475px] hover:opacity-0 transition-opacity row-start-1 col-start-1"
-                />
-              </div>
-            </ProductBlock>
-            <ProductBlock
-              product="whats-not-there"
-              title="C.D. Wright"
-              price={30}>
-              <div className="grid">
-                <StaticImage
-                  src="../assets/images/whats-not-there.jpg"
-                  alt=""
-                  className="object-cover h-[475px] row-start-1 col-start-1"
-                />
-                <StaticImage
-                  src="../assets/images/cdwright.jpg"
-                  alt=""
-                  className="object-cover h-[475px] hover:opacity-0 transition-opacity row-start-1 col-start-1"
-                />
-              </div>
-            </ProductBlock>
-            <ProductBlock
-              product="whats-not-there"
-              title="Dylan Thomas"
-              price={5}>
-              <div className="grid">
-                <StaticImage
-                  src="../assets/images/whats-not-there.jpg"
-                  alt=""
-                  className="object-cover h-[475px] row-start-1 col-start-1"
-                />
-                <StaticImage
-                  src="../assets/images/dylan-thomas.jpg"
-                  alt=""
-                  className="object-cover h-[475px] hover:opacity-0 transition-opacity row-start-1 col-start-1"
-                />
-              </div>
-            </ProductBlock>
-            <ProductBlock
-              product="whats-not-there"
-              title="What's Not There"
-              price={5}>
-              <div className="grid">
-                <StaticImage
-                  src="../assets/images/all-these-boys.jpg"
-                  alt=""
-                  className="object-cover h-[475px] row-start-1 col-start-1"
-                />
-                <StaticImage
-                  src="../assets/images/whats-not-there.jpg"
-                  alt="photo of a pale hand holding zine with a black & white cover against a colorful background"
-                  className="object-cover h-[475px] hover:opacity-0 transition-opacity row-start-1 col-start-1"
-                />
-              </div>
-            </ProductBlock>
+          <div className="mt-12 font-body text-center lg:text-left">
+            {products.map((product) => {
+              const image1 = findImage(allFile, product.id);
+              const image2 = findImage(allFile, `${product.id}-alt`);
+              const price = product.price.unit_amount
+                ? product.price.unit_amount / 100
+                : null;
+
+              if (price) {
+                return (
+                  <ProductBlock
+                    active={product.active}
+                    key={product.id}
+                    product={product.id}
+                    title={product.name}
+                    price={price}>
+                    <div className="grid h-full w-full">
+                      {image2 && (
+                        <GatsbyImage
+                          image={image2}
+                          alt=""
+                          className="object-cover row-start-1 col-start-1"
+                        />
+                      )}
+                      {image1 && (
+                        <GatsbyImage
+                          image={image1}
+                          alt=""
+                          className="object-cover row-start-1 col-start-1 hover:opacity-0 transition-opacity"
+                        />
+                      )}
+                      {!image1 && !image2 && (
+                        <StaticImage
+                          src="../assets/images/prod_NJvXkt0lcEKDQj-alt.jpg"
+                          alt="placeholder"
+                          className="object-cover"
+                        />
+                      )}
+                    </div>
+                  </ProductBlock>
+                );
+              }
+            })}
           </div>
         )}
       </div>
@@ -118,80 +111,208 @@ const Shop = () => {
   );
 };
 
-// const createOrder = async () => {
-//   const client = new Client();
-
-//   try {
-//     const response = await client.checkoutApi.createPaymentLink({
-//       idempotencyKey: "key_identifying_this_order",
-//       order: {
-//         locationId: "LW7R7Y55FNZHN",
-//         lineItems: [
-//           {
-//             name: "60,000 mile maintenance",
-//             quantity: "1",
-//             note: "1st line item note",
-//             basePriceMoney: {
-//               amount: BigInt(30000),
-//               currency: "USD",
-//             },
-//           },
-//           {
-//             name: "Tire rotation and balancing",
-//             quantity: "1",
-//             basePriceMoney: {
-//               amount: BigInt(1500),
-//               currency: "USD",
-//             },
-//           },
-//           {
-//             name: "Wiper fluid replacement",
-//             quantity: "1",
-//             basePriceMoney: {
-//               amount: BigInt(200),
-//               currency: "USD",
-//             },
-//           },
-//           {
-//             name: "Oil change",
-//             quantity: "1",
-//             basePriceMoney: {
-//               amount: BigInt(150),
-//               currency: "USD",
-//             },
-//           },
-//         ],
-//       },
-//     });
-
-//     console.log(response.result);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 const ProductBlock = ({
+  active,
   product,
   title,
   price,
   children,
 }: {
+  active: boolean;
   product: string;
   title: string;
-  price: number;
+  price: number | string;
   children: React.ReactNode;
-}) => (
-  <button onClick={() => navigate(`?product=${product}`)} className="group">
-    {children}
-    <div className="text-xl flex justify-between relative bottom-10 px-4 py-2 group-hover:opacity-90 opacity-0 transition-opacity bg-white">
-      <p className="italic">{title}</p>
-      <p>${price}</p>
-    </div>
-  </button>
-);
+}) => {
+  const [productDimensions, setProductDimensions] = useState(400);
 
-const ProductDetails: React.FC = () => {
-  return <div>DETAILS!!!!</div>;
+  return (
+    <button
+      key={product}
+      onClick={() => navigate(`?product=${product}`)}
+      style={{
+        width: `${productDimensions}px`,
+        height: `${productDimensions}px`,
+      }}
+      className="group mx-[18px] font-serif">
+      {children}
+      <div className="text-xl flex justify-between relative bottom-10 px-4 py-2 group-hover:opacity-90 opacity-0 transition-opacity bg-white">
+        <p className="italic">{title}</p>
+        {active ? <p>${price}</p> : <p>SOLD OUT</p>}
+      </div>
+    </button>
+  );
+};
+
+const ProductDetails: React.FC<{
+  product: ProductWithPrice;
+  image1?: IGatsbyImageData;
+  image2?: IGatsbyImageData;
+}> = ({
+  product,
+  image1,
+  image2,
+}: {
+  product: ProductWithPrice;
+  image1?: IGatsbyImageData;
+  image2?: IGatsbyImageData;
+}) => {
+  const [selectedImage, setSelectedImage] = useState("image1");
+  const [localQty, setLocalQty] = useState(1);
+  const [_, updateCart] = useLocalStorage("cart", {} as any);
+  const price = product.price.unit_amount
+    ? product.price.unit_amount / 100
+    : null;
+
+  const handleUpdateCart = () => {
+    const currentCart = getLocalStorage("cart");
+    const current = currentCart[product.id];
+
+    if (current) {
+      const updated = {
+        ...currentCart,
+        [product.id]: {
+          ...product,
+          quantity: (current.quantity || 0) + localQty,
+        },
+      };
+
+      updateCart(updated);
+      setLocalQty(() => 1);
+    } else {
+      updateCart({
+        ...currentCart,
+        [product.id]: { ...product, quantity: localQty },
+      });
+      setLocalQty(() => 1);
+    }
+  };
+
+  function handleSelectImage() {
+    selectedImage === "image1"
+      ? setSelectedImage("image2")
+      : setSelectedImage("image1");
+  }
+
+  return (
+    <div className="mx-0 lg:mx-12 mt-4">
+      <Link
+        to="/shop"
+        className="uppercase text-4xl hover:opacity-70 font-serif">
+        {"← "}
+        <span className="text-xl">BACK</span>
+      </Link>
+      <div className="grid grid-cols-2 font-serif mb-0">
+        <button onClick={handleSelectImage} className="grid col-span-1">
+          <div
+            style={{
+              cursor: `url(${arrow}),auto`,
+            }}
+            className={classNames("col-span-1 col-start-1 row-start-1")}>
+            {image2 && (
+              <GatsbyImage
+                image={image2}
+                alt=""
+                className={classNames(
+                  selectedImage === "image2" ? "opacity-100" : "opacity-0",
+                  "object-cover w-full h-full"
+                )}
+              />
+            )}
+          </div>
+          <div
+            style={{
+              cursor: `url(${arrow}),auto`,
+            }}
+            className={classNames("col-span-1 col-start-1 row-start-1")}>
+            {image1 && (
+              <GatsbyImage
+                image={image1}
+                alt=""
+                className={classNames(
+                  selectedImage === "image1" ? "opacity-100" : "opacity-0",
+                  "object-cover w-full h-full"
+                )}
+              />
+            )}
+          </div>
+        </button>
+        <div className="col-start-2 p-12 bg-primary-100 mr-12">
+          <h1 className="uppercase text-4xl">{product.name}</h1>
+          <h1 className="my-12">{product.description}</h1>
+          <h1 className="my-12">
+            {product.active ? <p>${price}</p> : <p>SOLD OUT</p>}
+          </h1>
+          {product.active && (
+            <p className="col-start-1 col-span-2 self-end text-base">
+              QTY:{" "}
+              <button
+                disabled={localQty === 1}
+                onClick={() => {
+                  setLocalQty(localQty - 1);
+                }}>
+                -
+              </button>{" "}
+              {localQty}{" "}
+              <button
+                onClick={() => {
+                  setLocalQty(localQty + 1);
+                }}>
+                +
+              </button>
+            </p>
+          )}
+          <button
+            disabled={!product.active}
+            className="font-sans uppercase mt-4 py-4 px-8 border-black border hover:bg-black hover:text-white bg-white"
+            onClick={handleUpdateCart}>
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+async function handleGetProducts() {
+  const res = await fetch("/api/products", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+
+  if (res) {
+    const productsWithPrices = await res.json();
+    return productsWithPrices;
+  } else {
+    console.error("error redirecting");
+    return [];
+  }
+}
+
+const getLocation = (
+  products: any,
+  location: string,
+  setSelectedProduct: Dispatch<any>
+) => {
+  const url = new URL(location);
+  const product = url.searchParams.get("product");
+
+  if (product) {
+    try {
+      const productWithPrice = products.find((el: any) => el.id === product);
+      if (!productWithPrice) {
+        throw new Error("product not found");
+      }
+      setSelectedProduct(productWithPrice);
+    } catch (err) {
+      console.error(err);
+      setSelectedProduct(null);
+    }
+  } else {
+    setSelectedProduct(null);
+  }
 };
 
 export const Head = () => <title>Pansy Press Shop</title>;
