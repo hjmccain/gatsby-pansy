@@ -15,7 +15,12 @@ enum Book {
 
 const Books = () => {
   const screenHeight = useHandleWindowResize();
-  const bigScreen = screenHeight > 740;
+  const [bigScreen, setBigScreen] = useState(false);
+
+  useEffect(() => {
+    setBigScreen(screenHeight > 740);
+  }, [screenHeight]);
+
   const top = useHandleScroll(bigScreen ? 320 : 200, "book-info");
   const [hovered, setHovered] = useState<Book | null>(null);
   const [selected, setSelected] = useState(Book.notThere);
@@ -67,7 +72,6 @@ const Books = () => {
           <ul>
             <button
               id={Book.notThere}
-              className={classNames("block lg:h-[64px]")}
               onClick={() => setSelected(Book.notThere)}>
               <li
                 className={classNames(

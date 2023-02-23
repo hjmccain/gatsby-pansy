@@ -109,7 +109,7 @@ const Cart: React.FC = () => {
       ref={ref}
       className={classNames(
         collapsed
-          ? "w-10 shadow-md bg-primary-100"
+          ? "w-10 shadow-md bg-primary-200"
           : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-primary-200",
         "absolute top-0 right-0 z-20 border-l transition-all"
       )}>

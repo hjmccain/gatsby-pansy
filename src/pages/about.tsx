@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { StaticImage } from "gatsby-plugin-image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Layout from "../components/layout";
 import useHandleWindowResize from "../hooks/useHandleWindowResize";
 
@@ -10,12 +10,14 @@ const About = () => {
   return (
     <Layout>
       <div
+        key={screenHeight}
         style={{
           height: `${screenHeight}px`,
         }}
         className={classNames(
           "overflow-scroll",
-          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1"
+          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1",
+          "min-[2200px]:mx-80"
         )}>
         <div className="bg-primary-200 overflow-scroll pb-12">
           <h2

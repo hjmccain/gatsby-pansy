@@ -13,7 +13,7 @@ function useLocalStorage<T>(key: string, initialValue: T) {
       }
       return JSON.parse(storedValue);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       return initialValue;
     }
   });
@@ -30,7 +30,7 @@ function useLocalStorage<T>(key: string, initialValue: T) {
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (err) {
-      console.error(`Unable to set value for key ${key}`);
+      // console.error(`Unable to set value for key ${key}`);
     }
   };
 
@@ -40,7 +40,7 @@ function useLocalStorage<T>(key: string, initialValue: T) {
         window.localStorage.removeItem(key);
       }
     } catch (err) {
-      console.error(`Unable to remove key ${key}`);
+      // console.error(`Unable to remove key ${key}`);
     }
   };
 

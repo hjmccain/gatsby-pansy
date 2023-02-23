@@ -11,7 +11,11 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   const [pathname, setPathname] = useState("");
   const screenHeight = useHandleWindowResize();
-  const bigScreen = screenHeight > 740;
+  const [bigScreen, setBigScreen] = useState(false);
+
+  useEffect(() => {
+    setBigScreen(screenHeight > 740);
+  }, [screenHeight]);
 
   useEffect(() => {
     setPathname(window.location.pathname);

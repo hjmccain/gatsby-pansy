@@ -3,7 +3,7 @@ import {} from "react";
 import type { HeadFC } from "gatsby";
 import { Link } from "gatsby";
 import classNames from "classnames";
-import { StaticImage } from "gatsby-plugin-image";
+// import { StaticImage } from "gatsby-plugin-image";
 
 // TODO
 // Hide large nav bar at short screen heights
@@ -48,7 +48,7 @@ const IndexPage: React.FC = () => {
             pansy
           </h1>
         </button>
-        <StaticImage
+        {/* <StaticImage
           src="../assets/images/linda-pansy.jpg"
           alt=""
           width={600}
@@ -56,7 +56,7 @@ const IndexPage: React.FC = () => {
             "absolute right-0 md:right-16 lg:right-36 bottom-10 md:bottom-[-100px] 2xl:right-[40%] opacity-75",
             !entered && "hidden lg:block"
           )}
-        />
+        /> */}
         {entered && <Home />}
       </div>
     </main>
