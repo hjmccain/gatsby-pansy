@@ -88,7 +88,7 @@ const Books = () => {
           style={{
             top: `${top}px`,
           }}
-          className="absolute left-0 z-30 bg-white w-full lg:bg-transparent lg:w-auto min-[2200px]:left-80">
+          className="override-top absolute lg:right-16 text-right z-30 bg-white w-full bg-transparent lg:w-auto min-[2200px]:left-80">
           <ul className="text-white">
             <button
               id={Book.notThere}
@@ -97,7 +97,7 @@ const Books = () => {
               <li
                 className={classNames(
                   selected === Book.notThere ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest hover:w-screen"
+                  "book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
                 )}>
                 WHAT'S NOT THERE
               </li>
@@ -109,7 +109,7 @@ const Books = () => {
               <li
                 className={classNames(
                   selected === Book.beforeMorning ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest hover:w-screen"
+                  "book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
                 )}>
                 BEFORE MORNING
               </li>
@@ -121,7 +121,7 @@ const Books = () => {
               <li
                 className={classNames(
                   selected === Book.creature ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest hover:w-screen"
+                  "book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
                 )}>
                 CREATURE OF HABIT
               </li>
@@ -133,7 +133,7 @@ const Books = () => {
               <li
                 className={classNames(
                   selected === Book.poeming ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest hover:w-screen"
+                  "book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
                 )}>
                 POEMING
               </li>
@@ -145,8 +145,8 @@ const Books = () => {
             height: `${screenHeight}px`,
           }}
           className={classNames(
-            "overflow-scroll",
-            "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1",
+            "overflow-scroll grid",
+            "lg:overflow-hidden lg:grid-cols-2 lg:grid-rows-1",
             "min-[2200px]:mx-80"
           )}>
           <div
@@ -167,17 +167,17 @@ const Books = () => {
             <div
               id="book-info"
               className={classNames(
-                "font-serif text-3xl mt-32 lg:mt-[300px] xl:mt-[250px] mx-2 lg:mx-12 relative pb-12"
+                "font-serif text-base lg:text-3xl mt-0 lg:mt-[300px] xl:mt-[250px] ml-2 mr-12 lg:mx-12 relative pb-12"
               )}>
               {bookDescription}
             </div>
           </div>
           <div
+            className="row-start-1 override-screen-height"
             style={{
               height: `${screenHeight}px`,
               overflow: "scroll",
-            }}
-            className="bg-primary-white">
+            }}>
             {image && (
               <GatsbyImage image={image} alt="" className="object-cover" />
             )}

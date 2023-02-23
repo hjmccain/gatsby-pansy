@@ -40,8 +40,8 @@ const Events = () => {
           height: `${screenHeight}px`,
         }}
         className={classNames(
-          "overflow-scroll",
-          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1",
+          "overflow-scroll grid",
+          "lg:overflow-hidden lg:grid-cols-2 lg:grid-rows-1",
           "min-[2200px]:mx-80"
         )}>
         <div className="relative z-20 bg-primary-200 overflow-scroll pb-12">
@@ -80,7 +80,7 @@ const Events = () => {
                   POEM & IMAGE WORKSHOP
                 </button>
                 {selected === Event.poemAndImageWorkshop && (
-                  <p className="font-serif text-2xl">
+                  <p className="font-serif text-base lg:text-2xl">
                     {eventDescriptions[selected]}
                   </p>
                 )}
@@ -93,7 +93,7 @@ const Events = () => {
                   KARAOKE NITE
                 </button>
                 {selected === Event.beforeMorningRelease && (
-                  <p className="font-serif text-2xl">
+                  <p className="font-serif text-base lg:text-2xl">
                     {eventDescriptions[selected]}
                   </p>
                 )}
@@ -105,7 +105,7 @@ const Events = () => {
                   <span className="italic">POEMING</span> RELEASE PARTY
                 </button>
                 {selected === Event.poemingRelease && (
-                  <p className="font-serif text-2xl">
+                  <p className="font-serif text-base lg:text-2xl">
                     {eventDescriptions[selected]}
                   </p>
                 )}
@@ -114,6 +114,7 @@ const Events = () => {
           </div>
         </div>
         <div
+          className="row-start-1 override-screen-height"
           style={{
             height: `${screenHeight}px`,
             overflow: "scroll",

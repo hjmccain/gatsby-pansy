@@ -43,6 +43,16 @@
   src: url("../assets/fonts/Director-Light.woff2");
 }
 
+@media (max-width: 1023px) {
+  .override-screen-height {
+    height: auto !important;
+  }
+  .override-top {
+    position: relative;
+    top: 0px !important;
+  }
+}
+
 .cart .gatsby-image-wrapper {
   width: 80px;
   height: 80px !important;

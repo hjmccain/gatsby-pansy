@@ -1,9 +1,7 @@
 import { GatsbyFunctionResponse } from "gatsby";
 import type { Stripe } from "stripe";
 
-const stripe = require("stripe")(
-  "sk_test_51MZHdjEscoTdn5s3iR39TMU1t2IKxyuUb4dli6pd03Q0262fRZ222Hlxglf5Y3a1HIECoqdSBj0ghIqWSkpMG3p200z4FNLL9f"
-);
+const stripe = require("stripe")(process.env.STRIPE_ACCESS_TOKEN);
 
 async function getProducts(_: any, res: GatsbyFunctionResponse) {
   const products = await stripe.products.list();

@@ -15,16 +15,16 @@ const About = () => {
           height: `${screenHeight}px`,
         }}
         className={classNames(
-          "overflow-scroll",
-          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1",
+          "overflow-scroll grid",
+          "lg:overflow-hidden lg:grid-cols-2 lg:grid-rows-1",
           "min-[2200px]:mx-80"
         )}>
         <div className="bg-primary-200 overflow-scroll pb-12">
           <h2
             className={classNames(
               "text-black",
-              "text-left whitespace-nowrap text-small",
-              "lg:text-medium lg:mt-[-50px]",
+              "text-left whitespace-nowrap text-small row-start-2",
+              "lg:text-medium lg:mt-[-50px] lg:col-start-1 lg:row-start-1",
               "xl:mt-[-67px] xl:text-big"
             )}>
             ABOUT
@@ -34,8 +34,10 @@ const About = () => {
               "text-2xl mx-2 md:mx-12 font-serif",
               "xl:text-justify"
             )}>
-            <h3 className="text-4xl mb-6">HI, WE'RE PANSY PRESS!</h3>
-            <p>
+            <h3 className="text-2xl lg:text-4xl mb-6">
+              HI, WE'RE PANSY PRESS!
+            </h3>
+            <p className="text-base lg:text-4xl">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis
               metus pellentesque, sodales dui sit amet, viverra ligula. Aenean
               consectetur elementum urna, in dictum mauris pulvinar et.
@@ -52,6 +54,7 @@ const About = () => {
           </div>
         </div>
         <div
+          className="row-start-1 override-screen-height"
           style={{
             height: `${screenHeight}px`,
             overflow: "scroll",

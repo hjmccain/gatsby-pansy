@@ -14,8 +14,8 @@ const Submit = () => {
           height: `${screenHeight}px`,
         }}
         className={classNames(
-          "overflow-scroll",
-          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1",
+          "overflow-scroll grid",
+          "lg:overflow-hidden lg:grid-cols-2 lg:grid-rows-1",
           "min-[2200px]:mx-80"
         )}>
         <div className="z-10 overflow-scroll bg-primary-200">
@@ -28,7 +28,7 @@ const Submit = () => {
             )}>
             SUBMIT
           </h2>
-          <p className="text-2xl mx-2 lg:mx-12 mb-6 font-serif">
+          <p className="lg:text-2xl mx-2 lg:mx-12 mb-6 font-serif">
             If you're interested in submitting to Pansy Press, please read the
             submission guidelines &#38; info below. If everything looks good, go
             ahead and submit. We're excited to read your work :)
@@ -104,6 +104,7 @@ const Submit = () => {
           </p>
         </div>
         <div
+          className="row-start-1 override-screen-height"
           style={{
             height: `${screenHeight}px`,
             overflow: "scroll",
