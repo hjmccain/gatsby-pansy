@@ -15,13 +15,8 @@ enum Book {
 
 const Books = () => {
   const screenHeight = useHandleWindowResize();
-  const [bigScreen, setBigScreen] = useState(false);
-
-  useEffect(() => {
-    setBigScreen(screenHeight > 740);
-  }, [screenHeight]);
-
-  const top = useHandleScroll(bigScreen ? 320 : 200, "book-info");
+  const bigScreen = screenHeight > 740;
+  // const top = useHandleScroll(bigScreen ? 320 : 200, "book-info");
   const [hovered, setHovered] = useState<Book | null>(null);
   const [selected, setSelected] = useState(Book.notThere);
   const bookDescription = hovered
@@ -42,6 +37,31 @@ const Books = () => {
     }
   `);
   const image = findImage(allFile, hovered || selected);
+
+  const [top, setTop] = useState(bigScreen ? 320 : 200);
+  console.log({ top, bigScreen });
+
+  const handleScroll = () => {
+    const el = document.getElementById("book-info");
+    const divTop = el?.getBoundingClientRect().top;
+
+    divTop && setTop(divTop - 300);
+  };
+
+  useEffect(() => {
+    setTop(bigScreen ? 320 : 200);
+  }, [bigScreen]);
+
+  useEffect(() => {
+    const scrollableDiv = document.getElementById("scrollable-div");
+
+    if (scrollableDiv) {
+      scrollableDiv.addEventListener("scroll", handleScroll);
+      return () => {
+        scrollableDiv.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, []);
 
   useEffect(() => {
     function handleHover(e: MouseEvent) {
@@ -69,14 +89,15 @@ const Books = () => {
             top: `${top}px`,
           }}
           className="absolute left-0 z-30 bg-white w-full lg:bg-transparent lg:w-auto">
-          <ul>
+          <ul className="text-white">
             <button
               id={Book.notThere}
+              className={classNames("block lg:h-[64px]")}
               onClick={() => setSelected(Book.notThere)}>
               <li
                 className={classNames(
                   selected === Book.notThere ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest hover:w-screen"
                 )}>
                 WHAT'S NOT THERE
               </li>
@@ -88,7 +109,7 @@ const Books = () => {
               <li
                 className={classNames(
                   selected === Book.beforeMorning ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest hover:w-screen"
                 )}>
                 BEFORE MORNING
               </li>
@@ -100,7 +121,7 @@ const Books = () => {
               <li
                 className={classNames(
                   selected === Book.creature ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest hover:w-screen"
                 )}>
                 CREATURE OF HABIT
               </li>
@@ -112,7 +133,7 @@ const Books = () => {
               <li
                 className={classNames(
                   selected === Book.poeming ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-white hover:bg-black transition-color hover:tracking-widest hover:w-screen"
+                  "book-nav text-left lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest hover:w-screen"
                 )}>
                 POEMING
               </li>
@@ -125,7 +146,8 @@ const Books = () => {
           }}
           className={classNames(
             "overflow-scroll",
-            "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1"
+            "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1",
+            "min-[2200px]:mx-80"
           )}>
           <div
             style={{
@@ -201,30 +223,6 @@ const bookDescriptions = {
   cursus nibh a feugiat venenatis. In sed porta velit. Donec nec
   eleifend neque. Fusce tincidunt turpis bibendum elit vehicula
   dapibus. Curabitur at nisl enim.`,
-};
-
-const useHandleScroll = (startValue: number, idToFind: string) => {
-  const [top, setTop] = useState(startValue);
-
-  const handleScroll = () => {
-    const el = document.getElementById(idToFind);
-    const divTop = el?.getBoundingClientRect().top;
-
-    divTop && setTop(divTop - 300);
-  };
-
-  useEffect(() => {
-    const scrollableDiv = document.getElementById("scrollable-div");
-
-    if (scrollableDiv) {
-      scrollableDiv.addEventListener("scroll", handleScroll);
-      return () => {
-        scrollableDiv.removeEventListener("scroll", handleScroll);
-      };
-    }
-  }, []);
-
-  return top;
 };
 
 export default Books;

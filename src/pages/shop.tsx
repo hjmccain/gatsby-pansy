@@ -300,22 +300,24 @@ const getLocation = (
   location: string,
   setSelectedProduct: Dispatch<any>
 ) => {
-  const url = new URL(location);
-  const product = url.searchParams.get("product");
+  if (location && typeof window !== "undefined") {
+    const url = new URL(location);
+    const product = url.searchParams.get("product");
 
-  if (product) {
-    try {
-      const productWithPrice = products.find((el: any) => el.id === product);
-      if (!productWithPrice) {
-        throw new Error("product not found");
+    if (product) {
+      try {
+        const productWithPrice = products.find((el: any) => el.id === product);
+        if (!productWithPrice) {
+          throw new Error("product not found");
+        }
+        setSelectedProduct(productWithPrice);
+      } catch (err) {
+        console.error(err);
+        setSelectedProduct(null);
       }
-      setSelectedProduct(productWithPrice);
-    } catch (err) {
-      console.error(err);
+    } else {
       setSelectedProduct(null);
     }
-  } else {
-    setSelectedProduct(null);
   }
 };
 

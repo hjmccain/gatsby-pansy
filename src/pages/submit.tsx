@@ -15,7 +15,8 @@ const Submit = () => {
         }}
         className={classNames(
           "overflow-scroll",
-          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1"
+          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1",
+          "min-[2200px]:mx-80"
         )}>
         <div className="z-10 overflow-scroll bg-primary-200">
           <h2

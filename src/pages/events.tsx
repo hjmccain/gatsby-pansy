@@ -41,7 +41,8 @@ const Events = () => {
         }}
         className={classNames(
           "overflow-scroll",
-          "lg:grid lg:grid-cols-2 lg:grid-rows-1"
+          "lg:overflow-hidden lg:grid lg:grid-cols-2 lg:grid-rows-1",
+          "min-[2200px]:mx-80"
         )}>
         <div className="relative z-20 bg-primary-200 overflow-scroll pb-12">
           <h2
