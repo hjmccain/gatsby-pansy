@@ -67,6 +67,6 @@ const About = () => {
   );
 };
 
-export const Head = () => <title>About Me</title>;
+export const Head = () => <title>About Pansy Press</title>;
 
 export default About;

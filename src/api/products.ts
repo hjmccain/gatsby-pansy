@@ -24,6 +24,7 @@ async function getProducts(_: any, res: GatsbyFunctionResponse) {
 
       res.status(200).json(productsWithPrices);
     } catch (err) {
+      console.error(err);
       res.status(404).send(err);
     }
   } else {
