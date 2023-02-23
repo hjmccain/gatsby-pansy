@@ -88,7 +88,7 @@ const Books = () => {
           style={{
             top: `${top}px`,
           }}
-          className="absolute left-0 z-30 bg-white w-full lg:bg-transparent lg:w-auto">
+          className="absolute left-0 z-30 bg-white w-full lg:bg-transparent lg:w-auto min-[2200px]:left-80">
           <ul className="text-white">
             <button
               id={Book.notThere}
