@@ -40,9 +40,9 @@ const IndexPage: React.FC = () => {
                 ? "absolute left-0 text-white z-10"
                 : "relative text-center text-white hover:tracking-widest z-10",
               "font-display transition-all",
-              "text-small top-[-40px]",
+              "text-small top-[-20px]",
               "md:text-medium",
-              "lg:text-big lg:top-[-60px]",
+              "lg:text-big lg:top-[-48px]",
               "xl:text-display xl:top-[-72px]"
             )}>
             pansy

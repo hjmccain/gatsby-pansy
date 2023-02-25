@@ -1,3 +1,8 @@
+// @ts-ignore
+import menu from "../assets/icons/icons8-menu-50.png";
+// @ts-ignore
+import close from "../assets/icons/icons8-close-50.png";
+
 import classNames from "classnames";
 import { Link } from "gatsby";
 import React, { useEffect, useState } from "react";
@@ -12,6 +17,8 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   const [pathname, setPathname] = useState("");
   const screenHeight = useHandleWindowResize();
   const [bigScreen, setBigScreen] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+  const [showNav, setShowNav] = useState(false);
 
   useEffect(() => {
     setBigScreen(screenHeight > 740);
@@ -27,11 +34,115 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         "bg-black",
         "h-screen flex flex-col transition-all relative"
       )}>
+      <span className="lg:hidden inline">
+        <button
+          className="w-full bg-primary-100 pb-2 flex justify-end pr-4"
+          onClick={() => setShowNav(!showNav)}>
+          {showNav ? (
+            <img className="h-[38px] pt-2 pl-1 hover:opacity-75" src={close} />
+          ) : (
+            <img className="h-[38px] pt-2 pl-1 hover:opacity-75" src={menu} />
+          )}
+        </button>
+        {showNav && (
+          <nav
+            className={classNames(
+              "bg-primary-100 z-40 text-xl absolute w-full"
+            )}>
+            <Link
+              className="h-[35px] flex justify-end"
+              to="/shop"
+              onClick={() => setShowNav(false)}>
+              <h1
+                className={classNames(
+                  pathname === "/shop/"
+                    ? "underline cursor-default"
+                    : "hover:tracking-widest",
+                  "transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+                )}>
+                SHOP
+              </h1>
+            </Link>
+            <Link
+              className="h-[35px] flex justify-end"
+              to="/submit"
+              onClick={() => setShowNav(false)}>
+              <h1
+                className={classNames(
+                  pathname === "/submit/"
+                    ? "underline cursor-default"
+                    : "hover:tracking-widest",
+                  "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+                )}>
+                SUBMIT
+              </h1>
+            </Link>
+            <Link
+              className="h-[35px] flex justify-end"
+              to="/events"
+              onClick={() => setShowNav(false)}>
+              <h1
+                className={classNames(
+                  pathname === "/events/"
+                    ? "underline cursor-default"
+                    : "hover:tracking-widest",
+                  "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+                )}>
+                EVENTS
+              </h1>
+            </Link>
+            <Link
+              className="h-[35px] flex justify-end"
+              to="/books"
+              onClick={() => setShowNav(false)}>
+              <h1
+                className={classNames(
+                  pathname === "/books/"
+                    ? "underline cursor-default"
+                    : "hover:tracking-widest",
+                  "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+                )}>
+                BOOKS
+              </h1>
+            </Link>
+            <Link
+              className="h-[35px] flex justify-end"
+              to="/about"
+              onClick={() => setShowNav(false)}>
+              <h1
+                className={classNames(
+                  pathname === "/about/"
+                    ? "underline cursor-default"
+                    : "hover:tracking-widest",
+                  "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+                )}>
+                ABOUT
+              </h1>
+            </Link>
+            <button
+              className="h-[35px] flex justify-end w-full"
+              onClick={() => {
+                setShowCart(!showCart);
+                setShowNav(false);
+              }}>
+              <h1
+                className={classNames(
+                  showCart
+                    ? "underline cursor-default"
+                    : "hover:tracking-widest",
+                  "font-sans transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+                )}>
+                CART !
+              </h1>
+            </button>
+          </nav>
+        )}
+      </span>
       <Link to="/">
         <h1
           className={classNames(
             "absolute left-0 text-primary-200 hover:tracking-widest hover:ml-4 h-0 font-display transition-all",
-            "text-small top-[-20px]",
+            "text-small top-8 lg:top-[-20px]",
             bigScreen && "md:text-medium",
             bigScreen && "lg:text-big lg:top-[-40px]",
             bigScreen && "xl:text-display xl:top-[-72px]"
@@ -41,7 +152,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       </Link>
       <nav
         className={classNames(
-          "justify-start mt-28 w-full flex flex-row items-end text-2xl flex-wrap text-primary-200",
+          "mt-28 w-full flex-row items-end text-2xl flex-wrap text-primary-200 hidden lg:flex",
           !bigScreen &&
             "lg:mt-0 lg:justify-end lg:mb-2 xl:mb-4 xl:text-4xl lg:pt-6 xl:pt-4 ",
           bigScreen &&
@@ -103,8 +214,13 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           </h1>
         </Link>
       </nav>
-      <main className="mt-[15px] z-20 mx-auto mr-12">{children}</main>
-      <Cart />
+      <main className="mt-20 lg:mt-[15px] z-20 mx-auto lg:mr-12">
+        {children}
+      </main>
+      <Cart
+        collapsed={!showCart}
+        toggleCollapsed={(opposite) => setShowCart(!opposite)}
+      />
     </div>
   );
 };

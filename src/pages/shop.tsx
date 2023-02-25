@@ -38,7 +38,7 @@ const Shop = () => {
 
   useEffect(() => {
     setLocation(window.location.toString());
-  }, []);
+  });
 
   useEffect(() => {
     const getProducts = async () => {
@@ -51,9 +51,9 @@ const Shop = () => {
     getProducts();
   }, [location]);
 
-  useEffect(() => {
-    getLocation(products, location, setSelectedProduct);
-  }, [location]);
+  // useEffect(() => {
+  //   getLocation(products, location, setSelectedProduct);
+  // }, [location]);
 
   return (
     <Layout>

@@ -38,8 +38,7 @@ const Books = () => {
   `);
   const image = findImage(allFile, hovered || selected);
 
-  const [top, setTop] = useState(bigScreen ? 320 : 200);
-  console.log({ top, bigScreen });
+  const [top, setTop] = useState(bigScreen ? 370 : 250);
 
   const handleScroll = () => {
     const el = document.getElementById("book-info");
@@ -49,7 +48,7 @@ const Books = () => {
   };
 
   useEffect(() => {
-    setTop(bigScreen ? 320 : 200);
+    setTop(bigScreen ? 370 : 250);
   }, [bigScreen]);
 
   useEffect(() => {
@@ -89,7 +88,7 @@ const Books = () => {
             top: `${top}px`,
           }}
           className="override-top absolute lg:right-16 text-right z-30 bg-white w-full bg-transparent lg:w-auto min-[2200px]:left-80">
-          <ul className="text-white">
+          <ul className="text-white hidden lg:block">
             <button
               id={Book.notThere}
               className={classNames("block lg:h-[64px]")}
@@ -164,10 +163,60 @@ const Books = () => {
               )}>
               BOOKS
             </h2>
+            <ul className="text-white lg:hidden block mb-8">
+              <button
+                id={Book.notThere}
+                className={classNames("block lg:h-[64px]")}
+                onClick={() => setSelected(Book.notThere)}>
+                <li
+                  className={classNames(
+                    selected === Book.notThere ? "italic" : "no-italic",
+                    "book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
+                  )}>
+                  WHAT'S NOT THERE
+                </li>
+              </button>
+              <button
+                id={Book.beforeMorning}
+                className={classNames("block lg:h-[64px]")}
+                onClick={() => setSelected(Book.beforeMorning)}>
+                <li
+                  className={classNames(
+                    selected === Book.beforeMorning ? "italic" : "no-italic",
+                    "book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
+                  )}>
+                  BEFORE MORNING
+                </li>
+              </button>
+              {/* <button
+              id={Book.creature}
+              className={classNames("block lg:h-[64px]")}
+              onClick={() => setSelected(Book.creature)}>
+              <li
+                className={classNames(
+                  selected === Book.creature ? "italic" : "no-italic",
+                  "book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
+                )}>
+                CREATURE OF HABIT
+              </li>
+            </button> */}
+              <button
+                id={Book.poeming}
+                className={classNames("block lg:h-[64px]")}
+                onClick={() => setSelected(Book.poeming)}>
+                <li
+                  className={classNames(
+                    selected === Book.poeming ? "italic" : "no-italic",
+                    "book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
+                  )}>
+                  POEMING
+                </li>
+              </button>
+            </ul>
             <div
               id="book-info"
               className={classNames(
-                "font-serif text-base lg:text-3xl mt-0 lg:mt-[300px] xl:mt-[250px] ml-2 mr-12 lg:mx-12 relative pb-12"
+                "font-serif text-base lg:text-3xl mt-0 lg:mt-[300px] xl:mt-[250px] ml-2 lg:mr-12 lg:mx-12 relative pb-12"
               )}>
               {bookDescription}
             </div>

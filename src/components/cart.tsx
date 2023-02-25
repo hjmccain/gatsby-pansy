@@ -1,24 +1,39 @@
 // @ts-ignore
-import shoppingCart from "../assets/icons/icons8-shopping-cart-30.png";
+import shoppingCart from "../assets/icons/icons8-shopping-bag-64.png";
 // @ts-ignore
-import cancel from "../assets/icons/icons8-cancel-48.png";
+import cancel from "../assets/icons/icons8-close-50.png";
 
 import classNames from "classnames";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import useLocalStorage, { getLocalStorage } from "../hooks/useLocalStorage";
-import { ProductWithPrice, ProductWithPriceAndQty } from "../pages/shop";
+import { ProductWithPriceAndQty } from "../pages/shop";
 import { useStaticQuery, graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import useOutsideClick from "../hooks/useOutsideClick";
 import findImage, { AllFile } from "../helpers/findImage";
 import useHandleWindowResize from "../hooks/useHandleWindowResize";
 
-const Cart: React.FC = () => {
+// const [collapsed, toggleCollapsed] = useState(true);
+
+interface CartProps {
+  collapsed: boolean;
+  toggleCollapsed: Dispatch<SetStateAction<boolean>>;
+}
+
+const Cart: React.FC<CartProps> = ({
+  collapsed,
+  toggleCollapsed,
+}: CartProps) => {
   const screenHeight = useHandleWindowResize();
   const cartItems: Record<string, ProductWithPriceAndQty> =
     getLocalStorage("cart");
   const [step, setStep] = useState<Step>(Step.review);
-  const [collapsed, toggleCollapsed] = useState(true);
   const [location, setLocation] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   useOutsideClick(ref, () => !collapsed && toggleCollapsed(true));
@@ -109,8 +124,9 @@ const Cart: React.FC = () => {
       ref={ref}
       className={classNames(
         collapsed
-          ? "w-10 shadow-md bg-primary-200"
+          ? "lg:w-10 lg:shadow-md lg:bg-primary-200 lg:block hidden"
           : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-primary-200",
+        // showCart ? "block" : "lg:block hidden",
         "absolute top-0 right-0 z-20 border-l transition-all"
       )}>
       {collapsed ? (
@@ -124,8 +140,8 @@ const Cart: React.FC = () => {
           {numberOfItemsInCart > 0 && (
             <div
               className={classNames(
-                numberOfItemsInCart > 9 ? "left-[3px]" : "left-[5px]",
-                "relative text-xs text-center bottom-[23px] text-white"
+                numberOfItemsInCart > 9 ? "left-[1px]" : "left-[2px]",
+                "relative text-xs text-center bottom-[20px] text-black font-serif"
               )}>
               {numberOfItemsInCart}
             </div>
