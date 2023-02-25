@@ -1,5 +1,5 @@
 // @ts-ignore
-import shoppingCart from "../assets/icons/icons8-shopping-bag-64.png";
+import shoppingCart from "../assets/icons/icons8-shopping-bag-64-white.png";
 // @ts-ignore
 import cancel from "../assets/icons/icons8-close-50.png";
 
@@ -124,24 +124,27 @@ const Cart: React.FC<CartProps> = ({
       ref={ref}
       className={classNames(
         collapsed
-          ? "lg:w-10 lg:shadow-md lg:bg-primary-200 min-[2200px]:bg-primary-100 lg:block hidden"
+          ? "lg:w-10 lg:block hidden"
           : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-primary-200 min-[2200px]:bg-primary-100",
         // showCart ? "block" : "lg:block hidden",
-        "absolute top-0 right-0 z-20 border-l transition-all"
+        "absolute top-0 right-0 z-20"
       )}>
       {collapsed ? (
         <button
-          className="h-screen flex flex-col"
+          className={classNames(
+            collapsed ? "override-screen-height-always" : "",
+            "h-screen flex flex-col"
+          )}
           onClick={() => {
             setStep(Step.review);
             toggleCollapsed(!collapsed);
           }}>
-          <img className="pt-2 pl-1 hover:opacity-75" src={shoppingCart} />
+          <img className="pt-2 hover:opacity-75 mt-2" src={shoppingCart} />
           {numberOfItemsInCart > 0 && (
             <div
               className={classNames(
-                numberOfItemsInCart > 9 ? "left-[1px]" : "left-[2px]",
-                "relative text-xs text-center bottom-[20px] text-black font-serif"
+                numberOfItemsInCart > 9 ? "left-[0px]" : "left-[1px]",
+                "relative text-xs text-center bottom-[20px] text-white font-serif"
               )}>
               {numberOfItemsInCart}
             </div>

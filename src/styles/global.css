@@ -53,6 +53,10 @@
   }
 }
 
+.override-screen-height-always {
+  height: auto !important;
+}
+
 .cart .gatsby-image-wrapper {
   width: 80px;
   height: 80px !important;

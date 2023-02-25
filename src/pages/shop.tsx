@@ -241,7 +241,7 @@ const ProductDetails: React.FC<{
             )}
           </div>
         </button>
-        <div className="col-start-2 p-12 bg-primary-100 mr-12">
+        <div className="col-start-2 p-12 bg-primary-100">
           <h1 className="uppercase text-4xl">{product.name}</h1>
           <h1 className="my-12">{product.description}</h1>
           <h1 className="my-12">
