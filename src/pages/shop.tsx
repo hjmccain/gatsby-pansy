@@ -206,7 +206,7 @@ const ProductDetails: React.FC<{
         {"← "}
         <span className="text-xl">BACK</span>
       </Link>
-      <div className="grid grid-cols-2 font-serif mb-0">
+      <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 font-serif mb-0">
         <button onClick={handleSelectImage} className="grid col-span-1">
           <div
             style={{
@@ -241,7 +241,7 @@ const ProductDetails: React.FC<{
             )}
           </div>
         </button>
-        <div className="col-start-2 p-12 bg-primary-100">
+        <div className="lg:col-start-2 p-12 bg-primary-100">
           <h1 className="uppercase text-4xl">{product.name}</h1>
           <h1 className="my-12">{product.description}</h1>
           <h1 className="my-12">
