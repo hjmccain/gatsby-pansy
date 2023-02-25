@@ -14,7 +14,7 @@ const Submit = () => {
           height: `${screenHeight}px`,
         }}
         className={classNames(
-          "overflow-scroll grid",
+          "override-screen-height overflow-scroll grid",
           "lg:overflow-hidden lg:grid-cols-2 lg:grid-rows-1",
           "min-[2200px]:mx-80"
         )}>
