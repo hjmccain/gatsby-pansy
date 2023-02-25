@@ -16,19 +16,17 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   const [pathname, setPathname] = useState("");
   const screenHeight = useHandleWindowResize();
-  const [bigScreen, setBigScreen] = useState<boolean | undefined>(undefined);
+  const bigScreen = screenHeight > 740;
   const [showCart, setShowCart] = useState(false);
   const [showNav, setShowNav] = useState(false);
-
-  useEffect(() => {
-    setBigScreen(screenHeight > 740);
-  }, [screenHeight]);
 
   useEffect(() => {
     setPathname(window.location.pathname);
   });
 
-  return (
+  console.log({ screenHeight, bigScreen });
+
+  return screenHeight > 0 && bigScreen !== undefined ? (
     <div
       className={classNames(
         "bg-black",
@@ -138,7 +136,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           </nav>
         )}
       </span>
-      {bigScreen !== undefined && (
+      {screenHeight > 0 && bigScreen !== undefined && (
         <Link to="/">
           <h1
             className={classNames(
@@ -224,7 +222,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         toggleCollapsed={(opposite) => setShowCart(!opposite)}
       />
     </div>
-  );
+  ) : null;
 };
 
 export default Layout;
