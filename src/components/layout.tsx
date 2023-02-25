@@ -31,7 +31,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <div
       className={classNames(
-        "bg-black md:bg-blue-50",
+        "bg-blue-50",
         "h-screen flex flex-col transition-all relative"
       )}>
       <span className="lg:hidden inline">
