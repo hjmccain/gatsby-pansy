@@ -31,7 +31,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <div
       className={classNames(
-        "bg-black",
+        "bg-black min-[2200px]:bg-primary-200",
         "h-screen flex flex-col transition-all relative"
       )}>
       <span className="lg:hidden inline">
@@ -141,7 +141,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       <Link to="/">
         <h1
           className={classNames(
-            "absolute left-0 text-primary-200 hover:tracking-widest hover:ml-4 h-0 font-display transition-all",
+            "absolute left-0 text-primary-200 min-[2200px]:text-black hover:tracking-widest hover:ml-4 h-0 font-display transition-all",
             "text-small top-8 lg:top-[-20px]",
             bigScreen && "md:text-medium",
             bigScreen && "lg:text-big lg:top-[-40px]",
@@ -152,7 +152,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       </Link>
       <nav
         className={classNames(
-          "mt-28 w-full flex-row items-end text-2xl flex-wrap text-primary-200 hidden lg:flex",
+          "mt-28 w-full flex-row items-end text-2xl flex-wrap text-primary-200 min-[2200px]:text-black hidden lg:flex",
           !bigScreen &&
             "lg:mt-0 lg:justify-end lg:mb-2 xl:mb-4 xl:text-4xl lg:pt-6 xl:pt-4 ",
           bigScreen &&
@@ -214,7 +214,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           </h1>
         </Link>
       </nav>
-      <main className="mt-20 lg:mt-[15px] z-20 mx-auto lg:mr-12">
+      <main className="mt-20 md:mt-36 lg:mt-[15px] min-[2200px]:pt-[48px] z-20 mx-auto lg:mr-12">
         {children}
       </main>
       <Cart

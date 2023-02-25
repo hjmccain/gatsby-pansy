@@ -6,7 +6,10 @@ const useHandleWindowResize = () => {
   const [screenHeight, setScreenHeight] = useState(0);
 
   const handleSetScreenHeight = () => {
-    const diff = window.innerHeight > 920 ? 180 : 60;
+    let diff = window.innerHeight > 920 ? 180 : 60;
+    if (window.innerWidth > 2200) {
+      diff = diff + 60;
+    }
     setScreenHeight(window.innerHeight - diff);
   };
 

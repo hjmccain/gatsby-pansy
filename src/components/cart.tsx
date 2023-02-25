@@ -124,8 +124,8 @@ const Cart: React.FC<CartProps> = ({
       ref={ref}
       className={classNames(
         collapsed
-          ? "lg:w-10 lg:shadow-md lg:bg-primary-200 lg:block hidden"
-          : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-primary-200",
+          ? "lg:w-10 lg:shadow-md lg:bg-primary-200 min-[2200px]:bg-primary-100 lg:block hidden"
+          : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-primary-200 min-[2200px]:bg-primary-100",
         // showCart ? "block" : "lg:block hidden",
         "absolute top-0 right-0 z-20 border-l transition-all"
       )}>

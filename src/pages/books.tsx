@@ -16,7 +16,6 @@ enum Book {
 const Books = () => {
   const screenHeight = useHandleWindowResize();
   const bigScreen = screenHeight > 740;
-  // const top = useHandleScroll(bigScreen ? 320 : 200, "book-info");
   const [hovered, setHovered] = useState<Book | null>(null);
   const [selected, setSelected] = useState(Book.notThere);
   const bookDescription = hovered
@@ -87,7 +86,7 @@ const Books = () => {
           style={{
             top: `${top}px`,
           }}
-          className="override-top absolute lg:right-16 text-right z-30 bg-white w-full bg-transparent lg:w-auto min-[2200px]:left-80">
+          className="override-top absolute text-right z-30 bg-white w-full bg-transparent lg:w-auto">
           <ul className="text-white hidden lg:block">
             <button
               id={Book.notThere}
@@ -96,9 +95,11 @@ const Books = () => {
               <li
                 className={classNames(
                   selected === Book.notThere ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
+                  "py-10 book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
                 )}>
-                WHAT'S NOT THERE
+                <p className="min-[2200px]:right-[368px] lg:right-16 relative">
+                  WHAT'S NOT THERE
+                </p>
               </li>
             </button>
             <button
@@ -108,9 +109,11 @@ const Books = () => {
               <li
                 className={classNames(
                   selected === Book.beforeMorning ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
+                  "py-10 book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
                 )}>
-                BEFORE MORNING
+                <p className="min-[2200px]:right-[368px] lg:right-16 relative">
+                  BEFORE MORNING
+                </p>
               </li>
             </button>
             {/* <button
@@ -132,9 +135,11 @@ const Books = () => {
               <li
                 className={classNames(
                   selected === Book.poeming ? "italic" : "no-italic",
-                  "book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
+                  "py-10 book-nav text-left lg:text-right text-3xl lg:text-small whitespace-nowrap hover:text-black hover:bg-white transition-color hover:tracking-widest w-screen"
                 )}>
-                POEMING
+                <p className="min-[2200px]:right-[368px] lg:right-16 relative">
+                  POEMING
+                </p>
               </li>
             </button>
           </ul>
