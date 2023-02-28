@@ -51,10 +51,6 @@ const Shop = () => {
     getProducts();
   }, [location]);
 
-  // useEffect(() => {
-  //   getLocation(products, location, setSelectedProduct);
-  // }, [location]);
-
   return (
     <Layout>
       <div className="w-screen">

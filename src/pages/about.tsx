@@ -2,20 +2,13 @@ import classNames from "classnames";
 import { StaticImage } from "gatsby-plugin-image";
 import React from "react";
 import Layout from "../components/layout";
-import useHandleWindowResize from "../hooks/useHandleWindowResize";
 
 const About = () => {
-  const screenHeight = useHandleWindowResize();
-
   return (
     <Layout>
       <div
-        key={screenHeight}
-        style={{
-          height: `${screenHeight}px`,
-        }}
         className={classNames(
-          "override-screen-height overflow-scroll grid",
+          "override-screen-height overflow-scroll grid h-full",
           "lg:overflow-hidden lg:grid-cols-2 lg:grid-rows-1",
           "min-[2200px]:mx-80"
         )}>
@@ -53,12 +46,7 @@ const About = () => {
             </p>
           </div>
         </div>
-        <div
-          className="row-start-1 override-screen-height"
-          style={{
-            height: `${screenHeight}px`,
-            overflow: "scroll",
-          }}>
+        <div className="row-start-1 override-screen-height h-full">
           <StaticImage
             src="../assets/images/hannah-jeff.jpg"
             alt=""

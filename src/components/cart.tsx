@@ -17,7 +17,6 @@ import { useStaticQuery, graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import useOutsideClick from "../hooks/useOutsideClick";
 import findImage, { AllFile } from "../helpers/findImage";
-import useHandleWindowResize from "../hooks/useHandleWindowResize";
 
 // const [collapsed, toggleCollapsed] = useState(true);
 
@@ -30,7 +29,6 @@ const Cart: React.FC<CartProps> = ({
   collapsed,
   toggleCollapsed,
 }: CartProps) => {
-  const screenHeight = useHandleWindowResize();
   const cartItems: Record<string, ProductWithPriceAndQty> =
     getLocalStorage("cart");
   const [step, setStep] = useState<Step>(Step.review);
@@ -117,10 +115,6 @@ const Cart: React.FC<CartProps> = ({
 
   return (
     <div
-      style={{
-        height: `${screenHeight + 180}px`,
-        overflow: "hidden",
-      }}
       ref={ref}
       className={classNames(
         collapsed
