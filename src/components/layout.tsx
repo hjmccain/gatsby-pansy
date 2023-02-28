@@ -40,7 +40,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
             pathname === "/shop/"
               ? "underline cursor-default"
               : "hover:tracking-widest",
-            " transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+            " transition-all border-primary-200 w-fit mr-4 sm:mr-20"
           )}>
           SHOP
         </h1>
@@ -51,7 +51,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
             pathname === "/submit/"
               ? "underline cursor-default"
               : "hover:tracking-widest",
-            "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+            "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-20"
           )}>
           SUBMIT
         </h1>
@@ -62,7 +62,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
             pathname === "/events/"
               ? "underline cursor-default"
               : "hover:tracking-widest",
-            "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+            "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-20"
           )}>
           EVENTS
         </h1>
@@ -73,7 +73,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
             pathname === "/books/"
               ? "underline cursor-default"
               : "hover:tracking-widest",
-            "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+            "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-20"
           )}>
           BOOKS
         </h1>
@@ -84,7 +84,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
             pathname === "/about/"
               ? "underline cursor-default"
               : "hover:tracking-widest",
-            "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-12"
+            "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-20"
           )}>
           ABOUT
         </h1>
@@ -203,7 +203,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         <div className="font-serif">
           <Marquee />
         </div>
-        <div className="h-fit flex items-start">
+        <div className="h-fit flex items-center">
           <Link to="/">
             <h1
               className={classNames(
@@ -227,9 +227,6 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           )}>
           {children}
         </main>
-        {/* {pathname !== "/shop/" && (
-          
-        )} */}
       </div>
       <Cart
         collapsed={!showCart}

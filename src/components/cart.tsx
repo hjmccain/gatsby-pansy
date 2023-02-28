@@ -118,21 +118,21 @@ const Cart: React.FC<CartProps> = ({
       ref={ref}
       className={classNames(
         collapsed
-          ? "lg:w-10 lg:block hidden"
+          ? "lg:w-10 lg:block hidden mr-2 mt-1"
           : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-primary-200 min-[2200px]:bg-primary-200",
         "absolute top-0 right-0 z-20 pb-12 h-full"
       )}>
       {collapsed ? (
         <button
           className={classNames(
-            collapsed ? "override-screen-height-always" : "",
+            collapsed ? "override-screen-height-always mt-10" : "",
             "h-screen flex flex-col"
           )}
           onClick={() => {
             setStep(Step.review);
             toggleCollapsed(!collapsed);
           }}>
-          <img className="pt-2 hover:opacity-75 mt-2" src={shoppingCart} />
+          <img className="pt-2 hover:opacity-75" src={shoppingCart} />
           {numberOfItemsInCart > 0 && (
             <div
               className={classNames(
