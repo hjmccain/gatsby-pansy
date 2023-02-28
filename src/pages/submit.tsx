@@ -101,7 +101,7 @@ const Submit = () => {
           <StaticImage
             src="../assets/images/submit-illustration.jpg"
             alt=""
-            className="object-cover"
+            className="object-cover lg:h-full"
           />
         </div>
       </div>

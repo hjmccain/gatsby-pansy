@@ -101,7 +101,7 @@ const Home: React.FC = () => {
           EVENTS
         </h1>
       </Link>
-      <Link
+      {/* <Link
         className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
         to="/books">
         <h1
@@ -110,7 +110,7 @@ const Home: React.FC = () => {
           )}>
           BOOKS
         </h1>
-      </Link>
+      </Link> */}
       <Link
         className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
         to="/about">

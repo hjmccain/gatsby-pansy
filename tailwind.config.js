@@ -9,7 +9,8 @@ module.exports = {
       fontFamily: {
         display: ['Saint', 'sans-serif'],
         sans: ['Lack', 'sans-serif'],
-        serif: ['Director', 'serif']
+        serif: ['Director', 'serif'],
+        dingbats: ['Mister Pixel', 'serif']
       },
       fontSize: {
         'x-small': '3.5rem',

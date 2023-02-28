@@ -3,40 +3,18 @@
 @tailwind utilities;
 
 @font-face {
+  font-family: "Mister Pixel";
+  src: url("../assets/fonts/Mister-Pixel-Tools.woff");
+}
+@font-face {
   font-family: "Saint";
   src: url("../assets/fonts/Saint-Regular.woff");
-}
-@font-face {
-  font-family: "Pleatures";
-  src: url("../assets/fonts/Pleatures-Regular.woff2");
-}
-@font-face {
-  font-family: "Yorker";
-  src: url("../assets/fonts/YorkerRegular.woff2");
 }
 @font-face {
   font-family: "Lack";
   src: url("../assets/fonts/Lack-Regular.woff2");
   font-weight: normal;
   font-style: normal;
-}
-@font-face {
-  font-family: "Lack";
-  src: url("../assets/fonts/lack-italic-webfont.woff2");
-  font-weight: normal;
-  font-style: italic;
-}
-@font-face {
-  font-family: "Lack Line";
-  src: url("../assets/fonts/lack-line-regular-webfont.woff2");
-}
-@font-face {
-  font-family: "Helvetica";
-  src: url("../assets/fonts/Helvetica.woff2");
-}
-@font-face {
-  font-family: "Happy Times";
-  src: url("../assets/fonts/happy-times-NG_regular_master_web.woff2");
 }
 @font-face {
   font-family: "Director";
@@ -82,6 +60,14 @@
   color: #fffcff;
 }
 
+svg {
+  fill: currentColor;
+  height: auto;
+  max-width: 22vmin;
+  transform-origin: center;
+  width: 22%;
+}
+
 .marquee {
   position: relative;
   overflow: hidden;
@@ -95,8 +81,8 @@
   display: flex;
   position: relative;
   transform: translate3d(var(--move-initial), 0, 0);
-  animation: marquee 10s linear infinite;
-  animation-play-state: paused;
+  animation: marquee 15s linear infinite;
+  animation-play-state: running;
 }
 
 .marquee span {
@@ -115,12 +101,4 @@
   100% {
     transform: translate3d(var(--move-final), 0, 0);
   }
-}
-
-svg {
-  fill: currentColor;
-  height: auto;
-  max-width: 22vmin;
-  transform-origin: center;
-  width: 22%;
 }

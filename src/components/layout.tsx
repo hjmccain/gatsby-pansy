@@ -8,6 +8,7 @@ import { Link } from "gatsby";
 import React, { useEffect, useState } from "react";
 import useHandleWindowResize from "../hooks/useHandleWindowResize";
 import Cart from "./cart";
+import Marquee from "./marquee";
 
 interface LayoutProps {
   children: React.ReactElement;
@@ -66,7 +67,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           EVENTS
         </h1>
       </Link>
-      <Link className="block h-[35px]" to="/books">
+      {/* <Link className="block h-[35px]" to="/books">
         <h1
           className={classNames(
             pathname === "/books/"
@@ -76,7 +77,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           )}>
           BOOKS
         </h1>
-      </Link>
+      </Link> */}
       <Link className="block h-[35px]" to="/about">
         <h1
           className={classNames(
@@ -135,7 +136,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           EVENTS
         </h1>
       </Link>
-      <Link
+      {/* <Link
         className="h-[35px] flex justify-end"
         to="/books"
         onClick={() => setShowNav(false)}>
@@ -148,7 +149,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           )}>
           BOOKS
         </h1>
-      </Link>
+      </Link> */}
       <Link
         className="h-[35px] flex justify-end"
         to="/about"
@@ -199,15 +200,18 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         {showNav && mobileNav}
       </span>
       <div className="flex flex-col h-screen overflow-scroll">
-        <div>
+        <div className="font-serif">
+          <Marquee />
+        </div>
+        <div className="h-fit flex items-start">
           <Link to="/">
             <h1
               className={classNames(
-                "absolute left-0 text-primary-200 hover:tracking-widest hover:ml-4 h-0 font-display transition-all",
-                "text-small top-8 lg:top-[-20px]",
-                bigScreen && "md:text-medium",
-                bigScreen && "lg:text-big lg:top-[-40px]",
-                bigScreen && "xl:text-display xl:top-[-72px]"
+                "text-primary-200 hover:tracking-widest hover:ml-4 font-display transition-all h-fit leading-[80%]",
+                "text-small mt-[12px] mb-[-16px]",
+                bigScreen && "md:text-medium md:mt-[12px] md:mb-[-16px]",
+                bigScreen && "lg:text-big md:mt-[22px] md:mb-[-22px]",
+                bigScreen && "xl:text-display xl:mt-[30px] xl:mb-[-34px]"
               )}>
               pansy
             </h1>
@@ -218,11 +222,14 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           className={classNames(
             pathname === "/shop/"
               ? "bg-black"
-              : "min-[2200px]:bg-primary-200 h-full overflow-hidden",
-            "mt-20 md:mt-36 lg:mt-[15px] min-[2200px]:pt-[48px] z-20 mx-auto"
+              : "min-[2200px]:bg-primary-200 h-full overflow-scroll lg:overflow-hidden",
+            "mt-2 min-[2200px]:pt-[48px] z-20 mx-auto"
           )}>
           {children}
         </main>
+        {/* {pathname !== "/shop/" && (
+          
+        )} */}
       </div>
       <Cart
         collapsed={!showCart}

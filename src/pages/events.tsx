@@ -110,7 +110,11 @@ const Events = () => {
         </div>
         <div className="row-start-1 override-screen-height h-full">
           {image && (
-            <GatsbyImage image={image} alt="" className="object-cover" />
+            <GatsbyImage
+              image={image}
+              alt=""
+              className="object-cover lg:h-full"
+            />
           )}
         </div>
       </div>

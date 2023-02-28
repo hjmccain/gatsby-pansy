@@ -50,7 +50,7 @@ const About = () => {
           <StaticImage
             src="../assets/images/hannah-jeff.jpg"
             alt=""
-            className="object-cover"
+            className="object-cover lg:h-full"
           />
         </div>
       </div>

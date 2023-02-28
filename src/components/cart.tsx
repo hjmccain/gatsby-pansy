@@ -120,8 +120,7 @@ const Cart: React.FC<CartProps> = ({
         collapsed
           ? "lg:w-10 lg:block hidden"
           : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-primary-200 min-[2200px]:bg-primary-200",
-        // showCart ? "block" : "lg:block hidden",
-        "absolute top-0 right-0 z-20"
+        "absolute top-0 right-0 z-20 pb-12 h-full"
       )}>
       {collapsed ? (
         <button

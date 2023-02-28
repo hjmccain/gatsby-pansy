@@ -145,14 +145,20 @@ const Books = () => {
           </ul>
         </nav>
         <div
+          // style={{
+          //   height: `${screenHeight}px`,
+          // }}
           className={classNames(
             "override-screen-height overflow-scroll grid h-full",
             "lg:overflow-hidden lg:grid-cols-2 lg:grid-rows-1",
             "min-[2200px]:mx-80"
           )}>
           <div
+            // style={{
+            //   height: `${screenHeight}px`,
+            // }}
             id="scrollable-div"
-            className="relative z-20 bg-primary-200 overflow-scroll h-full">
+            className="relative z-20 bg-primary-200 overflow-scroll pb-12">
             <h2
               className={classNames(
                 "text-black",
@@ -222,7 +228,11 @@ const Books = () => {
           </div>
           <div className="row-start-1 override-screen-height h-full">
             {image && (
-              <GatsbyImage image={image} alt="" className="object-cover" />
+              <GatsbyImage
+                image={image}
+                alt=""
+                className="object-cover lg:h-full"
+              />
             )}
           </div>
         </div>
