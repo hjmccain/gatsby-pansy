@@ -24,8 +24,6 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
     setPathname(window.location.pathname);
   });
 
-  console.log({ screenHeight, bigScreen });
-
   return screenHeight > 0 && bigScreen !== undefined ? (
     <div
       className={classNames(
@@ -214,7 +212,11 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           </h1>
         </Link>
       </nav>
-      <main className="mt-20 md:mt-36 lg:mt-[15px] min-[2200px]:pt-[48px] min-[2200px]:bg-primary-200 z-20 mx-auto">
+      <main
+        className={classNames(
+          pathname === "/shop/" ? "bg-black" : "min-[2200px]:bg-primary-200",
+          "mt-20 md:mt-36 lg:mt-[15px] min-[2200px]:pt-[48px] z-20 mx-auto"
+        )}>
         {children}
       </main>
       <Cart

@@ -67,6 +67,7 @@ const Shop = () => {
         ) : (
           <div className="mt-12 font-body text-center lg:text-left">
             {products.map((product) => {
+              // TODO: add something here while loading ya know
               const image1 = findImage(allFile, product.id);
               const image2 = findImage(allFile, `${product.id}-alt`);
               const price = product.price.unit_amount

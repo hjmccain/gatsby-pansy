@@ -23,7 +23,7 @@ module.exports = {
         white: '#BECCE3',
         // white: '#FFFCFF',
         neutral: '#948894',
-        'primary-100': '#FBF1FD',
+        'primary-100': '#F3FFD4',
         'primary-200': '#E2FF9A',
         // 'primary-200': '#F7DCFA',
         'primary-500': '#BD86B1',
