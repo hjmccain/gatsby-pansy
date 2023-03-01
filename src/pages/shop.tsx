@@ -17,6 +17,7 @@ export type ProductWithPrice = Stripe.Product & { price: Stripe.Price };
 export type ProductWithPriceAndQty = ProductWithPrice & { quantity: number };
 
 const Shop = () => {
+  const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<Array<ProductWithPrice>>([]);
   const [productSelected, setSelectedProduct] =
     useState<ProductWithPrice | null>(null);
@@ -42,7 +43,9 @@ const Shop = () => {
 
   useEffect(() => {
     const getProducts = async () => {
+      setLoading(true);
       const productsWithPrices = await handleGetProducts();
+      setLoading(false);
 
       setProducts(productsWithPrices);
       getLocation(productsWithPrices, location, setSelectedProduct);
@@ -62,6 +65,13 @@ const Shop = () => {
           />
         ) : (
           <div className="mt-12 font-body text-center lg:text-left">
+            {loading && !products.length && (
+              <div className="text-white text-2xl font-serif flex justify-center animate-pulse">
+                <p className="mt-8">
+                  ...querying database for pansy products...
+                </p>
+              </div>
+            )}
             {products.map((product) => {
               // TODO: add something here while loading ya know
               const image1 = findImage(allFile, product.id);

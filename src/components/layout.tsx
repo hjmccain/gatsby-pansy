@@ -199,10 +199,14 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         </button>
         {showNav && mobileNav}
       </span>
+      <div className="font-serif sticky top-0">
+        <Marquee />
+      </div>
+      <Cart
+        collapsed={!showCart}
+        toggleCollapsed={(opposite) => setShowCart(!opposite)}
+      />
       <div className="flex flex-col h-screen overflow-scroll">
-        <div className="font-serif">
-          <Marquee />
-        </div>
         <div className="h-fit flex items-center">
           <Link to="/">
             <h1
@@ -228,10 +232,6 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           {children}
         </main>
       </div>
-      <Cart
-        collapsed={!showCart}
-        toggleCollapsed={(opposite) => setShowCart(!opposite)}
-      />
     </div>
   ) : null;
 };
