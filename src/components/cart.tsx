@@ -118,8 +118,8 @@ const Cart: React.FC<CartProps> = ({
       ref={ref}
       className={classNames(
         collapsed
-          ? "lg:w-10 lg:block hidden mr-2 mt-1"
-          : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-primary-200 min-[2200px]:bg-primary-200",
+          ? "lg:w-10 lg:block hidden mr-2 mt-[10px]"
+          : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-secondary-200",
         "absolute top-0 right-0 z-20 pb-12 h-full"
       )}>
       {collapsed ? (
@@ -254,7 +254,7 @@ function getCartContents(
       return (
         <div
           className={classNames(
-            "cart font-serif text-lg my-8 grid bg-primary-100 p-4 rounded-lg",
+            "cart font-serif text-lg my-8 grid bg-secondary-100 p-4 rounded-lg",
             "lg:grid-rows-2",
             "xl:grid-cols-5 xl:grid-rows-1"
           )}>
@@ -274,7 +274,7 @@ function getCartContents(
               {product.name}
             </p>
             <p>${price}</p>
-            <hr className="w-full col-start-1 col-span-3 border-primary-200" />
+            <hr className="w-full col-start-1 col-span-3 border-secondary-200" />
             <p className="ml-4 col-start-1 col-span-2 self-end text-base">
               QTY:{" "}
               <button

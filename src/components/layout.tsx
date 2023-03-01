@@ -189,7 +189,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       )}>
       <span className="lg:hidden inline">
         <button
-          className="w-full bg-primary-100 pb-2 flex justify-end pr-4"
+          className="w-full bg-primary-200 pb-2 flex justify-end pr-4"
           onClick={() => setShowNav(!showNav)}>
           {showNav ? (
             <img className="h-[38px] pt-2 pl-1 hover:opacity-75" src={close} />

@@ -37,8 +37,8 @@ const IndexPage: React.FC = () => {
           <h1
             className={classNames(
               entered
-                ? "absolute left-0 text-white z-10"
-                : "relative text-center text-white hover:tracking-widest z-10",
+                ? "absolute left-0 text-white-alt z-10"
+                : "relative text-center text-white-alt hover:tracking-widest z-10",
               "font-display transition-all",
               "text-small top-[-20px]",
               "md:text-medium",
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
         to="/shop">
         <h1
           className={classNames(
-            "mt-[60px] sm:mt-[150px] w-fit hover:w-full block font-sans hover:text-black hover:bg-white transition-color border-primary-200 hover:tracking-widest h-fit"
+            "mt-[60px] sm:mt-[150px] w-fit hover:w-full block font-sans hover:text-black hover:bg-white-alt transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           SHOP
         </h1>
@@ -86,7 +86,7 @@ const Home: React.FC = () => {
         to="/submit">
         <h1
           className={classNames(
-            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white-alt transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           SUBMIT
         </h1>
@@ -96,7 +96,7 @@ const Home: React.FC = () => {
         to="/events">
         <h1
           className={classNames(
-            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white-alt transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           EVENTS
         </h1>
@@ -106,7 +106,7 @@ const Home: React.FC = () => {
         to="/books">
         <h1
           className={classNames(
-            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white-alt transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           BOOKS
         </h1>
@@ -116,7 +116,7 @@ const Home: React.FC = () => {
         to="/about">
         <h1
           className={classNames(
-            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white transition-color border-primary-200 hover:tracking-widest h-fit"
+            "w-fit hover:w-full block font-sans hover:text-black hover:bg-white-alt transition-color border-primary-200 hover:tracking-widest h-fit"
           )}>
           ABOUT
         </h1>

@@ -66,11 +66,11 @@ const Events = () => {
                 )}
               </li>
             </ul> */}
-            <h4 className="text-3xl text-white">PAST</h4>
+            <h3 className="text-3xl text-white-alt">PAST</h3>
             <ul className="text-5xl">
               <li id={Event.poemAndImageWorkshop} className="mb-12">
                 <button
-                  className="text-left hover:bg-black hover:text-white transition-colors"
+                  className="text-left hover:bg-black hover:text-white-alt transition-colors"
                   onClick={() => setSelected(Event.poemAndImageWorkshop)}>
                   POEM & IMAGE WORKSHOP
                 </button>
@@ -82,7 +82,7 @@ const Events = () => {
               </li>
               <li id={Event.beforeMorningRelease} className="mb-12">
                 <button
-                  className="text-left hover:bg-black hover:text-white transition-colors"
+                  className="text-left hover:bg-black hover:text-white-alt transition-colors"
                   onClick={() => setSelected(Event.beforeMorningRelease)}>
                   <span className="italic">BEFORE MORNING</span> RELEASE PARTY &
                   KARAOKE NITE
@@ -95,7 +95,7 @@ const Events = () => {
               </li>
               <li id={Event.poemingRelease} className="mb-12">
                 <button
-                  className="text-left hover:bg-black hover:text-white transition-colors"
+                  className="text-left hover:bg-black hover:text-white-alt transition-colors"
                   onClick={() => setSelected(Event.poemingRelease)}>
                   <span className="italic">POEMING</span> RELEASE PARTY
                 </button>
