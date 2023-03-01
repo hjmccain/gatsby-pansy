@@ -199,7 +199,11 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         </button>
         {showNav && mobileNav}
       </span>
-      <div className="font-serif sticky top-0">
+      <div
+        className={classNames(
+          "font-serif",
+          pathname === "/shop/" && "sticky top-0"
+        )}>
         <Marquee />
       </div>
       <Cart
