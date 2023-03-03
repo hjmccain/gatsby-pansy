@@ -4,11 +4,12 @@ import menu from "../assets/icons/icons8-menu-50.png";
 import close from "../assets/icons/icons8-close-50.png";
 
 import classNames from "classnames";
-import { Link } from "gatsby";
+import Link from "next/Link";
 import React, { useEffect, useState } from "react";
 import useHandleWindowResize from "../hooks/useHandleWindowResize";
-import Cart from "./cart";
+// import Cart from "./cart";
 import Marquee from "./marquee";
+import Cart from "./cart";
 
 interface LayoutProps {
   children: React.ReactElement;
@@ -22,6 +23,8 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   const [showNav, setShowNav] = useState(false);
 
   useEffect(() => {
+    console.log(window.location.pathname);
+
     setPathname(window.location.pathname);
   });
 
@@ -34,10 +37,10 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         bigScreen &&
           "min-[2200px]:text-x-small xl:justify-end lg:mt-1 min-[2200px]:mt-36 min-[2200px]:flex-row lg:flex-col 2xl:text-3xl"
       )}>
-      <Link className="block h-[35px]" to="/shop">
+      <Link className="block h-[35px]" href="/shop">
         <h1
           className={classNames(
-            pathname === "/shop/"
+            pathname === "/shop"
               ? "underline cursor-default"
               : "hover:tracking-widest",
             " transition-all border-primary-200 w-fit mr-4 sm:mr-20"
@@ -45,10 +48,10 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           SHOP
         </h1>
       </Link>
-      <Link className="block h-[35px]" to="/submit">
+      <Link className="block h-[35px]" href="/submit">
         <h1
           className={classNames(
-            pathname === "/submit/"
+            pathname === "/submit"
               ? "underline cursor-default"
               : "hover:tracking-widest",
             "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-20"
@@ -56,10 +59,10 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           SUBMIT
         </h1>
       </Link>
-      <Link className="block h-[35px]" to="/events">
+      <Link className="block h-[35px]" href="/events">
         <h1
           className={classNames(
-            pathname === "/events/"
+            pathname === "/events"
               ? "underline cursor-default"
               : "hover:tracking-widest",
             "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-20"
@@ -67,7 +70,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           EVENTS
         </h1>
       </Link>
-      {/* <Link className="block h-[35px]" to="/books">
+      {/* <Link className="block h-[35px]" href="/books">
         <h1
           className={classNames(
             pathname === "/books/"
@@ -78,10 +81,10 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           BOOKS
         </h1>
       </Link> */}
-      <Link className="block h-[35px]" to="/about">
+      <Link className="block h-[35px]" href="/about">
         <h1
           className={classNames(
-            pathname === "/about/"
+            pathname === "/about"
               ? "underline cursor-default"
               : "hover:tracking-widest",
             "font-sans  transition-all border-primary-200 w-fit mr-4 sm:mr-20"
@@ -96,7 +99,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
     <nav className={classNames("bg-primary-100 z-40 text-xl absolute w-full")}>
       <Link
         className="h-[35px] flex justify-end"
-        to="/shop"
+        href="/shop"
         onClick={() => setShowNav(false)}>
         <h1
           className={classNames(
@@ -110,7 +113,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       </Link>
       <Link
         className="h-[35px] flex justify-end"
-        to="/submit"
+        href="/submit"
         onClick={() => setShowNav(false)}>
         <h1
           className={classNames(
@@ -124,7 +127,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       </Link>
       <Link
         className="h-[35px] flex justify-end"
-        to="/events"
+        href="/events"
         onClick={() => setShowNav(false)}>
         <h1
           className={classNames(
@@ -138,7 +141,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       </Link>
       {/* <Link
         className="h-[35px] flex justify-end"
-        to="/books"
+        href="/books"
         onClick={() => setShowNav(false)}>
         <h1
           className={classNames(
@@ -152,7 +155,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       </Link> */}
       <Link
         className="h-[35px] flex justify-end"
-        to="/about"
+        href="/about"
         onClick={() => setShowNav(false)}>
         <h1
           className={classNames(
@@ -202,7 +205,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       <div
         className={classNames(
           "font-serif",
-          pathname === "/shop/" && "sticky top-0"
+          pathname === "/shop" && "sticky top-0"
         )}>
         <Marquee />
       </div>
@@ -212,7 +215,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
       />
       <div className="flex flex-col h-screen overflow-scroll">
         <div className="h-fit flex items-center">
-          <Link to="/">
+          <Link href="/">
             <h1
               className={classNames(
                 "text-primary-200 hover:tracking-widest hover:ml-4 font-display transition-all h-fit leading-[80%]",
@@ -228,8 +231,8 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         </div>
         <main
           className={classNames(
-            pathname === "/shop/"
-              ? "bg-black"
+            pathname === "/shop"
+              ? "bg-black overflow-scroll"
               : "min-[2200px]:bg-primary-200 h-full overflow-scroll lg:overflow-hidden",
             "mt-2 min-[2200px]:pt-[48px] z-20 mx-auto"
           )}>

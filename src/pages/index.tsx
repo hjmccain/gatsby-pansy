@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import {} from "react";
-import type { HeadFC } from "gatsby";
-import { Link } from "gatsby";
+import Link from "next/Link";
 import classNames from "classnames";
-// import { StaticImage } from "gatsby-plugin-image";
+// import Image from "next/Image";
 
 // TODO
 // Hide large nav bar at short screen heights
@@ -48,7 +47,7 @@ const IndexPage: React.FC = () => {
             pansy
           </h1>
         </button>
-        {/* <StaticImage
+        {/* <Image
           src="../assets/images/linda-pansy.jpg"
           alt=""
           width={600}
@@ -73,7 +72,7 @@ const Home: React.FC = () => {
       )}>
       <Link
         className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
-        to="/shop">
+        href="/shop">
         <h1
           className={classNames(
             "mt-[60px] sm:mt-[150px] w-fit hover:w-full block font-sans hover:text-black hover:bg-white-alt transition-color border-primary-200 hover:tracking-widest h-fit"
@@ -83,7 +82,7 @@ const Home: React.FC = () => {
       </Link>
       <Link
         className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
-        to="/submit">
+        href="/submit">
         <h1
           className={classNames(
             "w-fit hover:w-full block font-sans hover:text-black hover:bg-white-alt transition-color border-primary-200 hover:tracking-widest h-fit"
@@ -93,7 +92,7 @@ const Home: React.FC = () => {
       </Link>
       <Link
         className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
-        to="/events">
+        href="/events">
         <h1
           className={classNames(
             "w-fit hover:w-full block font-sans hover:text-black hover:bg-white-alt transition-color border-primary-200 hover:tracking-widest h-fit"
@@ -103,7 +102,7 @@ const Home: React.FC = () => {
       </Link>
       {/* <Link
         className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
-        to="/books">
+        href="/books">
         <h1
           className={classNames(
             "w-fit hover:w-full block font-sans hover:text-black hover:bg-white-alt transition-color border-primary-200 hover:tracking-widest h-fit"
@@ -113,7 +112,7 @@ const Home: React.FC = () => {
       </Link> */}
       <Link
         className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
-        to="/about">
+        href="/about">
         <h1
           className={classNames(
             "w-fit hover:w-full block font-sans hover:text-black hover:bg-white-alt transition-color border-primary-200 hover:tracking-widest h-fit"
@@ -125,6 +124,6 @@ const Home: React.FC = () => {
   );
 };
 
-export const Head: HeadFC = () => <title>Welcome Page</title>;
+// export const Head: HeadFC = () => <title>Welcome Page</title>;
 
 export default IndexPage;

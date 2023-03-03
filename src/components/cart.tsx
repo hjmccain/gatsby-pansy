@@ -13,12 +13,8 @@ import React, {
 } from "react";
 import useLocalStorage, { getLocalStorage } from "../hooks/useLocalStorage";
 import { ProductWithPriceAndQty } from "../pages/shop";
-import { useStaticQuery, graphql } from "gatsby";
-import { GatsbyImage } from "gatsby-plugin-image";
+import Image from "next/Image";
 import useOutsideClick from "../hooks/useOutsideClick";
-import findImage, { AllFile } from "../helpers/findImage";
-
-// const [collapsed, toggleCollapsed] = useState(true);
 
 interface CartProps {
   collapsed: boolean;
@@ -83,21 +79,6 @@ const Cart: React.FC<CartProps> = ({
     }
   };
 
-  const { allFile } = useStaticQuery(graphql`
-    query imageQuery {
-      allFile {
-        edges {
-          node {
-            name
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
-        }
-      }
-    }
-  `);
-
   useEffect(() => {
     const url = location && new URL(location);
     const success = url && url.searchParams.get("success");
@@ -119,8 +100,8 @@ const Cart: React.FC<CartProps> = ({
       className={classNames(
         collapsed
           ? "lg:w-10 lg:block hidden mr-2 h-0 self-end"
-          : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-secondary-200 top-0 right-0 pb-12 absolute",
-        "z-30 h-full"
+          : "w-full sm:w-1/2 xl:w-1/3 shadow-xl bg-secondary-200 top-0 right-0 pb-12 absolute h-full",
+        "z-30"
       )}>
       {collapsed ? (
         <button
@@ -132,7 +113,7 @@ const Cart: React.FC<CartProps> = ({
             setStep(Step.review);
             toggleCollapsed(!collapsed);
           }}>
-          <img className="pt-2 hover:opacity-75" src={shoppingCart} />
+          <Image className="pt-2 hover:opacity-75" src={shoppingCart} alt="" />
           {numberOfItemsInCart > 0 && (
             <div
               className={classNames(
@@ -146,14 +127,17 @@ const Cart: React.FC<CartProps> = ({
       ) : (
         <div className="flex flex-col">
           <button onClick={() => toggleCollapsed(!collapsed)}>
-            <img className="pt-2 pl-2 h-10 hover:opacity-75" src={cancel} />
+            <Image
+              className="pt-2 pl-2 h-10 w-10 hover:opacity-75"
+              src={cancel}
+              alt=""
+            />
           </button>
           {step === "review" && (
             <div className="mx-12">
               {getCartContents(
                 itemKeys,
                 cartItems,
-                allFile,
                 incrementQty,
                 handleUpdateCart
               )}
@@ -219,7 +203,6 @@ async function handleCheckout(
 function getCartContents(
   itemArray: Array<string>,
   cartItems: Record<string, ProductWithPriceAndQty | null>,
-  allFile: AllFile,
   incrementQty: (product: ProductWithPriceAndQty, decrement?: boolean) => void,
   handleUpdateCart: (
     product: ProductWithPriceAndQty,
@@ -244,7 +227,7 @@ function getCartContents(
 
     if (product) {
       let localQty = product.quantity;
-      const image = findImage(allFile, product.id);
+      const image = `/products/images/${product.id}.jpg`;
       const price = product.price.unit_amount
         ? product.price.unit_amount / 100
         : 0;
@@ -259,10 +242,12 @@ function getCartContents(
             "xl:grid-cols-5 xl:grid-rows-1"
           )}>
           {image && (
-            <GatsbyImage
-              image={image}
+            <Image
+              src={image}
               alt=""
-              className="object-cover h-[475px] row-start-1 col-start-1 place-self-center"
+              className="object-cover h-[70px] w-[70px] row-start-1 col-start-1 place-self-center"
+              height={70}
+              width={70}
             />
           )}
           <div

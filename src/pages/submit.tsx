@@ -1,5 +1,8 @@
+// @ts-ignore
+import submitIllustration from "../assets/images/submit-illustration.jpg";
+
 import classNames from "classnames";
-import { StaticImage } from "gatsby-plugin-image";
+import Image from "next/Image";
 import * as React from "react";
 import Layout from "../components/layout";
 
@@ -98,8 +101,8 @@ const Submit = () => {
           </p>
         </div>
         <div className="row-start-1 override-screen-height h-full">
-          <StaticImage
-            src="../assets/images/submit-illustration.jpg"
+          <Image
+            src={submitIllustration}
             alt=""
             className="object-cover lg:h-full"
           />

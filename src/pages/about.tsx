@@ -1,5 +1,8 @@
+// @ts-ignore
+import hannahJeff from "../assets/images/hannah-jeff.jpg";
+
 import classNames from "classnames";
-import { StaticImage } from "gatsby-plugin-image";
+import Image from "next/Image";
 import React from "react";
 import Layout from "../components/layout";
 
@@ -47,11 +50,7 @@ const About = () => {
           </div>
         </div>
         <div className="row-start-1 override-screen-height h-full">
-          <StaticImage
-            src="../assets/images/hannah-jeff.jpg"
-            alt=""
-            className="object-cover lg:h-full"
-          />
+          <Image src={hannahJeff} alt="" className="object-cover lg:h-full" />
         </div>
       </div>
     </Layout>

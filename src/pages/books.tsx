@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useStaticQuery, graphql } from "gatsby";
-import { GatsbyImage } from "gatsby-plugin-image";
+import Image from "next/Image";
 import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import findImage from "../helpers/findImage";
@@ -228,11 +228,7 @@ const Books = () => {
           </div>
           <div className="row-start-1 override-screen-height h-full">
             {image && (
-              <GatsbyImage
-                image={image}
-                alt=""
-                className="object-cover lg:h-full"
-              />
+              <Image src={image} alt="" className="object-cover lg:h-full" />
             )}
           </div>
         </div>

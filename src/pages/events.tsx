@@ -1,9 +1,15 @@
+// @ts-ignore
+import beforeMorningRelease from "../assets/images/beforeMorningRelease.jpg";
+// @ts-ignore
+// import creatureRelease from "../assets/images/creatureRelease.jpg";
+// @ts-ignore
+import poemingRelease from "../assets/images/poemingRelease.jpg";
+// @ts-ignore
+import poemAndImageWorkshop from "../assets/images/poemAndImageWorkshop.jpg";
+
 import React, { useState } from "react";
 import Layout from "../components/layout";
-// @ts-ignore
-import { GatsbyImage } from "gatsby-plugin-image";
-import { useStaticQuery, graphql } from "gatsby";
-import findImage from "../helpers/findImage";
+import Image from "next/Image";
 import classNames from "classnames";
 
 enum Event {
@@ -15,21 +21,24 @@ enum Event {
 
 const Events = () => {
   const [selected, setSelected] = useState(Event.poemAndImageWorkshop);
-  const { allFile } = useStaticQuery(graphql`
-    query imageQuery {
-      allFile {
-        edges {
-          node {
-            name
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
-        }
+  const getImage = () => {
+    switch (selected) {
+      case Event.beforeMorningRelease: {
+        return <Image src={beforeMorningRelease} alt="" />;
+      }
+      // case Event.creatureRelease: {
+      //   return <Image src={creatureRelease} alt="" />;
+      // }
+      case Event.poemingRelease: {
+        return <Image src={poemingRelease} alt="" />;
+      }
+      default:
+      case Event.poemAndImageWorkshop: {
+        return <Image src={poemAndImageWorkshop} alt="" />;
       }
     }
-  `);
-  const image = findImage(allFile, selected);
+  };
+  const image = getImage();
 
   return (
     <Layout>
@@ -108,15 +117,7 @@ const Events = () => {
             </ul>
           </div>
         </div>
-        <div className="row-start-1 override-screen-height h-full">
-          {image && (
-            <GatsbyImage
-              image={image}
-              alt=""
-              className="object-cover lg:h-full"
-            />
-          )}
-        </div>
+        <div className="row-start-1 override-screen-height h-full">{image}</div>
       </div>
     </Layout>
   );
