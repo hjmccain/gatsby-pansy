@@ -2,8 +2,8 @@
 import arrow from "../assets/icons/arrow.png";
 
 import classNames from "classnames";
-import Link from "next/Link";
-import Image from "next/Image";
+import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import useLocalStorage, { getLocalStorage } from "../hooks/useLocalStorage";
 import { ProductWithPrice } from "./shop";

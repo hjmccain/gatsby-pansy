@@ -4,7 +4,7 @@ import menu from "../assets/icons/icons8-menu-50.png";
 import close from "../assets/icons/icons8-close-50.png";
 
 import classNames from "classnames";
-import Link from "next/Link";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import useHandleWindowResize from "../hooks/useHandleWindowResize";
 // import Cart from "./cart";

@@ -13,7 +13,7 @@ import React, {
 } from "react";
 import useLocalStorage, { getLocalStorage } from "../hooks/useLocalStorage";
 import { ProductWithPriceAndQty } from "../pages/shop";
-import Image from "next/Image";
+import Image from "next/image";
 import useOutsideClick from "../hooks/useOutsideClick";
 
 interface CartProps {

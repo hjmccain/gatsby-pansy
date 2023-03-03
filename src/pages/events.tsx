@@ -9,7 +9,7 @@ import poemAndImageWorkshop from "../assets/images/poemAndImageWorkshop.jpg";
 
 import React, { useState } from "react";
 import Layout from "../components/layout";
-import Image from "next/Image";
+import Image from "next/image";
 import classNames from "classnames";
 
 enum Event {

@@ -2,7 +2,7 @@
 import hannahJeff from "../assets/images/hannah-jeff.jpg";
 
 import classNames from "classnames";
-import Image from "next/Image";
+import Image from "next/image";
 import React from "react";
 import Layout from "../components/layout";
 

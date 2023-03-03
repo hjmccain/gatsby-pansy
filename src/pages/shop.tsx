@@ -1,8 +1,8 @@
 import React, { Dispatch, useEffect, useState } from "react";
 import Layout from "../components/layout";
 import type { Stripe } from "stripe";
-import Image from "next/Image";
-import Link from "next/Link";
+import Image from "next/image";
+import Link from "next/link";
 import Product from "./[product]";
 // import getProducts from "../api/products";
 

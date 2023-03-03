@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useStaticQuery, graphql } from "gatsby";
-import Image from "next/Image";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Layout from "../components/layout";
 import findImage from "../helpers/findImage";

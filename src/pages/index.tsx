@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import {} from "react";
-import Link from "next/Link";
+import Link from "next/link";
 import classNames from "classnames";
-// import Image from "next/Image";
+// import Image from "next/image";
 
 // TODO
 // Hide large nav bar at short screen heights
