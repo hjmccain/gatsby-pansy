@@ -8,8 +8,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "deploy": "gatsby build && gh-pages -d public -b gh-pages"
+    "lint": "next lint"
   },
   "dependencies": {
     "classnames": "^2.3.2",
