@@ -26,6 +26,7 @@ const Product: React.FC<{
   const [_, updateCart] = useLocalStorage("cart", {} as any);
 
   if (!product) {
+    // better would be to get the id from the URL and then getStaticPaths/getStaticProps
     return null;
   }
 
