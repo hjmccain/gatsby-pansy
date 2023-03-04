@@ -82,6 +82,17 @@ const About = () => {
               sustainable schedule. And we invite you to move at a slower pace
               with us.
             </p>
+            <h3 className="mt-8 mb-6 text-4xl inline-block mr-4">
+              CONTACT US &gt;&gt;{" "}
+            </h3>
+
+            <p className="text-base lg:text-2xl inline bg-primary-100">
+              <a
+                href="mailto:hello@pansy.press"
+                className="w-[45rem] hover:underline hover:italic whitespace-nowrap text-center lg:text-3xl">
+                hello@pansy.press <span className="font-dingbats">J</span>
+              </a>
+            </p>
           </div>
         </div>
         <div className="row-start-1 override-screen-height h-full">
