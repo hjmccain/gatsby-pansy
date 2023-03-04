@@ -1,4 +1,4 @@
-import hannahJeff from "../../public/assets/images/hannah-jeff.jpg";
+import hannahJeff from "../../public/assets/images/hannah-jeff-copy.jpg";
 
 import classNames from "classnames";
 import Image from "next/image";
