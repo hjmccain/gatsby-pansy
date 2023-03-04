@@ -1,13 +1,11 @@
-// @ts-ignore
 import menu from "../../public/assets/icons/icons8-menu-50.png";
-// @ts-ignore
 import close from "../../public/assets/icons/icons8-close-50.png";
 
 import classNames from "classnames";
 import Link from "next/link";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import useHandleWindowResize from "../hooks/useHandleWindowResize";
-// import Cart from "./cart";
 import Marquee from "./marquee";
 import Cart from "./cart";
 
@@ -195,9 +193,21 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           className="w-full bg-primary-200 pb-2 flex justify-end pr-4"
           onClick={() => setShowNav(!showNav)}>
           {showNav ? (
-            <img className="h-[38px] pt-2 pl-1 hover:opacity-75" src={close} />
+            <Image
+              className="h-[38px] w-[38px] pt-2 pl-1 hover:opacity-75"
+              src={close}
+              alt=""
+              height={38}
+              width={38}
+            />
           ) : (
-            <img className="h-[38px] pt-2 pl-1 hover:opacity-75" src={menu} />
+            <Image
+              className="h-[38px] pt-2 pl-1 hover:opacity-75"
+              src={menu}
+              alt=""
+              height={38}
+              width={38}
+            />
           )}
         </button>
         {showNav && mobileNav}
