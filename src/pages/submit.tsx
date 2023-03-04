@@ -15,7 +15,7 @@ const Submit = () => {
           "lg:overflow-hidden lg:grid-cols-2 lg:grid-rows-1",
           "min-[2200px]:mx-80"
         )}>
-        <div className="z-10 overflow-scroll bg-primary-200">
+        <div className="z-10 overflow-scroll bg-primary-200 pb-16">
           <h2
             className={classNames(
               "text-black",
