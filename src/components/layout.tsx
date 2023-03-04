@@ -21,8 +21,6 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   const [showNav, setShowNav] = useState(false);
 
   useEffect(() => {
-    console.log(window.location.pathname);
-
     setPathname(window.location.pathname);
   });
 

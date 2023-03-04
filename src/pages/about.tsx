@@ -4,6 +4,7 @@ import classNames from "classnames";
 import Image from "next/image";
 import React from "react";
 import Layout from "../components/layout";
+import about from "../copy/about";
 
 const About = () => {
   return (
@@ -29,23 +30,7 @@ const About = () => {
               "text-2xl mx-2 md:mx-12 font-serif",
               "xl:text-justify"
             )}>
-            <h3 className="text-2xl lg:text-4xl mb-6">
-              HI, WE'RE PANSY PRESS!
-            </h3>
-            <p className="text-base lg:text-4xl">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis
-              metus pellentesque, sodales dui sit amet, viverra ligula. Aenean
-              consectetur elementum urna, in dictum mauris pulvinar et.
-              Suspendisse mauris arcu, ultricies in ultricies quis, eleifend et
-              nisl. Duis sed elit id lectus pretium pharetra at nec sapien. Cras
-              sed tortor id turpis imperdiet auctor. Nam aliquet massa non nisl
-              rutrum vestibulum. Integer in libero felis. Donec libero sapien,
-              ullamcorper ut aliquet non, molestie quis ex. Sed volutpat ipsum
-              id dolor mollis faucibus. Donec vitae varius eros. Phasellus
-              cursus nibh a feugiat venenatis. In sed porta velit. Donec nec
-              eleifend neque. Fusce tincidunt turpis bibendum elit vehicula
-              dapibus. Curabitur at nisl enim.
-            </p>
+            <p className="text-base lg:text-2xl">{about}</p>
           </div>
         </div>
         <div className="row-start-1 override-screen-height h-full">

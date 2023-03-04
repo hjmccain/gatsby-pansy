@@ -2,6 +2,7 @@ import beforeMorningRelease from "../../public/assets/images/beforeMorningReleas
 // import creatureRelease from "../assets/images/creatureRelease.jpg";
 import poemingRelease from "../../public/assets/images/poemingRelease.jpg";
 import poemAndImageWorkshop from "../../public/assets/images/poemAndImageWorkshop.jpg";
+import eventDescriptions from "../copy/events";
 
 import React, { useState } from "react";
 import Layout from "../components/layout";
@@ -16,7 +17,9 @@ enum Event {
 }
 
 const Events = () => {
-  const [selected, setSelected] = useState(Event.poemAndImageWorkshop);
+  const [selected, setSelected] = useState<Event | null>(
+    Event.poemAndImageWorkshop
+  );
   const getImage = () => {
     switch (selected) {
       case Event.beforeMorningRelease: {
@@ -76,7 +79,11 @@ const Events = () => {
               <li id={Event.poemAndImageWorkshop} className="mb-12">
                 <button
                   className="text-left hover:bg-black hover:text-white-alt transition-colors"
-                  onClick={() => setSelected(Event.poemAndImageWorkshop)}>
+                  onClick={() =>
+                    selected === Event.poemAndImageWorkshop
+                      ? setSelected(null)
+                      : setSelected(Event.poemAndImageWorkshop)
+                  }>
                   POEM & IMAGE WORKSHOP
                 </button>
                 {selected === Event.poemAndImageWorkshop && (
@@ -88,7 +95,11 @@ const Events = () => {
               <li id={Event.beforeMorningRelease} className="mb-12">
                 <button
                   className="text-left hover:bg-black hover:text-white-alt transition-colors"
-                  onClick={() => setSelected(Event.beforeMorningRelease)}>
+                  onClick={() =>
+                    selected === Event.beforeMorningRelease
+                      ? setSelected(null)
+                      : setSelected(Event.beforeMorningRelease)
+                  }>
                   <span className="italic">BEFORE MORNING</span> RELEASE PARTY &
                   KARAOKE NITE
                 </button>
@@ -101,7 +112,11 @@ const Events = () => {
               <li id={Event.poemingRelease} className="mb-12">
                 <button
                   className="text-left hover:bg-black hover:text-white-alt transition-colors"
-                  onClick={() => setSelected(Event.poemingRelease)}>
+                  onClick={() =>
+                    selected === Event.poemingRelease
+                      ? setSelected(null)
+                      : setSelected(Event.poemingRelease)
+                  }>
                   <span className="italic">POEMING</span> RELEASE PARTY
                 </button>
                 {selected === Event.poemingRelease && (
@@ -120,40 +135,5 @@ const Events = () => {
 };
 
 export const Head = () => <title>Pansy Press Events</title>;
-
-const eventDescriptions = {
-  [Event.beforeMorningRelease]: `Before Morning is duis sed elit id lectus pretium pharetra at nec sapien. Cras sed
-  tortor id turpis imperdiet auctor. Nam aliquet massa non nisl
-  rutrum vestibulum. Integer in libero felis. Donec libero sapien,
-  ullamcorper ut aliquet non, molestie quis ex. Sed volutpat ipsum
-  id dolor mollis faucibus. Donec vitae varius eros. Phasellus
-  cursus nibh a feugiat venenatis. In sed porta velit. Donec nec
-  eleifend neque. Fusce tincidunt turpis bibendum elit vehicula
-  dapibus. Curabitur at nisl enim.`,
-  [Event.creatureRelease]: `Creature of Habit is duis sed elit id lectus pretium pharetra at nec sapien. Cras sed
-  tortor id turpis imperdiet auctor. Nam aliquet massa non nisl
-  rutrum vestibulum. Integer in libero felis. Donec libero sapien,
-  ullamcorper ut aliquet non, molestie quis ex. Sed volutpat ipsum
-  id dolor mollis faucibus. Donec vitae varius eros. Phasellus
-  cursus nibh a feugiat venenatis. In sed porta velit. Donec nec
-  eleifend neque. Fusce tincidunt turpis bibendum elit vehicula
-  dapibus. Curabitur at nisl enim.`,
-  [Event.poemAndImageWorkshop]: `POEMING is duis sed elit id lectus pretium pharetra at nec sapien. Cras sed
-  tortor id turpis imperdiet auctor. Nam aliquet massa non nisl
-  rutrum vestibulum. Integer in libero felis. Donec libero sapien,
-  ullamcorper ut aliquet non, molestie quis ex. Sed volutpat ipsum
-  id dolor mollis faucibus. Donec vitae varius eros. Phasellus
-  cursus nibh a feugiat venenatis. In sed porta velit. Donec nec
-  eleifend neque. Fusce tincidunt turpis bibendum elit vehicula
-  dapibus. Curabitur at nisl enim.`,
-  [Event.poemingRelease]: `What's Not There is duis sed elit id lectus pretium pharetra at nec sapien. Cras sed
-  tortor id turpis imperdiet auctor. Nam aliquet massa non nisl
-  rutrum vestibulum. Integer in libero felis. Donec libero sapien,
-  ullamcorper ut aliquet non, molestie quis ex. Sed volutpat ipsum
-  id dolor mollis faucibus. Donec vitae varius eros. Phasellus
-  cursus nibh a feugiat venenatis. In sed porta velit. Donec nec
-  eleifend neque. Fusce tincidunt turpis bibendum elit vehicula
-  dapibus. Curabitur at nisl enim.`,
-};
 
 export default Events;
