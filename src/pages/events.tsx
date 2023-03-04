@@ -1,11 +1,7 @@
-// @ts-ignore
-import beforeMorningRelease from "../assets/images/beforeMorningRelease.jpg";
-// @ts-ignore
+import beforeMorningRelease from "../../public/assets/images/beforeMorningRelease.jpg";
 // import creatureRelease from "../assets/images/creatureRelease.jpg";
-// @ts-ignore
-import poemingRelease from "../assets/images/poemingRelease.jpg";
-// @ts-ignore
-import poemAndImageWorkshop from "../assets/images/poemAndImageWorkshop.jpg";
+import poemingRelease from "../../public/assets/images/poemingRelease.jpg";
+import poemAndImageWorkshop from "../../public/assets/images/poemAndImageWorkshop.jpg";
 
 import React, { useState } from "react";
 import Layout from "../components/layout";

@@ -1,5 +1,4 @@
-// @ts-ignore
-import arrow from "../assets/icons/arrow.png";
+import arrow from "../../public/assets/icons/arrow.png";
 
 import classNames from "classnames";
 import Link from "next/link";

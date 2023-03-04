@@ -1,5 +1,4 @@
-// @ts-ignore
-import submitIllustration from "../assets/images/submit-illustration.jpg";
+import submitIllustration from "../../public/assets/images/submit-illustration.jpg";
 
 import classNames from "classnames";
 import Image from "next/image";

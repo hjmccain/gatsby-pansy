@@ -1,7 +1,7 @@
 // @ts-ignore
-import shoppingCart from "../assets/icons/icons8-shopping-bag-64-white.png";
+import shoppingCart from "../../public/assets/icons/icons8-shopping-bag-64-white.png";
 // @ts-ignore
-import cancel from "../assets/icons/icons8-close-50.png";
+import cancel from "../../public/assets/icons/icons8-close-50.png";
 
 import classNames from "classnames";
 import React, {
