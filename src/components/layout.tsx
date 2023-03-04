@@ -242,7 +242,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
             pathname === "/shop"
               ? "bg-black overflow-scroll"
               : "min-[2200px]:bg-primary-200 h-full overflow-scroll lg:overflow-hidden",
-            "mt-2 min-[2200px]:pt-[48px] z-20 mx-auto"
+            "mt-2 min-[2200px]:pt-[48px] z-20 mx-auto md:mb-auto mb-24"
           )}>
           {children}
         </main>
