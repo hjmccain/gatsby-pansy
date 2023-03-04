@@ -65,7 +65,7 @@ const Shop: React.FC<ShopProps> = ({ products }: ShopProps) => {
 
   return (
     <Layout>
-      <div className="w-screen">
+      <div className="w-screen mb-28">
         {productSelected ? (
           <Product
             product={productSelected}

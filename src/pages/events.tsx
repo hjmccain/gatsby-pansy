@@ -43,7 +43,7 @@ const Events = () => {
     <Layout>
       <div
         className={classNames(
-          "override-screen-height overflow-scroll grid h-full",
+          "override-screen-height overflow-scroll grid h-full mb-16",
           "lg:overflow-hidden lg:grid-cols-2 lg:grid-rows-1",
           "min-[2200px]:mx-80"
         )}>
