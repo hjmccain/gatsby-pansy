@@ -6,7 +6,7 @@ const about = (
     enthusastic response was "YES."
     <br />
     <br />
-    Pansy was conceived of as a space where poetry could grow & breath in real
+    Pansy was conceived of as a space where poetry could grow & breathe in real
     time, and in real life. So often, poetry is relegated to spaces of academia
     — which are amazing, but often inaccesible or intimidating. We think of
     Pansy as analogous to a local band putting out tapes of their own music &

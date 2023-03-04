@@ -78,7 +78,7 @@ const Events = () => {
             <ul className="text-5xl">
               <li id={Event.poemAndImageWorkshop} className="mb-12">
                 <button
-                  className="text-left hover:bg-black hover:text-white-alt transition-colors"
+                  className="text-left hover:bg-black hover:text-white-alt transition-colors mb-4"
                   onClick={() =>
                     selected === Event.poemAndImageWorkshop
                       ? setSelected(null)
@@ -94,7 +94,7 @@ const Events = () => {
               </li>
               <li id={Event.beforeMorningRelease} className="mb-12">
                 <button
-                  className="text-left hover:bg-black hover:text-white-alt transition-colors"
+                  className="text-left hover:bg-black hover:text-white-alt transition-colors mb-4"
                   onClick={() =>
                     selected === Event.beforeMorningRelease
                       ? setSelected(null)
@@ -111,7 +111,7 @@ const Events = () => {
               </li>
               <li id={Event.poemingRelease} className="mb-12">
                 <button
-                  className="text-left hover:bg-black hover:text-white-alt transition-colors"
+                  className="text-left hover:bg-black hover:text-white-alt transition-colors mb-4"
                   onClick={() =>
                     selected === Event.poemingRelease
                       ? setSelected(null)
