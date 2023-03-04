@@ -4,38 +4,49 @@ import type { Stripe } from "stripe";
 import Image from "next/image";
 import Link from "next/link";
 import Product from "./[product]";
-// import getProducts from "../api/products";
 
 export type ProductWithPrice = Stripe.Product & { price: Stripe.Price };
 export type ProductWithPriceAndQty = ProductWithPrice & { quantity: number };
 
-async function handleGetProducts() {
-  const res = await fetch("/api/products", {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
+export async function getStaticProps() {
+  const stripe = require("stripe")(process.env.STRIPE_ACCESS_TOKEN);
+  const res = await stripe.products.list();
 
   if (res) {
-    const productsWithPrices = await res.json();
-    return productsWithPrices;
-  } else {
-    console.error("error redirecting");
-    return [];
+    try {
+      const productsWithPrices = await Promise.all(
+        res.data.map(async (product: Stripe.Product) => {
+          const price = await stripe.prices.retrieve(product.default_price);
+
+          if (price) {
+            return { ...product, price };
+          }
+
+          throw new Error(`Price not found for product id ${product.id}`);
+        })
+      );
+
+      return {
+        props: {
+          products: productsWithPrices,
+        },
+      };
+    } catch (err) {
+      console.error(err);
+      return {
+        props: {
+          products: [],
+        },
+      };
+    }
   }
 }
 
-// export async function getStaticProps() {
-//   const res = handleGetProducts();
-//   return {
-//     props: {}, // will be passed to the page component as props
-//   };
-// }
+interface ShopProps {
+  products: Array<ProductWithPrice>;
+}
 
-const Shop = () => {
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState<Array<ProductWithPrice>>([]);
+const Shop: React.FC<ShopProps> = ({ products }: ShopProps) => {
   const [productSelected, setSelectedProduct] =
     useState<ProductWithPrice | null>(null);
   const [location, setLocation] = useState("");
@@ -46,12 +57,7 @@ const Shop = () => {
 
   useEffect(() => {
     const getProducts = async () => {
-      setLoading(true);
-      const productsWithPrices = await handleGetProducts();
-      setLoading(false);
-
-      setProducts(productsWithPrices);
-      getLocation(productsWithPrices, location, setSelectedProduct);
+      getLocation(products, location, setSelectedProduct);
     };
 
     getProducts();
@@ -68,13 +74,6 @@ const Shop = () => {
           />
         ) : (
           <div className="mt-12 font-body text-center lg:text-left">
-            {loading && !products.length && (
-              <div className="text-white text-2xl font-serif flex justify-center animate-pulse">
-                <p className="mt-8">
-                  ...querying database for pansy products...
-                </p>
-              </div>
-            )}
             <div className="grid grid-cols-[repeat(auto-fill,_300px)] sm:grid-cols-[repeat(auto-fill,_400px)] gap-2 max-w-[300px] sm:max-w-[400px] min-[824px]:max-w-[808px] xl:max-w-[1216px] min-[2200px]:max-w-[1624px] mx-auto">
               {products.map((product) => {
                 const image1 = `/products/images/${product.id}.jpg`;
