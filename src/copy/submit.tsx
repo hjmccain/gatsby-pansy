@@ -23,9 +23,9 @@ const submit = (
       {" "}
       In your submission, please include the following required information:
     </div>
-    <ul className="list-disc">
+    <ul className="">
       <li className="ml-8">
-        In the subject line of your email, write "chapbook" if you are
+        - In the subject line of your email, write "chapbook" if you are
         submitting poems to be considered for chapbook publication, or "journal"
         if you are submitting individual poems to the Pansy Review.
       </li>
@@ -33,11 +33,11 @@ const submit = (
     <div className="italic underline mt-2 mb-2">
       In the body of your email, include…
     </div>
-    <ul className="list-disc">
-      <li className="ml-8">Your name</li>
-      <li className="ml-8">Your pronouns</li>
+    <ul className="">
+      <li className="ml-8">- Your name</li>
+      <li className="ml-8">- Your pronouns</li>
       <li className="ml-8">
-        An attachment with a sample of 3-5 poems. If the poems are part of a
+        - An attachment with a sample of 3-5 poems. If the poems are part of a
         chapbook collection, pick a few poems that represent the theme and scope
         of your work, so we can get a feel for the collection. Please includes
         all poems in ONE file, begin each poem on a new page, and attach the
@@ -47,14 +47,14 @@ const submit = (
     <div className="italic underline mt-2 mb-2">
       If you want, you can also include:
     </div>
-    <ul className="list-disc">
+    <ul className="">
       <li className="ml-8">
-        A short bio. If there is biographical information that you would like to
-        share, please do so :)
+        - A short bio. If there is biographical information that you would like
+        to share, please do so :)
       </li>
     </ul>
     <h3 className="mt-8 mb-6 text-4xl">ADD'L RESOURCES</h3>
-    <ul className="list-disc">
+    <ul className="">
       <li className="ml-8">
         <a
           className="underline"

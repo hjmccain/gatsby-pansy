@@ -183,7 +183,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
   return screenHeight > 0 && bigScreen !== undefined ? (
     <div
       className={classNames(
-        "bg-black",
+        "bg-black pb-12",
         "flex flex-col transition-all relative"
       )}>
       <span className="lg:hidden inline">
