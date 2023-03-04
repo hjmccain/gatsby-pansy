@@ -65,7 +65,7 @@ const Shop: React.FC<ShopProps> = ({ products }: ShopProps) => {
 
   return (
     <Layout>
-      <div className="w-screen mb-28">
+      <div className="w-screen mb-40">
         {productSelected ? (
           <Product
             product={productSelected}
@@ -150,7 +150,7 @@ const ProductBlock = ({
       href={`?product=${product}`}
       className="group font-serif h-[300px] w-[300px] sm:h-[400px] sm:w-[400px]">
       {children}
-      <div className="text-xl flex justify-between relative bottom-10 px-4 py-2 group-hover:opacity-90 opacity-0 transition-opacity bg-white">
+      <div className="text-xl flex justify-between relative bottom-10 px-4 py-2 opacity-90 md:group-hover:opacity-90 md:opacity-0 transition-opacity bg-white">
         <p className="italic">{title}</p>
         {active ? <p>${price}</p> : <p>SOLD OUT</p>}
       </div>
