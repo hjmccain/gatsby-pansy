@@ -9,7 +9,7 @@ import useLocalStorage, { getLocalStorage } from "../hooks/useLocalStorage";
 import { ProductWithPrice } from "./shop";
 
 const Product: React.FC<{
-  product: ProductWithPrice;
+  product: ProductWithPrice | null;
   image1?: string;
   image2?: string;
 }> = ({
@@ -17,13 +17,18 @@ const Product: React.FC<{
   image1,
   image2,
 }: {
-  product: ProductWithPrice;
+  product: ProductWithPrice | null;
   image1?: string;
   image2?: string;
 }) => {
   const [selectedImage, setSelectedImage] = useState("image1");
   const [localQty, setLocalQty] = useState(1);
   const [_, updateCart] = useLocalStorage("cart", {} as any);
+
+  if (!product) {
+    return null;
+  }
+
   const price = product.price.unit_amount
     ? product.price.unit_amount / 100
     : null;
