@@ -4,21 +4,21 @@
 
 @font-face {
   font-family: "Mister Pixel";
-  src: url("../assets/fonts/Mister-Pixel-Tools.woff");
+  src: url("../../public/assets/fonts/Mister-Pixel-Tools.woff");
 }
 @font-face {
   font-family: "Saint";
-  src: url("../assets/fonts/Saint-Regular.woff");
+  src: url("../../public/assets/fonts/Saint-Regular.woff");
 }
 @font-face {
   font-family: "Lack";
-  src: url("../assets/fonts/Lack-Regular.woff2");
+  src: url("../../public/assets/fonts/Lack-Regular.woff2");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "Director";
-  src: url("../assets/fonts/Director-Light.woff2");
+  src: url("../../public/assets/fonts/Director-Light.woff2");
 }
 
 @media (max-width: 1023px) {

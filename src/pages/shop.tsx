@@ -1,41 +1,55 @@
-import { graphql, Link, navigate, useStaticQuery } from "gatsby";
 import React, { Dispatch, useEffect, useState } from "react";
 import Layout from "../components/layout";
-import useLocalStorage, { getLocalStorage } from "../hooks/useLocalStorage";
 import type { Stripe } from "stripe";
-import {
-  StaticImage,
-  GatsbyImage,
-  IGatsbyImageData,
-} from "gatsby-plugin-image";
-import findImage from "../helpers/findImage";
-import classNames from "classnames";
-// @ts-ignore
-import arrow from "../assets/icons/arrow.png";
+import Image from "next/image";
+import Link from "next/link";
+import Product from "./[product]";
 
 export type ProductWithPrice = Stripe.Product & { price: Stripe.Price };
 export type ProductWithPriceAndQty = ProductWithPrice & { quantity: number };
 
-const Shop = () => {
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState<Array<ProductWithPrice>>([]);
+export async function getStaticProps() {
+  const stripe = require("stripe")(process.env.STRIPE_ACCESS_TOKEN);
+  const res = await stripe.products.list();
+
+  if (res) {
+    try {
+      const productsWithPrices = await Promise.all(
+        res.data.map(async (product: Stripe.Product) => {
+          const price = await stripe.prices.retrieve(product.default_price);
+
+          if (price) {
+            return { ...product, price };
+          }
+
+          throw new Error(`Price not found for product id ${product.id}`);
+        })
+      );
+
+      return {
+        props: {
+          products: productsWithPrices,
+        },
+      };
+    } catch (err) {
+      console.error(err);
+      return {
+        props: {
+          products: [],
+        },
+      };
+    }
+  }
+}
+
+interface ShopProps {
+  products: Array<ProductWithPrice>;
+}
+
+const Shop: React.FC<ShopProps> = ({ products }: ShopProps) => {
   const [productSelected, setSelectedProduct] =
     useState<ProductWithPrice | null>(null);
   const [location, setLocation] = useState("");
-  const { allFile } = useStaticQuery(graphql`
-    query imageQuery {
-      allFile {
-        edges {
-          node {
-            name
-            childImageSharp {
-              gatsbyImageData
-            }
-          }
-        }
-      }
-    }
-  `);
 
   useEffect(() => {
     setLocation(window.location.toString());
@@ -43,12 +57,7 @@ const Shop = () => {
 
   useEffect(() => {
     const getProducts = async () => {
-      setLoading(true);
-      const productsWithPrices = await handleGetProducts();
-      setLoading(false);
-
-      setProducts(productsWithPrices);
-      getLocation(productsWithPrices, location, setSelectedProduct);
+      getLocation(products, location, setSelectedProduct);
     };
 
     getProducts();
@@ -58,63 +67,63 @@ const Shop = () => {
     <Layout>
       <div className="w-screen">
         {productSelected ? (
-          <ProductDetails
+          <Product
             product={productSelected}
-            image1={findImage(allFile, productSelected.id)}
-            image2={findImage(allFile, `${productSelected.id}-alt`)}
+            image1={`/products/images/${productSelected.id}.jpg`}
+            image2={`/products/images/${productSelected.id}.jpg`}
           />
         ) : (
           <div className="mt-12 font-body text-center lg:text-left">
-            {loading && !products.length && (
-              <div className="text-white text-2xl font-serif flex justify-center animate-pulse">
-                <p className="mt-8">
-                  ...querying database for pansy products...
-                </p>
-              </div>
-            )}
-            {products.map((product) => {
-              // TODO: add something here while loading ya know
-              const image1 = findImage(allFile, product.id);
-              const image2 = findImage(allFile, `${product.id}-alt`);
-              const price = product.price.unit_amount
-                ? product.price.unit_amount / 100
-                : null;
+            <div className="grid grid-cols-[repeat(auto-fill,_300px)] sm:grid-cols-[repeat(auto-fill,_400px)] gap-2 max-w-[300px] sm:max-w-[400px] min-[824px]:max-w-[808px] xl:max-w-[1216px] min-[2200px]:max-w-[1624px] mx-auto">
+              {products.map((product) => {
+                const image1 = `/products/images/${product.id}.jpg`;
+                const image2 = `/products/images/${product.id}-alt.jpg`;
+                const price = product.price.unit_amount
+                  ? product.price.unit_amount / 100
+                  : null;
 
-              if (price) {
-                return (
-                  <ProductBlock
-                    active={product.active}
-                    key={product.id}
-                    product={product.id}
-                    title={product.name}
-                    price={price}>
-                    <div className="grid h-full w-full">
-                      {image2 && (
-                        <GatsbyImage
-                          image={image2}
-                          alt=""
-                          className="object-cover row-start-1 col-start-1"
-                        />
-                      )}
-                      {image1 && (
-                        <GatsbyImage
-                          image={image1}
-                          alt=""
-                          className="object-cover row-start-1 col-start-1 hover:opacity-0 transition-opacity"
-                        />
-                      )}
-                      {!image1 && !image2 && (
-                        <StaticImage
-                          src="../assets/images/prod_NJvXkt0lcEKDQj-alt.jpg"
-                          alt="placeholder"
-                          className="object-cover"
-                        />
-                      )}
-                    </div>
-                  </ProductBlock>
-                );
-              }
-            })}
+                if (price) {
+                  return (
+                    <ProductBlock
+                      active={product.active}
+                      key={product.id}
+                      product={product.id}
+                      title={product.name}
+                      price={price}>
+                      <div className="grid h-full w-full">
+                        {image2 && (
+                          <Image
+                            src={image2}
+                            alt=""
+                            className="object-cover row-start-1 col-start-1 sm:h-[400px] h-[300px] sm:w-[400px] w-[300px]"
+                            width={400}
+                            height={400}
+                          />
+                        )}
+                        {image1 && (
+                          <Image
+                            src={image1}
+                            alt=""
+                            className="object-cover row-start-1 col-start-1 hover:opacity-0 transition-opacity sm:h-[400px] h-[300px] sm:w-[400px] w-[300px]"
+                            width={400}
+                            height={400}
+                          />
+                        )}
+                        {!image1 && !image2 && (
+                          <Image
+                            src="/products/images/prod_NJvXkt0lcEKDQj-alt.jpg"
+                            alt="placeholder"
+                            className="object-cover sm:h-[400px] h-[300px] sm:w-[400px] w-[300px]"
+                            width={400}
+                            height={400}
+                          />
+                        )}
+                      </div>
+                    </ProductBlock>
+                  );
+                }
+              })}
+            </div>
           </div>
         )}
       </div>
@@ -135,172 +144,19 @@ const ProductBlock = ({
   price: number | string;
   children: React.ReactNode;
 }) => {
-  const [productDimensions, setProductDimensions] = useState(400);
-
   return (
-    <button
+    <Link
       key={product}
-      onClick={() => navigate(`?product=${product}`)}
-      style={{
-        width: `${productDimensions}px`,
-        height: `${productDimensions}px`,
-      }}
-      className="group mx-[18px] font-serif">
+      href={`?product=${product}`}
+      className="group font-serif h-[300px] w-[300px] sm:h-[400px] sm:w-[400px]">
       {children}
       <div className="text-xl flex justify-between relative bottom-10 px-4 py-2 group-hover:opacity-90 opacity-0 transition-opacity bg-white">
         <p className="italic">{title}</p>
         {active ? <p>${price}</p> : <p>SOLD OUT</p>}
       </div>
-    </button>
+    </Link>
   );
 };
-
-const ProductDetails: React.FC<{
-  product: ProductWithPrice;
-  image1?: IGatsbyImageData;
-  image2?: IGatsbyImageData;
-}> = ({
-  product,
-  image1,
-  image2,
-}: {
-  product: ProductWithPrice;
-  image1?: IGatsbyImageData;
-  image2?: IGatsbyImageData;
-}) => {
-  const [selectedImage, setSelectedImage] = useState("image1");
-  const [localQty, setLocalQty] = useState(1);
-  const [_, updateCart] = useLocalStorage("cart", {} as any);
-  const price = product.price.unit_amount
-    ? product.price.unit_amount / 100
-    : null;
-
-  const handleUpdateCart = () => {
-    const currentCart = getLocalStorage("cart");
-    const current = currentCart[product.id];
-
-    if (current) {
-      const updated = {
-        ...currentCart,
-        [product.id]: {
-          ...product,
-          quantity: (current.quantity || 0) + localQty,
-        },
-      };
-
-      updateCart(updated);
-      setLocalQty(() => 1);
-    } else {
-      updateCart({
-        ...currentCart,
-        [product.id]: { ...product, quantity: localQty },
-      });
-      setLocalQty(() => 1);
-    }
-  };
-
-  function handleSelectImage() {
-    selectedImage === "image1"
-      ? setSelectedImage("image2")
-      : setSelectedImage("image1");
-  }
-
-  return (
-    <div className="mx-0 lg:mx-12 mt-4">
-      <Link
-        to="/shop"
-        className="uppercase text-4xl hover:opacity-70 font-serif text-white">
-        {"← "}
-        <span className="text-xl">BACK</span>
-      </Link>
-      <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 font-serif mb-0">
-        <button onClick={handleSelectImage} className="grid col-span-1">
-          <div
-            style={{
-              cursor: `url(${arrow}),auto`,
-            }}
-            className={classNames("col-span-1 col-start-1 row-start-1")}>
-            {image2 && (
-              <GatsbyImage
-                image={image2}
-                alt=""
-                className={classNames(
-                  selectedImage === "image2" ? "opacity-100" : "opacity-0",
-                  "object-cover w-full h-full"
-                )}
-              />
-            )}
-          </div>
-          <div
-            style={{
-              cursor: `url(${arrow}),auto`,
-            }}
-            className={classNames("col-span-1 col-start-1 row-start-1")}>
-            {image1 && (
-              <GatsbyImage
-                image={image1}
-                alt=""
-                className={classNames(
-                  selectedImage === "image1" ? "opacity-100" : "opacity-0",
-                  "object-cover w-full h-full"
-                )}
-              />
-            )}
-          </div>
-        </button>
-        <div className="lg:col-start-2 p-12 bg-primary-100">
-          <h1 className="uppercase text-4xl">{product.name}</h1>
-          <h1 className="my-12">{product.description}</h1>
-          <h1 className="my-12">
-            {product.active ? <p>${price}</p> : <p>SOLD OUT</p>}
-          </h1>
-          {product.active && (
-            <p className="col-start-1 col-span-2 self-end text-base">
-              QTY:{" "}
-              <button
-                disabled={localQty === 1}
-                onClick={() => {
-                  setLocalQty(localQty - 1);
-                }}>
-                -
-              </button>{" "}
-              {localQty}{" "}
-              <button
-                onClick={() => {
-                  setLocalQty(localQty + 1);
-                }}>
-                +
-              </button>
-            </p>
-          )}
-          <button
-            disabled={!product.active}
-            className="font-sans uppercase mt-4 py-4 px-8 border-black border hover:bg-black hover:text-white bg-white"
-            onClick={handleUpdateCart}>
-            Add to Cart
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-async function handleGetProducts() {
-  const res = await fetch("/api/products", {
-    method: "GET",
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
-
-  if (res) {
-    const productsWithPrices = await res.json();
-    return productsWithPrices;
-  } else {
-    console.error("error redirecting");
-    return [];
-  }
-}
 
 const getLocation = (
   products: any,

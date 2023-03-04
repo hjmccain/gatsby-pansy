@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Link } from "gatsby";
+import Link from "next/link";
 import React from "react";
 
 interface MarqueeProps {
@@ -16,7 +16,7 @@ const Marquee: React.FC<MarqueeProps> = () => {
       )}>
       <div className="marquee__inner whitespace-nowrap" aria-hidden="true">
         <Link
-          to="/about"
+          href="/about"
           className="w-[45rem] hover:underline hover:italic whitespace-nowrap text-center text-3xl">
           &lt;&lt;&lt; contact us &gt;&gt;&gt;
         </Link>
@@ -33,7 +33,7 @@ const Marquee: React.FC<MarqueeProps> = () => {
           follow us on instagram <span className="font-dingbats">5</span>
         </a>
         <Link
-          to="/about"
+          href="/about"
           className="w-[45rem] hover:underline hover:italic whitespace-nowrap text-center text-3xl">
           &lt;&lt;&lt; contact us &gt;&gt;&gt;
         </Link>
@@ -50,7 +50,7 @@ const Marquee: React.FC<MarqueeProps> = () => {
           follow us on instagram <span className="font-dingbats">5</span>
         </a>
         <Link
-          to="/about"
+          href="/about"
           className="w-[45rem] hover:underline hover:italic whitespace-nowrap text-center text-3xl">
           &lt;&lt;&lt; contact us &gt;&gt;&gt;
         </Link>
@@ -67,7 +67,7 @@ const Marquee: React.FC<MarqueeProps> = () => {
           follow us on instagram <span className="font-dingbats">5</span>
         </a>
         <Link
-          to="/about"
+          href="/about"
           className="w-[45rem] hover:underline hover:italic whitespace-nowrap text-center text-3xl">
           &lt;&lt;&lt; contact us &gt;&gt;&gt;
         </Link>

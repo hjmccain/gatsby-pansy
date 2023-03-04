@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link, HeadFC, PageProps } from "gatsby";
 
 const pageStyles = {
   color: "#232129",
@@ -12,25 +11,12 @@ const headingStyles = {
   maxWidth: 320,
 };
 
-const paragraphStyles = {
-  marginBottom: 48,
-};
-const codeStyles = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-};
-
-const NotFoundPage: React.FC<PageProps> = () => {
+const NotFoundPage: React.FC = () => {
   return (
     <main style={pageStyles}>
       <h1 style={headingStyles}>Page not found! Sorry about that.</h1>
     </main>
   );
 };
-
-export const Head: HeadFC = () => <title>Not found</title>;
 
 export default NotFoundPage;
