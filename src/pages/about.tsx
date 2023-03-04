@@ -1,4 +1,4 @@
-// import hannahJeff from "../../public/assets/images/hannah-jeff.jpg";
+import hannahJeff from "../../public/assets/images/hannah-jeff.jpg";
 
 import classNames from "classnames";
 import Image from "next/image";
@@ -49,7 +49,7 @@ const About = () => {
           </div>
         </div>
         <div className="row-start-1 override-screen-height h-full">
-          {/* <Image src={hannahJeff} alt="" className="object-cover lg:h-full" /> */}
+          <Image src={hannahJeff} alt="" className="object-cover lg:h-full" />
         </div>
       </div>
     </Layout>
