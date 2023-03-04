@@ -25,9 +25,11 @@ const Submit = () => {
             SUBMIT
           </h2>
           <p className="lg:text-xl mx-2 lg:mx-12 mb-6 font-serif">
-            If you're interested in submitting to Pansy Press, please read the
-            submission guidelines &#38; info below. (We know it's a lot!) We're
-            excited to read your work &lt;3
+            <p className="lg:text-2xl border-b border-black pb-6">
+              If you're interested in submitting to Pansy Press, please read the
+              submission guidelines &#38; info below. (We know it's a lot!)
+              We're excited to read your work &lt;3
+            </p>
             <h3 className="mt-8 mb-6 text-4xl">INFO</h3>
             We are accepting submissions for (1) chapbooks and (2) individual
             poems for the PANSY REVIEW, forthcoming in Winter 2024.
