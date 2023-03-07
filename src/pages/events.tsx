@@ -1,5 +1,5 @@
 import beforeMorningRelease from "../../public/assets/images/beforeMorningRelease.jpg";
-// import creatureRelease from "../assets/images/creatureRelease.jpg";
+import creatureRelease from "../../public/assets/images/creatureRelease.png";
 import poemingRelease from "../../public/assets/images/poemingRelease.jpg";
 import poemAndImageWorkshop from "../../public/assets/images/poemAndImageWorkshop.jpg";
 import eventDescriptions from "../copy/events";
@@ -17,17 +17,15 @@ enum Event {
 }
 
 const Events = () => {
-  const [selected, setSelected] = useState<Event | null>(
-    Event.poemAndImageWorkshop
-  );
+  const [selected, setSelected] = useState<Event | null>(Event.creatureRelease);
   const getImage = () => {
     switch (selected) {
       case Event.beforeMorningRelease: {
         return <Image src={beforeMorningRelease} alt="" />;
       }
-      // case Event.creatureRelease: {
-      //   return <Image src={creatureRelease} alt="" />;
-      // }
+      case Event.creatureRelease: {
+        return <Image src={creatureRelease} alt="" />;
+      }
       case Event.poemingRelease: {
         return <Image src={poemingRelease} alt="" />;
       }
@@ -58,22 +56,26 @@ const Events = () => {
             EVENTS
           </h2>
           <div className="ml-4 lg:ml-12 mr-4">
-            {/* <h4 className="text-3xl text-white">UPCOMING</h4>
+            <h4 className="text-3xl text-white-alt">UPCOMING</h4>
             <ul className="text-5xl">
               <li id={Event.creatureRelease} className="mb-12">
                 <button
-                  className="text-left hover:bg-black hover:text-white transition-colors"
-                  onClick={() => setSelected(Event.creatureRelease)}>
+                  className="text-left hover:bg-black hover:text-white-alt transition-colors mb-4"
+                  onClick={() =>
+                    selected === Event.creatureRelease
+                      ? setSelected(null)
+                      : setSelected(Event.creatureRelease)
+                  }>
                   <span className="italic">CREATURE OF HABIT</span> RELEASE
                   PARTY
                 </button>
                 {selected === Event.creatureRelease && (
-                  <p className="font-serif text-2xl">
+                  <p className="font-serif text-base lg:text-2xl">
                     {eventDescriptions[selected]}
                   </p>
                 )}
               </li>
-            </ul> */}
+            </ul>
             <h3 className="text-3xl text-white-alt">PAST</h3>
             <ul className="text-5xl">
               <li id={Event.poemAndImageWorkshop} className="mb-12">
@@ -128,7 +130,9 @@ const Events = () => {
             </ul>
           </div>
         </div>
-        <div className="row-start-1 override-screen-height h-full">{image}</div>
+        <div className="row-start-1 override-screen-height h-full bg-primary-200 pb-36">
+          {image}
+        </div>
       </div>
     </Layout>
   );

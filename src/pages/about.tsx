@@ -86,7 +86,7 @@ const About = () => {
               CONTACT US &gt;&gt;{" "}
             </h3>
 
-            <p className="text-base lg:text-2xl inline bg-primary-100">
+            <p className="text-base lg:text-2xl inline">
               <a
                 href="mailto:hello@pansy.press"
                 className="w-[45rem] hover:underline hover:italic whitespace-nowrap text-center lg:text-3xl">

@@ -1,14 +1,24 @@
 const eventDescriptions = {
   beforeMorningRelease: `Friday, April 15th, 2022 — join us at Templeton's in Tucson, AZ, for poetry readings
   by Hannah Joyce and Em Bowen. Stay for karaoke with DJ CMPLMNTZ ~`,
-  creatureRelease: `Creature of Habit is duis sed elit id lectus pretium pharetra at nec sapien. Cras sed
-    tortor id turpis imperdiet auctor. Nam aliquet massa non nisl
-    rutrum vestibulum. Integer in libero felis. Donec libero sapien,
-    ullamcorper ut aliquet non, molestie quis ex. Sed volutpat ipsum
-    id dolor mollis faucibus. Donec vitae varius eros. Phasellus
-    cursus nibh a feugiat venenatis. In sed porta velit. Donec nec
-    eleifend neque. Fusce tincidunt turpis bibendum elit vehicula
-    dapibus. Curabitur at nisl enim.`,
+  creatureRelease: (
+    <p>
+      Join us for the launch of{" "}
+      <span className="italic">Creature of Habit</span> by Tucson-based poet,
+      Hannah Lawless. Her chapbook explores gender, lust, love — as well as
+      washing dishes, picking dandelions, holding snakes. These are short poems
+      that hold fascinating depths, their meanings layered and partially
+      obscured, with simplicity of language belying a complexity of emotion.
+      <br />
+      <br />
+      Hannah will be reading from her chapbook, and she will be joined by local
+      poets Sophie Daws and Jeff Evans. Sophie will be reading work-in-progress
+      poems — a chance to see poetry as it forms. Jeff will be presenting
+      several poetry performance pieces with a small group of performers — a
+      melding of his work as a poet with that of his work as a professional
+      choral conductor and music teacher.
+    </p>
+  ),
   poemAndImageWorkshop: (
     <section className="mb-6">
       <div className="ml-12">
