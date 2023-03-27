@@ -56,7 +56,8 @@ const Events = () => {
             EVENTS
           </h2>
           <div className="ml-4 lg:ml-12 mr-4">
-            <h4 className="text-3xl text-white-alt">UPCOMING</h4>
+            {/* <h4 className="text-3xl text-white-alt">UPCOMING</h4> */}
+            <h3 className="text-3xl text-white-alt">PAST</h3>
             <ul className="text-5xl">
               <li id={Event.creatureRelease} className="mb-12">
                 <button
@@ -76,7 +77,6 @@ const Events = () => {
                 )}
               </li>
             </ul>
-            <h3 className="text-3xl text-white-alt">PAST</h3>
             <ul className="text-5xl">
               <li id={Event.poemAndImageWorkshop} className="mb-12">
                 <button

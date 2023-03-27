@@ -1,10 +1,10 @@
 const eventDescriptions = {
-  beforeMorningRelease: `Friday, April 15th, 2022 — join us at Templeton's in Tucson, AZ, for poetry readings
+  beforeMorningRelease: `Friday, April 15th, 2022 — Join us at Templeton's in Tucson, AZ, for poetry readings
   by Hannah Joyce and Em Bowen. Stay for karaoke with DJ CMPLMNTZ ~`,
   creatureRelease: (
     <p>
-      Join us for the launch of{" "}
-      <span className="italic">Creature of Habit</span> by Tucson-based poet,
+      Sunday, March 26, 2023 — Join us at the Apocalypse Garden for the launch
+      of <span className="italic">Creature of Habit</span> by Tucson-based poet,
       Hannah Lawless. Her chapbook explores gender, lust, love — as well as
       washing dishes, picking dandelions, holding snakes. These are short poems
       that hold fascinating depths, their meanings layered and partially
@@ -60,7 +60,7 @@ const eventDescriptions = {
       </div>
     </section>
   ),
-  poemingRelease: `Join us on Friday, December 17th, 2021 for the release of POEMING by Jeff Evans.
+  poemingRelease: `Friday, December 17th, 2021 — Join us for the release of POEMING by Jeff Evans.
   Teresa Pereira and Sarah Harris will also be reading. Projector visuals by Karima Walker.`,
 };
 
