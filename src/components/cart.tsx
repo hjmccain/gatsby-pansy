@@ -156,7 +156,7 @@ const Cart: React.FC<CartProps> = ({
           )}
           {step === "success" && (
             <div className="text-center font-serif text-xl mt-12">
-              <p>Thank you for your purchase !</p>
+              <p>Thank you for your purchase!</p>
             </div>
           )}
         </div>

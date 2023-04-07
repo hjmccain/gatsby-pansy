@@ -7,6 +7,16 @@ const checkout = async (req: any, res: any) => {
   if (req.method === "POST" && lineItems) {
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            fixed_amount: { amount: 0, currency: "usd" },
+            display_name: "Free shipping",
+          },
+        },
+      ],
+      shipping_address_collection: { allowed_countries: ["US", "CA"] },
       mode: "payment",
       success_url: `${process.env.ROOT_URL}/shop/?success=true`,
       cancel_url: `${process.env.ROOT_URL}/shop/?canceled=true`,
