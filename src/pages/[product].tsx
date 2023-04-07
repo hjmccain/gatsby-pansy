@@ -1,4 +1,5 @@
 import arrow from "../../public/assets/icons/arrow.png";
+import cancel from "../../public/assets/icons/icons8-close-50.png";
 
 import classNames from "classnames";
 import Link from "next/link";
@@ -22,6 +23,7 @@ const Product: React.FC<{
 }) => {
   const [selectedImage, setSelectedImage] = useState("image1");
   const [localQty, setLocalQty] = useState(1);
+  const [showToast, setShowToast] = useState<false | string>(false);
   const [_, updateCart] = useLocalStorage("cart", {} as any);
 
   if (!product) {
@@ -55,6 +57,8 @@ const Product: React.FC<{
       });
       setLocalQty(() => 1);
     }
+
+    setTimeout(() => setShowToast("Item added to cart!"), 1000);
   };
 
   function handleSelectImage() {
@@ -65,6 +69,20 @@ const Product: React.FC<{
 
   return (
     <div className="mx-0 lg:mx-12 mt-4">
+      {showToast && (
+        <div className="bg-white w-fit h-fit text-center md:py-12 md:px-24 absolute top-0 bottom-0 left-0 right-0 m-auto md:text-2xl border-4 border-secondary-200 p-4 text-lg">
+          <button
+            className="absolute top-0 right-2"
+            onClick={() => setShowToast(false)}>
+            <Image
+              className="pt-2 pl-2 h-10 w-10 hover:opacity-75"
+              src={cancel}
+              alt=""
+            />
+          </button>
+          {showToast}
+        </div>
+      )}
       <Link
         href="/shop"
         className="uppercase text-4xl hover:opacity-70 font-serif text-white">
