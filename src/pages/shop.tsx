@@ -4,6 +4,13 @@ import type { Stripe } from "stripe";
 import Image from "next/image";
 import Link from "next/link";
 import Product from "./[product]";
+import classNames from "classnames";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "pansy press - shop",
+  description: "shop poetry chapbooks and more from pansy press",
+};
 
 export type ProductWithPrice = Stripe.Product & { price: Stripe.Price };
 export type ProductWithPriceAndQty = ProductWithPrice & { quantity: number };
@@ -62,8 +69,6 @@ const Shop: React.FC<ShopProps> = ({ products }: ShopProps) => {
 
     getProducts();
   }, [location]);
-
-  console.log(products);
 
   return (
     <Layout>
@@ -152,8 +157,12 @@ const ProductBlock = ({
       href={`?product=${product}`}
       className="group font-serif h-[300px] w-[300px] sm:h-[400px] sm:w-[400px]">
       {children}
-      <div className="text-xl flex justify-between relative bottom-10 px-4 py-2 opacity-90 md:group-hover:opacity-90 md:opacity-0 transition-opacity bg-white">
-        <p className="italic">{title}</p>
+      <div
+        className={classNames(
+          "text-xs lg:text-xl",
+          "flex justify-between relative bottom-10 px-4 py-2 opacity-90 md:group-hover:opacity-90 md:opacity-0 transition-opacity bg-white"
+        )}>
+        <p className="italic truncate text-ellipsis overflow-hidden">{title}</p>
         {active ? <p>${price}</p> : <p>SOLD OUT</p>}
       </div>
     </Link>

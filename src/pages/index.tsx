@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import {} from "react";
 import Link from "next/link";
 import classNames from "classnames";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "pansy press - poetry in tucson, az",
+  description: "pansy press is a poetry project in tucson, az",
+};
 
 // TODO
 // Hide large nav bar at short screen heights
@@ -89,7 +95,7 @@ const Home: React.FC = () => {
           SUBMIT
         </h1>
       </Link>
-      <Link
+      {/* <Link
         className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
         href="/events">
         <h1
@@ -98,7 +104,7 @@ const Home: React.FC = () => {
           )}>
           EVENTS
         </h1>
-      </Link>
+      </Link> */}
       {/* <Link
         className={classNames("block h-[66px]", "sm:h-[95px]", "xl:h-[125px]")}
         href="/books">

@@ -8,6 +8,12 @@ import React, { useState } from "react";
 import Layout from "../components/layout";
 import Image from "next/image";
 import classNames from "classnames";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "pansy press - events",
+  description: "pansy press hosts poetry events in tucson, az",
+};
 
 enum Event {
   beforeMorningRelease = "beforeMorningRelease",

@@ -55,7 +55,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           SUBMIT
         </h1>
       </Link>
-      <Link className="block h-[35px]" href="/events">
+      {/* <Link className="block h-[35px]" href="/events">
         <h1
           className={classNames(
             pathname === "/events"
@@ -65,7 +65,7 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
           )}>
           EVENTS
         </h1>
-      </Link>
+      </Link> */}
       {/* <Link className="block h-[35px]" href="/books">
         <h1
           className={classNames(

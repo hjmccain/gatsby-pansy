@@ -5,6 +5,12 @@ import Image from "next/image";
 import React from "react";
 import Layout from "../components/layout";
 import about from "../copy/about";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "about pansy press",
+  description: "hannah joyce & jeff evans founded pansy press in tucson, az",
+};
 
 const About = () => {
   return (
@@ -57,7 +63,7 @@ const About = () => {
               Come join us :)
             </p>
 
-            <h3 className="mt-8 mb-6 text-4xl">VALUES</h3>
+            {/* <h3 className="mt-8 mb-6 text-4xl">VALUES</h3>
             <p className="text-base lg:text-2xl">
               1. COMMUNITY: Pansy Press is a collaborative space emerging
               organically from the art community here in Tucson. We exist at the
@@ -81,7 +87,7 @@ const About = () => {
               take time to rest. We answer emails and ship products on a
               sustainable schedule. And we invite you to move at a slower pace
               with us.
-            </p>
+            </p> */}
             <h3 className="mt-8 mb-6 text-4xl inline-block mr-4">
               CONTACT US &gt;&gt;{" "}
             </h3>
