@@ -63,6 +63,8 @@ const Shop: React.FC<ShopProps> = ({ products }: ShopProps) => {
     getProducts();
   }, [location]);
 
+  console.log(products);
+
   return (
     <Layout>
       <div className="w-screen mb-40">
