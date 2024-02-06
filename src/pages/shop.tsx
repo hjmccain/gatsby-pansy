@@ -5,12 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Product from "./[product]";
 import classNames from "classnames";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "pansy press - shop",
-  description: "shop poetry chapbooks and more from pansy press",
-};
 
 export type ProductWithPrice = Stripe.Product & { price: Stripe.Price };
 export type ProductWithPriceAndQty = ProductWithPrice & { quantity: number };

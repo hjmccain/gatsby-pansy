@@ -8,6 +8,14 @@ import React, { useEffect, useState } from "react";
 import useHandleWindowResize from "../hooks/useHandleWindowResize";
 import Marquee from "./marquee";
 import Cart from "./cart";
+import type { Metadata } from "next";
+import Head from "next/head";
+
+export const metadata: Metadata = {
+  title: "pansy press",
+  description:
+    "submit poetry, essays, and criticism to pansy press in tucson, arizona",
+};
 
 interface LayoutProps {
   children: React.ReactElement;
@@ -186,6 +194,14 @@ const Layout: React.FC<LayoutProps> = ({ children }: LayoutProps) => {
         "bg-black",
         "flex flex-col transition-all relative"
       )}>
+      <Head>
+        <title>Pansy Press - Tucson, AZ</title>
+        <meta property="title" content="Pansy Press - Tucson, AZ" key="title" />
+        <meta
+          name="description"
+          content="Submit poetry, essays, and criticism to Pansy Press in Tucson, AZ!"
+        />
+      </Head>
       <span className="lg:hidden inline">
         <button
           className="w-full bg-primary-200 pb-2 flex justify-end pr-4"

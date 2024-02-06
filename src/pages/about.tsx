@@ -5,12 +5,6 @@ import Image from "next/image";
 import React from "react";
 import Layout from "../components/layout";
 import about from "../copy/about";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "about pansy press",
-  description: "hannah joyce & jeff evans founded pansy press in tucson, az",
-};
 
 const About = () => {
   return (

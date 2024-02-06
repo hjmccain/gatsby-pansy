@@ -4,12 +4,6 @@ import classNames from "classnames";
 import Image from "next/image";
 import * as React from "react";
 import Layout from "../components/layout";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "pansy press - submit",
-  description: "submit poetry, essays, and criticism to pansy press",
-};
 
 const Submit = () => {
   return (

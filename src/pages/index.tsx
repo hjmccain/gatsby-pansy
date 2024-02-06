@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import {} from "react";
 import Link from "next/link";
 import classNames from "classnames";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "pansy press - poetry in tucson, az",
-  description: "pansy press is a poetry project in tucson, az",
-};
+import Head from "next/head";
 
 // TODO
 // Hide large nav bar at short screen heights
@@ -32,6 +27,18 @@ const IndexPage: React.FC = () => {
 
   return (
     <main>
+      <Head>
+        <title>Pansy Press - Tucson, AZ</title>
+        <meta
+          name="description"
+          content="Pansy Press is a poetry project in Tucson, AZ. Submit your poems, essays, and criticism to be published!"
+        />
+        <meta
+          property="og:title"
+          content="Pansy Press - Tucson, AZ"
+          key="title"
+        />
+      </Head>
       <div
         className={classNames(
           entered ? "bg-black justify-start" : "bg-primary-200 justify-center",
